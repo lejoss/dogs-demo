@@ -1,11 +1,26 @@
 import webpush from '/webpush'
 
 
-export default (req, res) => {
+export default async (req, res) => {
+
 	if (req.method === 'POST') {
 		const pushSubscripton = req.body;
-		console.log('::::  sub  ::::', pushSubscripton)
-		res.status(201).json({ subscribe: true })
-	}
+		res.status(200).json();
 
+		// const { message } = req.body;
+
+		console.log(pushSubscripton);
+
+		const payload = JSON.stringify({
+			title: "Park Notification",
+			message: "Hola estoy en el parque"
+		});
+
+		try {
+			await webpush.sendNotification(pushSubscripton, payload);
+		} catch (error) {
+			console.log(error);
+		}
+
+	}
 }

@@ -8,30 +8,25 @@ const PUBLIC_VAPID_KEY = "BAOVXVdGtk2zRG-PCveloPk-g19gH4OchfPkk65R4ICumAtdRTgaLz
 function MyApp({ Component, pageProps }) {
   const [registration, setRegistration] = useState(null)
 
-  useEffect(() => {
+  useEffect(async () => {
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", async () => {
-        try {
-          const register = await navigator.serviceWorker.register("/sw.js", { scope: "/" })
-          console.log("Service Worker registration successful with scope: ", register.scope)
-          setRegistration(register)
+      try {
+        const register = await navigator.serviceWorker.register("/sw.js", { scope: "/" })
+        console.log("Service Worker registration successful with scope: ", register.scope)
+        setRegistration(register)
 
-        } catch (error) {
-          console.log("Service Worker registration failed: ", error);
-        }
-      });
+      } catch (error) {
+        console.log("Service Worker registration failed: ", error);
+      }
     }
   }, [])
 
   useEffect(async () => {
     if (!registration) return
-    // Listen Push Notifications
-    console.log("Listening Push Notifications");
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
     });
-    console.log('s', subscription);
 
     await fetch("/api/subscription", {
       method: "POST",
