@@ -1,5 +1,4 @@
-const PUBLIC_VAPID_KEY =
-  "BCn6Viuh_FiAEB5yWV6fcbJ6MzvsfN2UfH8qqqFJqDzbdB0XuJbCZVGq7kACs73KXc428ahPanLfQ9ko6q0DQXY";
+const PUBLIC_VAPID_KEY = "BAOVXVdGtk2zRG-PCveloPk-g19gH4OchfPkk65R4ICumAtdRTgaLz34Jl5_VHIDBXxj82rfv0jfvEU7FcaUAyM"
 
 const subscription = async () => {
   // Service Worker
@@ -43,19 +42,19 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 // UI
-const form = document.querySelector('#myform');
-const message = document.querySelector('#message');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  fetch('/new-message', {
-    method: 'POST',
-    body: JSON.stringify({message: message.value}),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  form.reset();
-});
+// const form = document.querySelector('#myform');
+// const message = document.querySelector('#message');
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   fetch('/new-message', {
+//     method: 'POST',
+//     body: JSON.stringify({message: message.value}),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   });
+//   form.reset();
+// });
 
 // Service Worker Support
 if ("serviceWorker" in navigator) {
