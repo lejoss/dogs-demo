@@ -9,7 +9,7 @@ export default async (req, res) => {
 
 		// const { message } = req.body;
 
-		console.log(':::: sub ::::', pushSubscripton);
+		// console.log(':::: sub ::::', pushSubscripton);
 
 		const payload = JSON.stringify({
 			title: "Park Notification",
@@ -19,7 +19,7 @@ export default async (req, res) => {
 		try {
 			await webpush.sendNotification(pushSubscripton, payload);
 		} catch (error) {
-			console.log(':::: error ::::', error);
+			// console.log(':::: error ::::', error);
 		}
 
 	}
