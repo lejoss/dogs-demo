@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { urlBase64ToUint8Array } from '/utils'
 import '../styles/globals.css'
 
-const PUBLIC_VAPID_KEY = "BAOVXVdGtk2zRG-PCveloPk-g19gH4OchfPkk65R4ICumAtdRTgaLz34Jl5_VHIDBXxj82rfv0jfvEU7FcaUAyM"
+const PUBLIC_VAPID_KEY = "BH_9hevSlpxlb1NBPBRm6failiqdu6oFX7cQizdCws9koKp8tfbjjQE2QUSfk750SNe58UFRIJSkFQEoOrkqjVA"
 
-
+ 
 function MyApp({ Component, pageProps }) {
   const [registration, setRegistration] = useState(null)
 
