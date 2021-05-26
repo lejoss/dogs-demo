@@ -16,3 +16,8 @@ model park {
   id   Int    @id
   name String
 }
+
+model user {
+  id           Int    @id @default(autoincrement())
+  subscription String
+}

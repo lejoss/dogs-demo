@@ -1,26 +1,26 @@
-import webpush from '/webpush'
-
+import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
+	const prisma = new PrismaClient()
 
 	if (req.method === 'POST') {
 		const pushSubscripton = req.body;
-		res.status(200).json();
 
-		// const { message } = req.body;
+		const user = await prisma.user.findFirst({
+			where: { subscription: JSON.stringify(req.body) },
+		})
 
-		// console.log(':::: sub ::::', pushSubscripton);
-
-		const payload = JSON.stringify({
-			title: "Park Notification",
-			message: "Hola estoy en el parque"
-		});
-
-		try {
-			await webpush.sendNotification(pushSubscripton, payload);
-		} catch (error) {
-			// console.log(':::: error ::::', error);
+		if (!user) {
+			await prisma.user.create({
+				data: {
+					subscription: JSON.stringify(pushSubscripton) || null,
+				},
+			})
+		} else {
+			console.log('user already subscribed')
+			// res status -> ??
 		}
 
+		res.status(200).json();
 	}
 }
