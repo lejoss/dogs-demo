@@ -40,11 +40,24 @@ function usePush() {
 
 }
 
+function useDogForm() {
+	const [errors, setErrors] = React.useState()
+
+	function onSubmit(event) {
+		// handle form
+		// call api
+		// redirect
+	}
+
+	return { onSubmit, errors }
+}
+
 function useApp() {
 	useWorker()
 	usePush()
 }
 
 export {
-	useApp
+	useApp,
+	useDogForm
 }

@@ -1,3 +1,3 @@
 export default function (props) {
-	return <input type="text" {...props} />
+	return <input required {...props} />
 }
