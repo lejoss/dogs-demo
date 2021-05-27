@@ -2,11 +2,11 @@ import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
 	if (req.method === 'POST') {
-		const pushSubscription = req.body;
 
 		const prisma = new PrismaClient()
-		const user = await prisma.user.findFirst({
-			where: { subscription: JSON.stringify(req.body) },
+
+		const user = await prisma.visit.findMany({
+			where: { userid: JSON.stringify(req.body) },
 		})
 
 		if (!user) {

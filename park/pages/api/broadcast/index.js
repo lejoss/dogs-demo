@@ -13,28 +13,33 @@ const options = {
 }
 
 export default async (req, res) => {
-	const prisma = new PrismaClient()
-	let subscribedUsers = await prisma.user.findMany()
+	if (req.method === 'POST') {
+		const prisma = new PrismaClient()
+		let subscribedUsers = await prisma.user.findMany()
 
-	if (subscribedUsers.length) {
-		subscribedUsers = subscribedUsers.map(user => {
-			const subscription = user.subscription.replace(/'/g, '')
-			return {
-				...user,
-				subscription: JSON.parse(subscription)
-			}
-		})
-
-		try {
-			const notificationsPromises = subscribedUsers.map(({ subscription }) => {
-				return webpush.sendNotification(subscription, payload, options)
+		if (subscribedUsers.length) {
+			subscribedUsers = subscribedUsers.map(user => {
+				const subscription = user.subscription.replace(/'/g, '')
+				return {
+					...user,
+					subscription: JSON.parse(subscription)
+				}
 			})
-	
-			Promise.all(notificationsPromises)
-	
-		} catch (error) {
-			// console.log(':::: error ::::', error);
+
+			try {
+				const notificationsPromises = subscribedUsers.map(({ subscription }) => {
+					return webpush.sendNotification(subscription, payload, options)
+				})
+
+				Promise.all(notificationsPromises)
+				// TODO: res ??
+
+			} catch (error) {
+				// TODO: console.log(':::: error ::::', error);
+			}
 		}
+
+		// TODO: res ??
 
 
 	}

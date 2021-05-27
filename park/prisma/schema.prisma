@@ -8,8 +8,13 @@ datasource db {
 }
 
 model dog {
-  id   Int    @id
-  name String
+  id     Int     @id
+  name   String
+  age    Int?
+  breed  String?
+  size   String?
+  gender String?
+  iduser Int?
 }
 
 model park {
@@ -20,4 +25,11 @@ model park {
 model user {
   id           Int    @id @default(autoincrement())
   subscription String
+}
+
+model visit {
+  id     Int       @id
+  user   String
+  date   DateTime? @db.Date
+  status Boolean?  @default(false)
 }

@@ -1,4 +1,5 @@
 import { dogs } from '../../../data'
+
 export default function dogHandler({ query: { id } }, res) {
 	const filtered = dogs.filter((p) => p.id === id)
 
