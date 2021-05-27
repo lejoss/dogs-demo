@@ -48,11 +48,6 @@ export default function CreateDog (props) {
 				type="number"
 				name="age"
 			/>
-			<DogInput
-				aria-label="age"
-				type="number"
-				name="age"
-			/>
 			<DogSelect options={breedOptions} />
 			<DogSelect options={sizeOptions} />
 			<DogSelect options={genderOptions} />

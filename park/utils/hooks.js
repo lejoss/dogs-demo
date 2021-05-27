@@ -45,7 +45,26 @@ function useDogForm() {
 
 	function onSubmit(event) {
 		// handle form
-		// call api
+		event.preventDefault()
+		const [
+			name,
+			age,
+			breed,
+			size,
+			gender
+		] = event.target.elements
+
+		// call api with dog
+		const dog = {
+			name,
+			age,
+			breed,
+			size,
+			gender
+		}
+
+		// client -> dog
+
 		// redirect
 	}
 
