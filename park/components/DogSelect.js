@@ -1,9 +1,7 @@
-export default function ({ options: { name, values }, ...props }) {
+export default function DogSelect ({ options: { name, values }, ...props }) {
 	return (
 		<select name={name} {...props}>
-			{values.length && values.map(value => {
-				<option value={value.toLowerCase()}>{value}</option>
-			})}
+			{values.length && values.map((value, key) => <option key={`${value}-${key}`} value={value.toLowerCase()}>{value}</option>)}
 		</select>
 	)
 }

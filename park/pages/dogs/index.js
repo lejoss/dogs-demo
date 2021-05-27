@@ -33,7 +33,7 @@ const genderOptions = {
 	]
 }
 
-export default function (props) {
+export default function CreateDog (props) {
 	const { onSubmit } = useDogForm()
 
 	return (
@@ -57,7 +57,7 @@ export default function (props) {
 			<DogSelect options={sizeOptions} />
 			<DogSelect options={genderOptions} />
 
-			<SubmitButton />
+			<SubmitButton>Registrar</SubmitButton>
 		</form>
 	)
 
