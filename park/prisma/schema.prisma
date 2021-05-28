@@ -8,13 +8,13 @@ datasource db {
 }
 
 model dog {
-  id     Int     @id
+  id     Int     @id @default(autoincrement())
   name   String
   age    Int?
   breed  String?
   size   String?
   gender String?
-  iduser Int?
+  user   String
 }
 
 model park {
@@ -29,7 +29,7 @@ model user {
 }
 
 model visit {
-  id       Int       @id
+  id       Int       @id @default(autoincrement())
   user     String
   lastseen DateTime? @db.Date
   status   Boolean?  @default(false)

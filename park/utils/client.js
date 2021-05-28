@@ -1,5 +1,5 @@
 
-const apiURL = process.env.API_URL
+const apiURL = process.env.NEXT_PUBLIC_API_URL
 
 async function client(
 	endpoint,

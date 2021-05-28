@@ -35,14 +35,19 @@ export default function DogForm(props) {
 	const { user } = useAuth()
 	const router = useRouter()
 
-	async function handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault()
-
+		if (!event.target.elements.length) return
 		try {
-			if (!event.target.elements.length) return
-
 			const [name, age, breed, size, gender] = event.target.elements
-			await createDog({ user, name, age, breed, size, gender })
+			createDog({
+				user,
+				name: name.value,
+				age: age.value,
+				breed: breed.value,
+				size: size.value,
+				gender: gender.value
+			})
 			// router.push('/park')
 
 		} catch (error) {

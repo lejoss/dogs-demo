@@ -8,36 +8,33 @@ export default async (req, res) => {
 			breed,
 			size,
 			gender,
-			userId
+			user
 		} = req.body
 
 		const prisma = new PrismaClient()
 		try {
-			await prisma.user.create({
+			await prisma.dog.create({
 				data: {
 					name,
-					age,
+					age: parseInt(age),
 					breed,
 					size,
 					gender,
-					userId
+					user
 				},
 			})
 			await prisma.$disconnect()
 
-			// TODO: res
-			
+			res.status(200).json({ message: 'dog created' })
 		} catch (error) {
 			// TODO: handle error
-			
+			res.status(500).json({ error })
+
 		}
 
-
-
-
 	} else {
-    // TODO: Handle any other HTTP method
-  }
+		// TODO: Handle any other HTTP method
+	}
 
 
 }
