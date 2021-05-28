@@ -1,13 +1,8 @@
 import React from 'react'
 import { SubmitButton, DogInput, DogSelect } from '/components'
-import { useDogForm } from '/utils/hooks'
 import { createDog } from '/utils/api'
 
-
-//   iduser Int?
-
 const breedOptions = {
-	name: 'breeds',
 	values: [
 		'criollo',
 		'pitbull',
@@ -35,17 +30,17 @@ const genderOptions = {
 }
 
 export default function DogForm(props) {
-	const { onSubmit, formData } = useDogForm()
-	// const { status, error, run } = useAsync()
+	function handleSubmit(event) {
+		event.preventDefault()
+		if (!event.target.elements.length) return
 
-	React.useEffect(() => {
-		if (!formData) return
-		// run(createDog(formData))
-
-	}, [onSubmit, formData])
+		const [name, age, breed, size, gender] = event.target.elements
+		createDog({ name, age, breed, size, gender })
+		// redirect to menu
+	}
 
 	return (
-		<form onSubmit={onSubmit}>
+		<form onSubmit={handleSubmit}>
 			<DogInput
 				type="text"
 				name="name"
@@ -54,9 +49,18 @@ export default function DogForm(props) {
 				type="number"
 				name="age"
 			/>
-			<DogSelect options={breedOptions} />
-			<DogSelect options={sizeOptions} />
-			<DogSelect options={genderOptions} />
+			<DogSelect
+				name="breeds"
+				options={breedOptions}
+			/>
+			<DogSelect
+				name="sizes"
+				options={sizeOptions}
+			/>
+			<DogSelect
+				name="gender"
+				options={genderOptions}
+			/>
 
 			<SubmitButton>Registrar</SubmitButton>
 		</form>

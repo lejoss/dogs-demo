@@ -1,4 +1,4 @@
-export default function DogSelect({ options: { name, values }, ...props }) {
+export default function DogSelect({ name, options: { values }, ...props }) {
 	return (
 		<label htmlFor="">
 			{name}

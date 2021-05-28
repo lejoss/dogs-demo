@@ -12,6 +12,7 @@ async function subscribeUserToPushNotifications(subscription) {
 }
 
 async function createDog(dog) {
+	// TODO: need user's endpoint
 	// return await fetch('/api/dogs/create', {
 	// 	method: 'POST',
 	// 	body: dog,
