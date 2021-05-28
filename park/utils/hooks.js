@@ -1,6 +1,7 @@
 import React from 'react'
 import { urlBase64ToUint8Array } from '/utils'
 import { subscribeUserToPushNotifications } from '/utils/api'
+import { client } from '/utils/client'
 
 const PUBLIC_VAPID_KEY = "BH_9hevSlpxlb1NBPBRm6failiqdu6oFX7cQizdCws9koKp8tfbjjQE2QUSfk750SNe58UFRIJSkFQEoOrkqjVA"
 
@@ -113,8 +114,8 @@ function usePush() {
 				})
 				subscribeUserToPushNotifications(subscription)
 			} else {
-				// TODO: handle 
-				console.log('user already subscribed')
+				// TODO: set user context?
+				console.log('user already subscribed', userSubscription)
 			}
 		} catch (error) {
 			console.log(error)

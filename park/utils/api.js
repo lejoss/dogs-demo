@@ -1,31 +1,33 @@
+import { client } from '/utils/client'
 
-
-async function subscribeUserToPushNotifications(subscription) {
-	// TODO: import client
-	return await fetch('/api/subscription', {
-		method: 'POST',
-		body: JSON.stringify(subscription),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+function subscribeUserToPushNotifications(subscription) {
+	return client('subscription', { data: subscription })
 }
 
-async function createDog(dog) {
+function createDog(dog) {
 	// TODO: need user's endpoint
-	// return await fetch('/api/dogs/create', {
-	// 	method: 'POST',
-	// 	body: dog,
-	// 	headers: {
-	// 		'Content-Type': 'application/json'
-	// 	}
-	// })
+	return client('dogs/create', { data: dog })
+}
 
-	console.log('create dog api')
+function fetchOnlineDogs() {
+	return client('dogs')
+}
 
+function registerVisit() {
+	// para registrar una visita
+	// el usuario debe tener al menos
+	// una mascota
+	return
+}
+
+function fetchUserDogs() {
+	return
 }
 
 export {
 	subscribeUserToPushNotifications,
-	createDog
+	createDog,
+	registerVisit,
+	fetchOnlineDogs,
+	fetchUserDogs,
 }
