@@ -104,8 +104,9 @@ function useWorker() {
 
 function usePush() {
 	const [user, setUser] = React.useState('')
-
+	const [error, setError] = React.useState('')
 	React.useEffect(async () => {
+		// if (user) return
 		try {
 			const register = await navigator.serviceWorker.ready
 			const userSubscription = await register.pushManager.getSubscription()
@@ -115,26 +116,26 @@ function usePush() {
 					userVisibleOnly: true,
 					applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
 				})
-				subscribeUserToPushNotifications(subscription)
-			
+				await subscribeUserToPushNotifications(subscription)
+				setUser(subscription.endpoint)
+
 			} else {
 				setUser(userSubscription.endpoint)
 			}
 
 		} catch (error) {
-			console.log(error)
+			setError(error)
 		}
-
-		return user
 
 	}, [])
 
+	return { user, error }
 }
 
 function useAuth() {
 	const context = React.useContext(SubscriptionContext)
 	if (context === undefined) {
-		throw new Error(`useAuth must be used within a UserProvider`)
+		throw new Error(`useAuth must be used within a SubscriptionProvider`)
 	}
 	return context
 }

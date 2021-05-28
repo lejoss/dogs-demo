@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { SubmitButton, DogInput, DogSelect } from '/components'
 import { createDog } from '/utils/api'
 import { useAuth } from '/utils/hooks'
@@ -32,16 +33,21 @@ const genderOptions = {
 
 export default function DogForm(props) {
 	const { user } = useAuth()
-	console.log('iser', user)
-	function handleSubmit(event) {
+	const router = useRouter()
+
+	async function handleSubmit(event) {
 		event.preventDefault()
-		if (!event.target.elements.length) return
 
-		console.log('user', user)
+		try {
+			if (!event.target.elements.length) return
 
-		const [name, age, breed, size, gender] = event.target.elements
-		// createDog({ user, name, age, breed, size, gender })
-		// redirect to menu
+			const [name, age, breed, size, gender] = event.target.elements
+			await createDog({ user, name, age, breed, size, gender })
+			// router.push('/park')
+
+		} catch (error) {
+			// TODO: handle error
+		}
 	}
 
 	return (
