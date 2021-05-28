@@ -8,13 +8,15 @@ datasource db {
 }
 
 model dog {
-  id     Int     @id @default(autoincrement())
-  name   String
-  age    Int?
-  breed  String?
-  size   String?
-  gender String?
-  user   String
+  id       Int       @id @default(autoincrement())
+  name     String
+  age      Int?
+  breed    String?
+  size     String?
+  gender   String?
+  user     String
+  active   Boolean?  @default(false)
+  lastseen DateTime? @db.Date
 }
 
 model park {
