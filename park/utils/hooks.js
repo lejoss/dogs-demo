@@ -2,7 +2,7 @@ import React from 'react'
 import { urlBase64ToUint8Array } from '/utils'
 import { subscribeUserToPushNotifications } from '/utils/api'
 import { client } from '/utils/client'
-import { UserContext } from '/context/user'
+import { SubscriptionContext } from '/context/subscription'
 
 const PUBLIC_VAPID_KEY = "BH_9hevSlpxlb1NBPBRm6failiqdu6oFX7cQizdCws9koKp8tfbjjQE2QUSfk750SNe58UFRIJSkFQEoOrkqjVA"
 
@@ -103,7 +103,8 @@ function useWorker() {
 }
 
 function usePush() {
-	
+	const [user, setUser] = React.useState('')
+
 	React.useEffect(async () => {
 		try {
 			const register = await navigator.serviceWorker.ready
@@ -115,24 +116,23 @@ function usePush() {
 					applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
 				})
 				subscribeUserToPushNotifications(subscription)
+			
 			} else {
-				// TODO: set user context?
-				console.log('user already subscribed', userSubscription)
+				setUser(userSubscription.endpoint)
 			}
+
 		} catch (error) {
 			console.log(error)
 		}
+
+		return user
+
 	}, [])
 
 }
 
-function useApp() {
-	useWorker()
-	usePush()
-}
-
 function useAuth() {
-	const context = React.useContext(UserContext)
+	const context = React.useContext(SubscriptionContext)
 	if (context === undefined) {
 		throw new Error(`useAuth must be used within a UserProvider`)
 	}
@@ -140,6 +140,7 @@ function useAuth() {
 }
 
 export {
-	useApp,
-	useAuth
+	useAuth,
+	usePush,
+	useWorker
 }

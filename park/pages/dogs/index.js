@@ -32,12 +32,15 @@ const genderOptions = {
 
 export default function DogForm(props) {
 	const { user } = useAuth()
+	console.log('iser', user)
 	function handleSubmit(event) {
 		event.preventDefault()
 		if (!event.target.elements.length) return
 
+		console.log('user', user)
+
 		const [name, age, breed, size, gender] = event.target.elements
-		createDog({ user, name, age, breed, size, gender })
+		// createDog({ user, name, age, breed, size, gender })
 		// redirect to menu
 	}
 
