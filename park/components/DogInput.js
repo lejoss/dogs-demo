@@ -1,3 +1,8 @@
-export default function DogInput (props) {
-	return <input required {...props} />
+export default function DogInput(props) {
+	return (
+		<label>
+			{props.name}
+			<input required {...props} />
+		</label>
+	)
 }

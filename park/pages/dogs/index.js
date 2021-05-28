@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitButton, DogInput, DogSelect } from '/components'
 import { useDogForm } from '/utils/hooks'
+import { createDog } from '/utils/api'
 
 
 //   iduser Int?
@@ -33,18 +34,23 @@ const genderOptions = {
 	]
 }
 
-export default function CreateDog (props) {
-	const { onSubmit } = useDogForm()
+export default function DogForm(props) {
+	const { onSubmit, formData } = useDogForm()
+	// const { status, error, run } = useAsync()
+
+	React.useEffect(() => {
+		if (!formData) return
+		// run(createDog(formData))
+
+	}, [onSubmit, formData])
 
 	return (
 		<form onSubmit={onSubmit}>
 			<DogInput
-				aria-label="name"
 				type="text"
 				name="name"
 			/>
 			<DogInput
-				aria-label="age"
 				type="number"
 				name="age"
 			/>

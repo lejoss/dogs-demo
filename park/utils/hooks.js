@@ -4,6 +4,88 @@ import { subscribeUserToPushNotifications } from '/utils/api'
 
 const PUBLIC_VAPID_KEY = "BH_9hevSlpxlb1NBPBRm6failiqdu6oFX7cQizdCws9koKp8tfbjjQE2QUSfk750SNe58UFRIJSkFQEoOrkqjVA"
 
+function useSafeDispatch(dispatch) {
+	const mounted = React.useRef(false)
+
+	React.useLayoutEffect(() => {
+		mounted.current = true
+		return () => (mounted.current = false)
+	}, [])
+	return React.useCallback(
+		(...args) => (mounted.current ? dispatch(...args) : void 0),
+		[dispatch],
+	)
+}
+
+const defaultInitialState = { status: 'idle', data: null, error: null }
+function useAsync(initialState = {}) {
+	const initialStateRef = React.useRef({
+		...defaultInitialState,
+		...initialState,
+	})
+
+	const [{ status, data, error }, setState] = React.useReducer(
+		(s, a) => ({ ...s, ...a }),
+		initialStateRef.current,
+	)
+
+	const safeSetState = useSafeDispatch(setState)
+
+	const setData = React.useCallback(
+		data => safeSetState({ data, status: 'resolved' }),
+		[safeSetState],
+	)
+	const setError = React.useCallback(
+		error => safeSetState({ error, status: 'rejected' }),
+		[safeSetState],
+	)
+
+	const reset = React.useCallback(() => safeSetState(initialStateRef.current), [
+		safeSetState,
+	])
+
+	const run = React.useCallback(
+		promise => {
+			if (!promise || !promise.then) {
+				throw new Error(
+					`The argument passed to useAsync().run must be a promise. Maybe a function that's passed isn't returning anything?`,
+				)
+			}
+			safeSetState({ status: 'pending' })
+			return promise.then(
+				(data) => {
+					setData(data)
+					return data
+				},
+				(error) => {
+					setError(error)
+					return Promise.reject(error)
+				},
+			)
+		},
+		[safeSetState, setData, setError],
+	)
+
+	return {
+		isIdle: status === 'idle',
+		isLoading: status === 'pending',
+		isError: status === 'rejected',
+		isSuccess: status === 'resolved',
+
+		reset,
+		setData,
+		setError,
+		error,
+		status,
+		data,
+		run,
+	}
+}
+
+function useClient() {
+	return React.useCallback((endpoint, options) => client(endpoint, options), [])
+}
+
 function useWorker() {
 	React.useEffect(async () => {
 		if ("serviceWorker" in navigator) {
@@ -41,11 +123,12 @@ function usePush() {
 }
 
 function useDogForm() {
-	const [errors, setErrors] = React.useState()
+	const [formData, setFormData] = React.useState(null)
 
 	function onSubmit(event) {
-		// handle form
 		event.preventDefault()
+		if (!event.target.elements.length) return
+
 		const [
 			name,
 			age,
@@ -54,21 +137,16 @@ function useDogForm() {
 			gender
 		] = event.target.elements
 
-		// call api with dog
-		const dog = {
+		setFormData({
 			name,
 			age,
 			breed,
 			size,
 			gender
-		}
-
-		// client -> dog
-
-		// redirect
+		})
 	}
 
-	return { onSubmit, errors }
+	return { onSubmit, formData }
 }
 
 function useApp() {
