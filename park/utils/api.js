@@ -5,7 +5,6 @@ function subscribeUserToPushNotifications(subscription) {
 }
 
 function createDog(dog) {
-	// TODO: need user's endpoint
 	return client('dogs/create', { data: dog })
 }
 

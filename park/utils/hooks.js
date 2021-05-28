@@ -2,6 +2,7 @@ import React from 'react'
 import { urlBase64ToUint8Array } from '/utils'
 import { subscribeUserToPushNotifications } from '/utils/api'
 import { client } from '/utils/client'
+import { UserContext } from '/context/user'
 
 const PUBLIC_VAPID_KEY = "BH_9hevSlpxlb1NBPBRm6failiqdu6oFX7cQizdCws9koKp8tfbjjQE2QUSfk750SNe58UFRIJSkFQEoOrkqjVA"
 
@@ -102,6 +103,7 @@ function useWorker() {
 }
 
 function usePush() {
+	
 	React.useEffect(async () => {
 		try {
 			const register = await navigator.serviceWorker.ready
@@ -129,6 +131,15 @@ function useApp() {
 	usePush()
 }
 
+function useAuth() {
+	const context = React.useContext(UserContext)
+	if (context === undefined) {
+		throw new Error(`useAuth must be used within a UserProvider`)
+	}
+	return context
+}
+
 export {
 	useApp,
+	useAuth
 }

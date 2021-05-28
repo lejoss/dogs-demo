@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitButton, DogInput, DogSelect } from '/components'
 import { createDog } from '/utils/api'
+import { useAuth } from '/utils/hooks'
 
 const breedOptions = {
 	values: [
@@ -30,12 +31,13 @@ const genderOptions = {
 }
 
 export default function DogForm(props) {
+	const { user } = useAuth()
 	function handleSubmit(event) {
 		event.preventDefault()
 		if (!event.target.elements.length) return
 
 		const [name, age, breed, size, gender] = event.target.elements
-		createDog({ name, age, breed, size, gender })
+		createDog({ user, name, age, breed, size, gender })
 		// redirect to menu
 	}
 
