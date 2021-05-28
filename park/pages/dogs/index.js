@@ -52,6 +52,7 @@ export default function DogForm(props) {
 
 		} catch (error) {
 			// TODO: handle error
+			console.error(error)
 		}
 	}
 

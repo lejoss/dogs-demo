@@ -12,11 +12,8 @@ function fetchOnlineDogs() {
 	return client('dogs')
 }
 
-function registerVisit() {
-	// para registrar una visita
-	// el usuario debe tener al menos
-	// una mascota
-	return
+function registerVisit(visit) {
+	return client('visit/create', { data: visit })
 }
 
 function fetchUserDogs() {

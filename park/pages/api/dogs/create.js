@@ -27,9 +27,7 @@ export default async (req, res) => {
 
 			res.status(200).json({ message: 'dog created' })
 		} catch (error) {
-			// TODO: handle error
 			res.status(500).json({ error })
-
 		}
 
 	} else {
