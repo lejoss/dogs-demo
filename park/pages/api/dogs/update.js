@@ -4,7 +4,7 @@ export default async (req, res) => {
 	const prisma = new PrismaClient()
 
 	if (req.method === 'PATCH') {
-		const { userid } = req.body
+		const { user: userid } = req.body
 		try {
 			const dog = await prisma.dog.update({
 				where: { userid },

@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 export default async function (req, res) {
 	const prisma = new PrismaClient()
 	if (req.method === 'POST') {
-		const { userid } = req.body
+		const { user: userid } = req.body
 		try {
 			let ownerDogs = await prisma.dog.findMany({ where: { userid } })
 
