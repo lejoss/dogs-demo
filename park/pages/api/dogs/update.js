@@ -7,18 +7,20 @@ export default async (req, res) => {
 		const { user } = req.body
 
 		try {
-			await prisma.dog.update({
-				where: {
-					user
-				},
-				data: {
-					active: true,
-				},
-			})
+			// const updatedDogs = await prisma.dog.update({
+			// 	where: {
+			// 		id: 1
+			// 	},
+			// 	data: {
+			// 		active: true,
+			// 	},
+			// })
 
-			await prisma.$disconnect()
+			// console.log(':::: UPDATE 2 :::::', userDogs)
 
-			res.status(200).json({ message: 'dog updated' })
+			// await prisma.$disconnect()
+
+			// res.status(200).json({ message: 'dog updated' })
 		} catch (error) {
 			res.status(500).json({ error: 'Error trying to update dog in prisma' })
 		}
