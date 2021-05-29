@@ -1,8 +1,5 @@
 import { client } from '/utils/client'
 
-function subscribeUserToPushNotifications(subscription) {
-	return client('subscription', { data: subscription })
-}
 
 function createDog(dog) {
 	return client('dogs/create', { data: dog })
@@ -12,18 +9,22 @@ function fetchOnlineDogs() {
 	return client('dogs')
 }
 
-function registerVisit(visit) {
-	return client('visit/create', { data: visit })
+function fetchUserDogs(user) {
+	return client('dogs/owner', { data: user })
 }
 
-function fetchUserDogs() {
-	return
+function subscribeUserToPushNotifications(subscription) {
+	return client('subscription', { data: subscription })
+}
+
+function updateDog(user) {
+	return client('dogs/update', { data: user, method: 'PATCH' })
 }
 
 export {
-	subscribeUserToPushNotifications,
 	createDog,
-	registerVisit,
 	fetchOnlineDogs,
 	fetchUserDogs,
+	subscribeUserToPushNotifications,
+	updateDog,
 }
