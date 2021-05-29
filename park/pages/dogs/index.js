@@ -41,12 +41,12 @@ export default function DogForm(props) {
 		try {
 			const [name, age, breed, size, gender] = event.target.elements
 			createDog({
-				userid,
 				name: name.value,
 				age: age.value,
 				breed: breed.value,
 				size: size.value,
-				gender: gender.value
+				gender: gender.value,
+				userid,
 			})
 			// router.push('/park')
 

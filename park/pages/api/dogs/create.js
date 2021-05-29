@@ -22,11 +22,13 @@ export default async (req, res) => {
 					breed,
 					size,
 					gender,
-					userid,
 					active: false,
-					lastseen: new Date()
-				},
+					lastseen: new Date(),
+					userid
+				}
 			})
+
+			console.log('wtf')
 			await prisma.$disconnect()
 
 			return res.status(200).json({ message: 'dog created' })
