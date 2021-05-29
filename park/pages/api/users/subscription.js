@@ -12,8 +12,7 @@ export default async (req, res) => {
 			})
 
 			if (user) {
-				const { id } = user
-				res.status(200).json({ id })
+				return res.status(200)
 			} else {
 				const userSubscribed = await prisma.user.create({
 					data: {
@@ -22,12 +21,13 @@ export default async (req, res) => {
 					},
 				})
 				await prisma.$disconnect()
+
 				const { id } = userSubscribed
-				res.status(200).json({ id })
+				return res.status(200).json({ user: id })
 			}
 
 		} catch (error) {
-			res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
+			return res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
 		}
 	}
 }

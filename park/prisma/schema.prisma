@@ -27,12 +27,5 @@ model park {
 model user {
   id           Int     @id @default(autoincrement())
   subscription String
-  endpoint     String?
-}
-
-model visit {
-  id       Int       @id @default(autoincrement())
-  user     String
-  lastseen DateTime? @db.Date
-  status   Boolean?  @default(false)
+  endpoint     String? @unique
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { urlBase64ToUint8Array } from '/utils'
-import { subscribeUserToPushNotifications, fetchOnlineDogs } from '/utils/api'
-// import { client } from '/utils/client'
+import { subscribeUserToPushNotifications, fetchOnlineDogs, fetchUser } from '/utils/api'
 import { SubscriptionContext } from '/context/subscription'
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
@@ -27,25 +26,25 @@ function useWorker() {
 function usePush() {
 	const [user, setUser] = React.useState('')
 	const [error, setError] = React.useState('')
+
 	React.useEffect(async () => {
 		try {
 			const register = await navigator.serviceWorker.ready
-			console.log(register)
 			const userSubscription = await register.pushManager.getSubscription()
-			if (!userSubscription) {
-				console.log('creating sub')
+			
+			if (!userSubscription) {	
 				const subscription = await register.pushManager.subscribe({
 					userVisibleOnly: true,
 					applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
 				})
 
-				const user = await subscribeUserToPushNotifications(subscription)
-				setUser(user)
+				const subscribedUser = await subscribeUserToPushNotifications(subscription)
+				setUser(subscribedUser)
 
 			} else {
-				console.log('old sub', userSubscription)
-				// fetch user
-				setUser(userSubscription.endpoint)
+				const user = await fetchUser(userSubscription.endpoint);
+				console.log('fetch user', user)
+				setUser(user)
 			}
 
 		} catch (error) {
