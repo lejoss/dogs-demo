@@ -1,6 +1,6 @@
 import React from 'react'
 import { urlBase64ToUint8Array } from '/utils'
-import { subscribeUserToPushNotifications } from '/utils/api'
+import { subscribeUserToPushNotifications, fetchOnlineDogs } from '/utils/api'
 // import { client } from '/utils/client'
 import { SubscriptionContext } from '/context/subscription'
 
@@ -62,8 +62,25 @@ function useAuth() {
 	return context
 }
 
+function usePark() {
+	const [dogs, setDogs] = React.useState()
+	const [error, setError] = React.useState()
+
+	React.useEffect(async () => {
+		try {
+			const dogs = await fetchOnlineDogs()
+			setDogs(dogs)
+		} catch (error) {
+			setError(error)
+		}
+	}, [])
+
+	return { dogs, error }
+}
+
 export {
 	useAuth,
+	usePark,
 	usePush,
 	useWorker
 }

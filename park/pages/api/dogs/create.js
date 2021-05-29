@@ -20,7 +20,9 @@ export default async (req, res) => {
 					breed,
 					size,
 					gender,
-					user
+					user,
+					active: false,
+					lastseen: new Date()
 				},
 			})
 			await prisma.$disconnect()

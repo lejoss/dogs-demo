@@ -9,7 +9,6 @@ export default async function (req, res) {
 				active: true
 			}
 		})
-		dogs = dogs.length && dogs.map(dog => ({ ...dog, id: dog.id.toString() }))
 
 		await prisma.$disconnect()
 
@@ -18,6 +17,6 @@ export default async function (req, res) {
 			.json(dogs)
 
 	} catch (error) {
-		return res.status(500).json({ error })
+		return res.status(500).json({ error: 'Error trying to fetch dogs from prisma' })
 	}
 }
