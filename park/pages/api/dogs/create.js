@@ -2,16 +2,18 @@ import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
 	if (req.method === 'POST') {
+		const prisma = new PrismaClient()
 		const {
 			name,
 			age,
 			breed,
 			size,
 			gender,
-			user
+			userid
 		} = req.body
 
-		const prisma = new PrismaClient()
+		console.log(req.body)
+
 		try {
 			await prisma.dog.create({
 				data: {
@@ -20,16 +22,16 @@ export default async (req, res) => {
 					breed,
 					size,
 					gender,
-					user,
+					userid,
 					active: false,
 					lastseen: new Date()
 				},
 			})
 			await prisma.$disconnect()
 
-			res.status(200).json({ message: 'dog created' })
+			return res.status(200).json({ message: 'dog created' })
 		} catch (error) {
-			res.status(500).json({ error })
+			return res.status(500).json({ error: 'Error creating a Dog in prisma' })
 		}
 
 	} else {

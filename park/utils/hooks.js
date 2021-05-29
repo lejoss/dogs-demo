@@ -31,19 +31,18 @@ function usePush() {
 		try {
 			const register = await navigator.serviceWorker.ready
 			const userSubscription = await register.pushManager.getSubscription()
-			
-			if (!userSubscription) {	
+
+			if (!userSubscription) {
 				const subscription = await register.pushManager.subscribe({
 					userVisibleOnly: true,
 					applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
 				})
 
-				const subscribedUser = await subscribeUserToPushNotifications(subscription)
-				setUser(subscribedUser)
+				const { user } = await subscribeUserToPushNotifications(subscription)
+				setUser(user)
 
 			} else {
-				const user = await fetchUser(userSubscription.endpoint);
-				console.log('fetch user', user)
+				const { user } = await fetchUser(userSubscription.endpoint);
 				setUser(user)
 			}
 

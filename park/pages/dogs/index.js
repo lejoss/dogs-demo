@@ -32,7 +32,7 @@ const genderOptions = {
 }
 
 export default function DogForm(props) {
-	const { user } = useAuth()
+	const { user: userid } = useAuth()
 	const router = useRouter()
 
 	function handleSubmit(event) {
@@ -41,7 +41,7 @@ export default function DogForm(props) {
 		try {
 			const [name, age, breed, size, gender] = event.target.elements
 			createDog({
-				user,
+				userid,
 				name: name.value,
 				age: age.value,
 				breed: breed.value,

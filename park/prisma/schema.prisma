@@ -14,9 +14,10 @@ model dog {
   breed    String?
   size     String?
   gender   String?
-  user     String
   active   Boolean?  @default(false)
   lastseen DateTime? @db.Date
+  userid   Int
+  user     user      @relation(fields: [userid], references: [id])
 }
 
 model park {
@@ -28,4 +29,5 @@ model user {
   id           Int     @id @default(autoincrement())
   subscription String
   endpoint     String? @unique
+  dog          dog[]
 }

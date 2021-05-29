@@ -28,7 +28,7 @@ export default async function (req, res) {
 				return res.status(200).json({ user: id })
 
 			} else {
-				return res.status(404).json({ message: `User with id: ${user.id} not found.` })
+				return res.status(404).json({ message: `User with not found.` })
 			}
 
 		} catch (error) {

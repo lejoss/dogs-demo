@@ -4,9 +4,9 @@ import { PrismaClient } from '@prisma/client'
 export default async function (req, res) {
 	const prisma = new PrismaClient()
 	if (req.method === 'POST') {
-		const { user } = req.body
+		const { userid } = req.body
 		try {
-			let ownerDogs = await prisma.dog.findMany({ where: { user } })
+			let ownerDogs = await prisma.dog.findMany({ where: { userid } })
 
 			await prisma.$disconnect()
 			return res
@@ -14,7 +14,7 @@ export default async function (req, res) {
 				.json(ownerDogs)
 
 		} catch (error) {
-			return res.status(500).json({ error })
+			return res.status(500).json({ error: 'Error fetching User Dogs in prisma' })
 		}
 
 	}
