@@ -4,7 +4,7 @@ import { subscribeUserToPushNotifications, fetchOnlineDogs } from '/utils/api'
 // import { client } from '/utils/client'
 import { SubscriptionContext } from '/context/subscription'
 
-const PUBLIC_VAPID_KEY = process.env.PUBLIC_VAPID_KEY
+const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
 
 // function useClient() {
 // 	return React.useCallback((endpoint, options) => client(endpoint, options), [])
@@ -28,24 +28,28 @@ function usePush() {
 	const [user, setUser] = React.useState('')
 	const [error, setError] = React.useState('')
 	React.useEffect(async () => {
-		// if (user) return
 		try {
 			const register = await navigator.serviceWorker.ready
+			console.log(register)
 			const userSubscription = await register.pushManager.getSubscription()
-
 			if (!userSubscription) {
+				console.log('creating sub')
 				const subscription = await register.pushManager.subscribe({
 					userVisibleOnly: true,
-					applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+					applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
 				})
-				await subscribeUserToPushNotifications(subscription)
-				setUser(subscription.endpoint)
+
+				const user = await subscribeUserToPushNotifications(subscription)
+				setUser(user)
 
 			} else {
+				console.log('old sub', userSubscription)
+				// fetch user
 				setUser(userSubscription.endpoint)
 			}
 
 		} catch (error) {
+			console.log('error push use effect')
 			setError(error)
 		}
 
