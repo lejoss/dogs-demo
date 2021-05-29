@@ -12,8 +12,6 @@ export default async (req, res) => {
 			userid
 		} = req.body
 
-		console.log(req.body)
-
 		try {
 			await prisma.dog.create({
 				data: {
@@ -27,8 +25,6 @@ export default async (req, res) => {
 					userid
 				}
 			})
-
-			console.log('wtf')
 			await prisma.$disconnect()
 
 			return res.status(200).json({ message: 'dog created' })

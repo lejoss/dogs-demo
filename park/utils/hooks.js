@@ -47,7 +47,6 @@ function usePush() {
 			}
 
 		} catch (error) {
-			console.log('error push use effect')
 			setError(error)
 		}
 

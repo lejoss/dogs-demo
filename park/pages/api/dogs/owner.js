@@ -5,6 +5,7 @@ export default async function (req, res) {
 	const prisma = new PrismaClient()
 	if (req.method === 'POST') {
 		const { user: userid } = req.body
+		console.log(":::::fetching user dogs :::::", userid)
 		try {
 			let ownerDogs = await prisma.dog.findMany({ where: { userid } })
 

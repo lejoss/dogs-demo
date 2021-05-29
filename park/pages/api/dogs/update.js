@@ -2,11 +2,10 @@ import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
 	const prisma = new PrismaClient()
-
 	if (req.method === 'PATCH') {
 		const { user: userid } = req.body
 		try {
-			const dog = await prisma.dog.update({
+			const dog = await prisma.dog.updateMany({
 				where: { userid },
 				data: {
 					active: true,
