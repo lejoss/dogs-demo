@@ -16,7 +16,7 @@ model dog {
   gender   String?
   active   Boolean?  @default(false)
   lastseen DateTime? @db.Date
-  userid   Int
+  userid   Int       @unique
   user     user      @relation(fields: [userid], references: [id])
 }
 
@@ -29,5 +29,5 @@ model user {
   id           Int     @id @default(autoincrement())
   subscription String
   endpoint     String? @unique
-  dog          dog[]
+  dog          dog?
 }

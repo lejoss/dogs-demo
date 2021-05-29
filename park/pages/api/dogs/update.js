@@ -5,7 +5,6 @@ export default async (req, res) => {
 
 	if (req.method === 'PATCH') {
 		const { userid } = req.body
-
 		try {
 			const dog = await prisma.dog.update({
 				where: { userid },
@@ -18,7 +17,7 @@ export default async (req, res) => {
 			return res.status(200).json({ message: 'dog updated', data: dog })
 
 		} catch (error) {
-			res.status(500).json({ error: 'Error trying to update dog in prisma' })
+			return res.status(500).json({ error: 'Error trying to update dog in prisma' })
 		}
 
 	} else {
