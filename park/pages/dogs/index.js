@@ -57,29 +57,34 @@ export default function DogForm(props) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} {...props}>
 			<DogInput
 				type="text"
 				name="name"
+				label="nombre"
 			/>
 			<DogInput
 				type="number"
 				name="age"
+				label="edad"
 			/>
 			<DogSelect
 				name="breeds"
 				options={breedOptions}
+				label="raza"
 			/>
 			<DogSelect
 				name="sizes"
 				options={sizeOptions}
+				label="tamaño"
 			/>
 			<DogSelect
 				name="gender"
 				options={genderOptions}
+				label="genero"
 			/>
 
-			<SubmitButton>Registrar</SubmitButton>
+			<SubmitButton>Registrar Mascota</SubmitButton>
 		</form>
 	)
 

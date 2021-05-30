@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input, select {
+  padding: 0.5em;
+  font-size: 1.5rem;
+  margin-bottom: 0.5em;
+  border: none;
+  border-radius: 10px;
+  background: #eee;
+}
