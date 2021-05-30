@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { SubmitButton, DogInput, DogSelect } from '/components'
+import { Button, DogInput, DogSelect, Title } from '/components'
 import { createDog } from '/utils/api'
 import { useAuth } from '/utils/hooks'
 
@@ -57,36 +57,41 @@ export default function DogForm(props) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} {...props}>
-			<DogInput
-				type="text"
-				name="name"
-				label="nombre"
-			/>
-			<DogInput
-				type="number"
-				name="age"
-				label="edad"
-			/>
-			<DogSelect
-				name="breeds"
-				options={breedOptions}
-				label="raza"
-			/>
-			<DogSelect
-				name="sizes"
-				options={sizeOptions}
-				label="tamaño"
-			/>
-			<DogSelect
-				name="gender"
-				options={genderOptions}
-				label="genero"
-			/>
+		<div style={{ padding: '2em', height: '100vh', overflow: 'hidden' }}>
+			<Title>Registrar Mascota</Title>
+			<form style={{ border: '1px solid lightgray', padding: '.5em'  }} onSubmit={handleSubmit} {...props}>
+				<DogInput
+					type="text"
+					name="name"
+					label="nombre"
+				/>
+				<DogInput
+					type="number"
+					name="age"
+					label="edad"
+				/>
+				<DogSelect
+					name="breeds"
+					options={breedOptions}
+					label="raza"
+				/>
+				<DogSelect
+					name="sizes"
+					options={sizeOptions}
+					label="tamaño"
+				/>
+				<DogSelect
+					name="gender"
+					options={genderOptions}
+					label="genero"
+				/>
+			</form>
 
-			<SubmitButton>Registrar Mascota</SubmitButton>
-			<button onClick={() => router.push('/')}>REGRESAR</button>
-		</form>
+			<div style={{ padding: '.5em', border: '1px solid lightgray', marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}>
+				<Button>Registrar Mascota</Button>
+				<Button onClick={() => router.push('/')}>REGRESAR</Button>
+			</div>
+		</div>	
 	)
 
 }

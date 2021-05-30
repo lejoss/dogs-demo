@@ -1,9 +1,11 @@
 import DogInput from './DogInput'
 import DogSelect from './DogSelect'
-import SubmitButton from './SubmitButton'
+import Button from './Button'
+import Title from './Title'
 
 export {
 	DogInput,
 	DogSelect,
-	SubmitButton,
+	Button,
+	Title,
 }
