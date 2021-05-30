@@ -19,7 +19,7 @@ export default function Park(props) {
 				</ul>
 
 			</div>
-			<button onClick={() => router.push('/menu')}>menu</button>
+			<button onClick={() => router.push('/')}>Regresar</button>
 		</div>
 	)
 }

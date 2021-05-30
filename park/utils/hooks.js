@@ -108,7 +108,7 @@ function useHome() {
 
 	}, [user])
 
-	return { userDogs, error }
+	return { user, userDogs, error }
 }
 
 function usePark() {

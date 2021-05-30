@@ -48,7 +48,7 @@ export default function DogForm(props) {
 				gender: gender.value,
 				userid,
 			})
-			// router.push('/park')
+			router.push('/')
 
 		} catch (error) {
 			// TODO: handle error
@@ -85,6 +85,7 @@ export default function DogForm(props) {
 			/>
 
 			<SubmitButton>Registrar Mascota</SubmitButton>
+			<button onClick={() => router.push('/')}>REGRESAR</button>
 		</form>
 	)
 

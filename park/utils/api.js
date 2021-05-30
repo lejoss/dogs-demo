@@ -23,7 +23,7 @@ function subscribeUserToPushNotifications(subscription) {
 
 // updates all dogs from one user
 // TODO: fix semantics
-function updateDog(user) {
+function updateUserDogs(user) {
 	return client('dogs/update', { data: { user }, method: 'PATCH' })
 }
 
@@ -33,5 +33,5 @@ export {
 	fetchUser,
 	fetchDogsByUser,
 	subscribeUserToPushNotifications,
-	updateDog,
+	updateUserDogs,
 }
