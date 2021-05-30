@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array } from '/utils'
 import { subscribeUserToPushNotifications, fetchOnlineDogs, fetchUser } from '/utils/api'
 import { SubscriptionContext } from '/context/subscription'
@@ -63,6 +64,26 @@ function useAuth() {
 	return context
 }
 
+function useApp() {
+	useWorker()
+	const router = useRouter()
+	React.useEffect(() => {
+		if (Notification.permission !== "granted") {
+			router.push('/warn')
+		}
+	}, [])
+}
+
+function useWarn() {
+	const router = useRouter()
+	React.useEffect(() => {
+		if (Notification.permission === "granted") {
+			router.push('/')
+		}
+	}, [])
+	
+}
+
 function usePark() {
 	const [dogs, setDogs] = React.useState()
 	const [error, setError] = React.useState()
@@ -80,8 +101,10 @@ function usePark() {
 }
 
 export {
+	useApp,
 	useAuth,
 	usePark,
 	usePush,
-	useWorker
+	useWarn,
+	useWorker,
 }
