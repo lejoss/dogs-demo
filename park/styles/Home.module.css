@@ -4,8 +4,28 @@
   /* background: lightblue; */
 }
 
-.form {
+.pets {
+  padding: 1em;
+  border: 1px solid lightgrey;
+  margin-bottom: 1em;
+}
 
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  border: 1px solid lightgrey;
+  padding: 1em;
+}
+
+.ul {
+  padding: 0;
+  display: flex;
+  gap: 1em;
+}
+
+.li {
+  list-style: none;
 }
 
 .title {
