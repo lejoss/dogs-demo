@@ -1,7 +1,12 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array } from '/utils'
-import { subscribeUserToPushNotifications, fetchOnlineDogs, fetchUser } from '/utils/api'
+import {
+	subscribeUserToPushNotifications,
+	fetchOnlineDogs,
+	fetchUser,
+	fetchDogsByUser,
+} from '/utils/api'
 import { SubscriptionContext } from '/context/subscription'
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
@@ -81,7 +86,29 @@ function useWarn() {
 			router.push('/')
 		}
 	}, [])
-	
+
+}
+
+function useHome() {
+	const [userDogs, setUserDogs] = React.useState([])
+	const [error, setError] = React.useState(null)
+	const { user } = useAuth()
+
+	React.useEffect(async () => {
+		if (!user || user === '') return
+		try {
+			const userDogs = await fetchDogsByUser(user)
+			if (userDogs.length) {
+				setUserDogs(userDogs)
+			}
+
+		} catch (error) {
+			setError(error)
+		}
+
+	}, [user])
+
+	return { userDogs, error }
 }
 
 function usePark() {
@@ -103,6 +130,7 @@ function usePark() {
 export {
 	useApp,
 	useAuth,
+	useHome,
 	usePark,
 	usePush,
 	useWarn,

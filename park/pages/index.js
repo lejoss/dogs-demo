@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import { useHome } from '/utils/hooks'
 import styles from '../styles/Home.module.css'
 
 // if user don't have a registered dog
@@ -10,10 +10,14 @@ import styles from '../styles/Home.module.css'
 
 
 export default function Home(props) {
-  
+  const { userDogs, error } = useHome()
   return (
     <div className={styles.container}>
-      home
+      {
+        userDogs
+          ? 'show menu'
+          : 'please register dog'
+      }
     </div>
   )
 }

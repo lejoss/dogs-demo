@@ -13,9 +13,9 @@ function fetchUser(user) {
 	return client('users', { data: { user } })
 }
 
-// function fetchDogsByUser(user) {
-// 	return client('dogs/owner', { data: { user } })
-// }
+function fetchDogsByUser(user) {
+	return client('dogs/owner', { data: { user } })
+}
 
 function subscribeUserToPushNotifications(subscription) {
 	return client('users/subscription', { data: subscription })
@@ -31,7 +31,7 @@ export {
 	createDog,
 	fetchOnlineDogs,
 	fetchUser,
-	// fetchDogsByUser,
+	fetchDogsByUser,
 	subscribeUserToPushNotifications,
 	updateDog,
 }
