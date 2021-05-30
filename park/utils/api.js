@@ -1,5 +1,8 @@
 import { client } from '/utils/client'
 
+function notificateUsersOfNewDogsInPark() {
+	return client('broadcast', { method: 'POST' })
+}
 
 function createDog(dog) {
 	return client('dogs/create', { data: dog })
@@ -28,6 +31,7 @@ function updateUserDogs(user) {
 }
 
 export {
+	notificateUsersOfNewDogsInPark,
 	createDog,
 	fetchOnlineDogs,
 	fetchUser,

@@ -30,7 +30,7 @@ function useWorker() {
 }
 
 function usePush() {
-	const [user, setUser] = React.useState('')
+	const [user, setUser] = React.useState(null)
 	const [error, setError] = React.useState('')
 
 	React.useEffect(async () => {
@@ -112,7 +112,7 @@ function useHome() {
 }
 
 function usePark() {
-	const [dogs, setDogs] = React.useState()
+	const [dogs, setDogs] = React.useState([])
 	const [error, setError] = React.useState()
 
 	React.useEffect(async () => {
@@ -134,5 +134,4 @@ export {
 	usePark,
 	usePush,
 	useWarn,
-	useWorker,
 }

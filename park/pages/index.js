@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { useHome } from '/utils/hooks'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import { updateUserDogs } from '/utils/api'
+import { updateUserDogs, notificateUsersOfNewDogsInPark } from '/utils/api'
 import styles from '../styles/Home.module.css'
 
 export default function Home(props) {
@@ -12,6 +12,7 @@ export default function Home(props) {
   async function handleRegisterVisit() {
     try {
       await updateUserDogs(user)
+      await notificateUsersOfNewDogsInPark()
       router.push('/park')
     } catch (error) {
       console.error(error)

@@ -32,20 +32,16 @@ export default async (req, res) => {
 				})
 
 				Promise.all(notificationsPromises)
-				// TODO: res ??
+				res.status(200).json({ message: 'success' })
 
 			} catch (error) {
 				// TODO: console.log(':::: error ::::', error);
+				res.status(500).json({ message: 'Error trying to broadcast notifications' })
 			}
 		}
 
-		// TODO: res ??
-
-
+		res.status(404).json({ message: 'there are no user subscriptions' })
 	}
 
-
-	res.status(200).json();
-
-
+	res.status(404).json('message: resource not found')
 }
