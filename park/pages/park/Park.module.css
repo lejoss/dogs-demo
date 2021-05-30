@@ -1,0 +1,11 @@
+.container {
+	height: 100vh;
+	overflow: hidden;
+	padding: 0 2em;
+}
+
+.park {
+	height:60%;
+	background:#eee;
+	margin-bottom: 2em;
+}
