@@ -62,6 +62,9 @@ export default function Park(props) {
 							})
 							: null
 					}
+					<div style={{ textAlign: 'center', display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '0 2em' }}>
+						{dogs && !dogs.length && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
+					</div>
 				</ul>
 
 			</div>

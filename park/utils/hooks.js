@@ -92,17 +92,15 @@ function useWarn() {
 }
 
 function useHome() {
-	const [userDogs, setUserDogs] = React.useState([])
+	const [userDogs, setUserDogs] = React.useState(null)
 	const [error, setError] = React.useState(null)
 	const { user } = useAuth()
 
 	React.useEffect(async () => {
 		if (!user || user === '') return
 		try {
-			const userDogs = await fetchDogsFromUser(user)
-			if (userDogs.length) {
-				setUserDogs(userDogs)
-			}
+			const { dogs } = await fetchDogsFromUser(user)
+			setUserDogs(dogs)
 
 		} catch (error) {
 			setError(error)
@@ -114,7 +112,7 @@ function useHome() {
 }
 
 function usePark() {
-	const [dogs, setDogs] = React.useState([])
+	const [dogs, setDogs] = React.useState(null)
 	const [error, setError] = React.useState()
 
 	React.useEffect(async () => {

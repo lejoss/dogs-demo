@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useHome } from '/utils/hooks'
 import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import { updateUserDogs, notificateUsersOfNewDogsInPark } from '/utils/api'
+import { updateDogsFromUser, notificateUsersOfNewDogsInPark } from '/utils/api'
 import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
 
@@ -13,7 +13,7 @@ export default function Home(props) {
 
   async function handleRegisterVisit() {
     try {
-      await updateUserDogs(user)
+      await updateDogsFromUser(user)
       await notificateUsersOfNewDogsInPark()
       router.push('/park')
     } catch (error) {
@@ -23,22 +23,22 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <Title>APP</Title>
-      {!userDogs && (
-        <>
-          <h3>No tienes perros registrados</h3>
-          <Button onClick={() => router.push('/dog')}>Registra tu mascota</Button>
-        </>
-      )}
       {userDogs && (
         <div className={styles.pets}>
           <h3>Tus Mascotas</h3>
           <ul className={styles.ul}>
-            {userDogs && userDogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
+            {userDogs && userDogs.length && userDogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
           </ul>
         </div>
       )}
 
       <div className={styles.btn__group}>
+        {!userDogs && error && (
+          <>
+            <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
+            <Button onClick={() => router.push('/dog')}>Registra tu mascota</Button>
+          </>
+        )}
         {userDogs && <Button onClick={() => router.push('/dog')}>Registrar mascota</Button>}
         <Button onClick={() => router.push('/park')}>Ver Parque</Button>
 
@@ -64,7 +64,7 @@ export default function Home(props) {
           <ModalOpenButton>
             <Button>App Info</Button>
           </ModalOpenButton>
-          <ModalContents style={{ width: '70vw' }}  aria-label="Modal label (for screen readers)">
+          <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
             <ModalDismissButton>
               <button>Cerrar</button>
             </ModalDismissButton>
