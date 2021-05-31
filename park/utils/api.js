@@ -8,34 +8,32 @@ function createDog(dog) {
 	return client('dogs/create', { data: dog })
 }
 
-function fetchOnlineDogs() {
+function fetchDogsOnline() {
 	return client('dogs')
 }
 
-function fetchUser(user) {
-	return client('users', { data: { user } })
+function fetchUserByEndpoint(endpoint) {
+	return client(`users/${endpoint}`)
 }
 
-function fetchDogsByUser(user) {
-	return client('dogs/owner', { data: { user } })
+function fetchDogsFromUser(user) {
+	return client(`users/${user}/dogs`)
 }
 
 function subscribeUserToPushNotifications(subscription) {
-	return client('users/subscription', { data: subscription })
+	return client(`subscribe`, { data: subscription })
 }
 
-// updates all dogs from one user
-// TODO: fix semantics
-function updateUserDogs(user) {
-	return client('dogs/update', { data: { user }, method: 'PATCH' })
+function updateDogsFromUser(user) {
+	return client(`dogs/${user}/update`, { method: 'PATCH' })
 }
 
 export {
 	notificateUsersOfNewDogsInPark,
 	createDog,
-	fetchOnlineDogs,
-	fetchUser,
-	fetchDogsByUser,
+	fetchDogsOnline,
+	fetchUserByEndpoint,
+	fetchDogsFromUser,
 	subscribeUserToPushNotifications,
-	updateUserDogs,
+	updateDogsFromUser,
 }

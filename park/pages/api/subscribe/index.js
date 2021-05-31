@@ -1,3 +1,4 @@
+import { hashEndpoint } from '/utils'
 import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
@@ -12,22 +13,22 @@ export default async (req, res) => {
 			})
 
 			if (user) {
-				return res.status(200)
+				res.status(200).json({ user: id })
 			} else {
 				const userSubscribed = await prisma.user.create({
 					data: {
 						subscription: JSON.stringify(pushSubscription) || null,
-						endpoint: pushSubscription.endpoint,
+						endpoint: hashEndpoint(pushSubscription.endpoint),
 					},
 				})
 				await prisma.$disconnect()
 
 				const { id } = userSubscribed
-				return res.status(200).json({ user: id })
+				res.status(200).json({ user: id })
 			}
 
 		} catch (error) {
-			return res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
+			res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
 		}
 	}
 }

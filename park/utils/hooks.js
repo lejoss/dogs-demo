@@ -1,13 +1,14 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { urlBase64ToUint8Array } from '/utils'
+import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
 	subscribeUserToPushNotifications,
-	fetchOnlineDogs,
-	fetchUser,
-	fetchDogsByUser,
+	fetchDogsOnline,
+	fetchUserByEndpoint,
+	fetchDogsFromUser,
 } from '/utils/api'
 import { SubscriptionContext } from '/context/subscription'
+
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
 
@@ -48,7 +49,8 @@ function usePush() {
 				setUser(user)
 
 			} else {
-				const { user } = await fetchUser(userSubscription.endpoint);
+				const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
+				const { user } = await fetchUserByEndpoint(hashedEndpoint);
 				setUser(user)
 			}
 
@@ -97,7 +99,7 @@ function useHome() {
 	React.useEffect(async () => {
 		if (!user || user === '') return
 		try {
-			const userDogs = await fetchDogsByUser(user)
+			const userDogs = await fetchDogsFromUser(user)
 			if (userDogs.length) {
 				setUserDogs(userDogs)
 			}
@@ -117,7 +119,7 @@ function usePark() {
 
 	React.useEffect(async () => {
 		try {
-			const dogs = await fetchOnlineDogs()
+			const dogs = await fetchDogsOnline()
 			setDogs(dogs)
 		} catch (error) {
 			setError(error)
