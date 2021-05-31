@@ -5,6 +5,7 @@ import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import { updateUserDogs, notificateUsersOfNewDogsInPark } from '/utils/api'
 import styles from '../styles/Home.module.css'
+import "@reach/dialog/styles.css";
 
 export default function Home(props) {
   const { userDogs, error, user } = useHome()
@@ -38,7 +39,7 @@ export default function Home(props) {
       )}
 
       <div className={styles.btn__group}>
-        {userDogs && <Button onClick={() => router.push('/dog')}>Registra otra mascota</Button>}
+        {userDogs && <Button onClick={() => router.push('/dog')}>Registrar mascota</Button>}
         <Button onClick={() => router.push('/park')}>Ver Parque</Button>
 
         {userDogs &&
@@ -47,7 +48,7 @@ export default function Home(props) {
               <ModalOpenButton>
                 <Button>Registrar Visita</Button>
               </ModalOpenButton>
-              <ModalContents aria-label="Modal label (for screen readers)">
+              <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
                 <ModalDismissButton>
                   <button>Cerrar</button>
                 </ModalDismissButton>
@@ -63,7 +64,7 @@ export default function Home(props) {
           <ModalOpenButton>
             <Button>App Info</Button>
           </ModalOpenButton>
-          <ModalContents aria-label="Modal label (for screen readers)">
+          <ModalContents style={{ width: '70vw' }}  aria-label="Modal label (for screen readers)">
             <ModalDismissButton>
               <button>Cerrar</button>
             </ModalDismissButton>
