@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useHome } from '/utils/hooks'
-import Title from '/components/Title'
+import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import { updateUserDogs, notificateUsersOfNewDogsInPark } from '/utils/api'
 import styles from '../styles/Home.module.css'
@@ -25,7 +25,7 @@ export default function Home(props) {
       {!userDogs && (
         <>
           <h3>No tienes perros registrados</h3>
-          <button onClick={() => router.push('/dog')}>Registra tu mascota</button>
+          <Button onClick={() => router.push('/dog')}>Registra tu mascota</Button>
         </>
       )}
       {userDogs && (
@@ -37,15 +37,15 @@ export default function Home(props) {
         </div>
       )}
 
-      <div className={styles.links}>
-        {userDogs && <button onClick={() => router.push('/dog')}>Registra otra mascota</button>}
-        <button onClick={() => router.push('/park')}>Ver Parque</button>
+      <div className={styles.btn__group}>
+        {userDogs && <Button onClick={() => router.push('/dog')}>Registra otra mascota</Button>}
+        <Button onClick={() => router.push('/park')}>Ver Parque</Button>
 
         {userDogs &&
           (
             <Modal>
               <ModalOpenButton>
-                <button>Registrar Visita</button>
+                <Button>Registrar Visita</Button>
               </ModalOpenButton>
               <ModalContents aria-label="Modal label (for screen readers)">
                 <ModalDismissButton>
@@ -61,7 +61,7 @@ export default function Home(props) {
 
         <Modal>
           <ModalOpenButton>
-            <button>App Info</button>
+            <Button>App Info</Button>
           </ModalOpenButton>
           <ModalContents aria-label="Modal label (for screen readers)">
             <ModalDismissButton>

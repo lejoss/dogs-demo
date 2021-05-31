@@ -85,10 +85,11 @@ export default function DogForm(props) {
 					options={genderOptions}
 					label="genero"
 				/>
+				<br/>
+				<Button type="submit">Registrar Mascota</Button>
 			</form>
 
 			<div style={{ padding: '.5em', border: '1px solid lightgray', marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				<Button>Registrar Mascota</Button>
 				<Button onClick={() => router.push('/')}>REGRESAR</Button>
 			</div>
 		</div>	

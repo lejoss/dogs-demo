@@ -1,22 +1,59 @@
 .container {
+	padding: 0 2em 2em 2em;
 	height: 100vh;
-	overflow: hidden;
-	padding: 0 2em;
 }
 
 .park {
-	height:60%;
+	height:80%;
 	background:#eee;
 	margin-bottom: 2em;
+	overflow: scroll;
+}
+
+.card {
+	display: flex;
+	font-size: 1.5rem;
+	border: 0;
+	height: 5em;
+}
+
+.card__avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1em;
+}
+
+.card__avatar img {
+	width: 1.6em;
+	height: 1.6em;
+}
+
+.card__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	border-bottom: 1px solid lightgray;
+	font-weight: 200;
+	text-transform: capitalize;
+}
+
+.card__title {
+	display: flex;
+	gap: 1em;
+}
+
+.card__title:first-child {
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	font-weight: 600;
 }
 
 .li {
+	width: 100%;
 	display: inline-block;
-	font-size: 2em;
-	width: max-content;
-	border: 1px solid gray;
 	list-style: none;
-	background: lightcyan;
 }
 
 .ul {

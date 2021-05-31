@@ -10,7 +10,7 @@
   margin-bottom: 1em;
 }
 
-.links {
+.btn__group {
   display: flex;
   flex-direction: column;
   gap: 1em;
