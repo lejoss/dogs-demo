@@ -82,7 +82,7 @@ export default function Park(props) {
 
 			</div>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				{dogs && <Button onClick={handleUpdate}>Salir del parque</Button>}
+				{dogs && <Button onClick={handleUpdate}>Salir</Button>}
 				<a href="/">Regresar</a>
 			</div>
 		</div>

@@ -12,7 +12,6 @@ export default function Home(props) {
   const router = useRouter()
 
   const visiting = userDogs && userDogs.every(({ active }) => active)
-  console.log(visiting)
   async function handleRegisterVisit(active) {
     try {
       await updateDogsFromUser(user, active)
@@ -38,7 +37,7 @@ export default function Home(props) {
       {visiting && (
         <div className={styles.visit}>
           <p>Actualmente estas visitando el parque, recuerda terminar tu visita aqui.</p>
-          <Button onClick={() => handleRegisterVisit(false)}>Terminar</Button>
+          <Button onClick={() => handleRegisterVisit(false)}>salir</Button>
         </div>
       )}
 
@@ -50,7 +49,22 @@ export default function Home(props) {
             <a href="/dog">Registra tu mascota</a>
           </>
         )}
+
+        <Modal>
+          <ModalOpenButton>
+            <Button>App Info</Button>
+          </ModalOpenButton>
+          <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
+            <ModalDismissButton>
+              <button>Cerrar</button>
+            </ModalDismissButton>
+            <h3>App Info</h3>
+            <div>Some great contents of the modal</div>
+          </ModalContents>
+        </Modal>
+
         {userDogs && <a href="/dog">Registrar mascota</a>}
+
         <a className={styles.b} href="/park">Ver Parque</a>
 
         {userDogs && !visiting &&
@@ -70,19 +84,6 @@ export default function Home(props) {
             </Modal>
           )
         }
-
-        <Modal>
-          <ModalOpenButton>
-            <Button>App Info</Button>
-          </ModalOpenButton>
-          <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
-            <ModalDismissButton>
-              <button>Cerrar</button>
-            </ModalDismissButton>
-            <h3>App Info</h3>
-            <div>Some great contents of the modal</div>
-          </ModalContents>
-        </Modal>
       </div>
     </div>
   )
