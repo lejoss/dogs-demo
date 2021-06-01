@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router'
-import { usePark } from '/utils/hooks'
+import { usePark, useAuth } from '/utils/hooks'
 import { Button, Title } from '/components'
 import styles from './Park.module.css'
+import { updateDogsFromUser } from '/utils/api'
+import { route } from 'next/dist/next-server/server/router';
 
 const Card = ({ children }) => {
 	return <div className={styles.card}>{children}</div>
@@ -24,7 +26,18 @@ const CardTitle = ({ children }) => {
 }
 
 export default function Park(props) {
+	const { user } = useAuth()
 	const { dogs, error } = usePark()
+	const router = useRouter()
+
+	async function handleUpdate() {
+		try {
+			await updateDogsFromUser(user, false)
+			router.push('/')
+		} catch (error) {
+			console.log(`Park: ${error}`)
+		}
+	}
 
 	return (
 		<div className={styles.container}>
@@ -68,7 +81,10 @@ export default function Park(props) {
 				</ul>
 
 			</div>
-			<a href="/">Regresar</a>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+				{dogs && <Button onClick={handleUpdate}>Salir del parque</Button>}
+				<a href="/">Regresar</a>
+			</div>
 		</div>
 	)
 }

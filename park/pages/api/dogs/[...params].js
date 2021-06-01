@@ -22,18 +22,18 @@ export default async function (req, res) {
 		}
 	}
 
-	// update user's dogs
-	if (req.method === 'PATCH' && req.query) {
+	// update dogs owned by user
+	if (req.method === 'PATCH') {
 		// params -> dogs/update/user/userId
-		const { params: [, , , id] } = req.query
+		const { params: [, , id] } = req.query
+		const { active } = req.body
+
 		try {
 			const dogs = await prisma.dog.updateMany({
 				where: {
 					userid: parseInt(id)
 				},
-				data: {
-					active: true,
-				},
+				data: { active },
 			})
 
 			await prisma.$disconnect()

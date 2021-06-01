@@ -24,8 +24,8 @@ function subscribeUserToPushNotifications(subscription) {
 	return client(`subscribe`, { data: subscription })
 }
 
-function updateDogsFromUser(user) {
-	return client(`dogs/update/user/${user}`, { method: 'PATCH' })
+function updateDogsFromUser(user, active) {
+	return client(`dogs/update/user/${user}`, { method: 'PATCH', data: { active } })
 }
 
 export {
