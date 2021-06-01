@@ -32,6 +32,13 @@
   text-align: center;
 }
 
+.visit {
+  text-align: center;
+  padding: 1em;
+  border: 1px solid lightgrey;
+  margin-bottom: 1em;
+}
+
 /* .flex {
   display: flex;
   flex-direction: column;

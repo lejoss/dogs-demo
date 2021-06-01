@@ -11,9 +11,11 @@ export default function Home(props) {
   const { userDogs, error, user } = useHome()
   const router = useRouter()
 
-  async function handleRegisterVisit() {
+  const visiting = userDogs && userDogs.every(({ active }) => active)
+  console.log(visiting)
+  async function handleRegisterVisit(active) {
     try {
-      await updateDogsFromUser(user, true)
+      await updateDogsFromUser(user, active)
       await notificateUsersOfNewDogsInPark()
       router.push('/park')
     } catch (error) {
@@ -32,6 +34,15 @@ export default function Home(props) {
         </div>
       )}
 
+
+      {visiting && (
+        <div className={styles.visit}>
+          <p>Actualmente estas visitando el parque, recuerda terminar tu visita aqui.</p>
+          <Button onClick={() => handleRegisterVisit(false)}>Terminar</Button>
+        </div>
+      )}
+
+
       <div className={styles.btn__group}>
         {!userDogs && error && (
           <>
@@ -42,7 +53,7 @@ export default function Home(props) {
         {userDogs && <a href="/dog">Registrar mascota</a>}
         <a className={styles.b} href="/park">Ver Parque</a>
 
-        {userDogs &&
+        {userDogs && !visiting &&
           (
             <Modal>
               <ModalOpenButton>
@@ -54,7 +65,7 @@ export default function Home(props) {
                 </ModalDismissButton>
                 <h3>Confirmar Visita</h3>
                 <div>Some great contents of the modal</div>
-                <button onClick={handleRegisterVisit}>entrar</button>
+                <button onClick={() => handleRegisterVisit(true)}>entrar</button>
               </ModalContents>
             </Modal>
           )
