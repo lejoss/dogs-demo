@@ -76,6 +76,7 @@ function useApp() {
 	const queryClient = new QueryClient()
 	useWorker()
 	const router = useRouter()
+	
 	React.useEffect(() => {
 		if (Notification.permission !== "granted") {
 			router.push('/warn')

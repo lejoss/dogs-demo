@@ -12,7 +12,7 @@ export default function Home(props) {
   const router = useRouter()
 
   const visiting = dogs && dogs.every(({ active }) => active)
-  
+
   async function handleRegisterVisit() {
     try {
       await updateDogsFromUser(user, true)
@@ -78,8 +78,6 @@ export default function Home(props) {
 
         {dogs && <a href="/dog">Registrar mascota</a>}
 
-        <a className={styles.b} href="/park">Ver Parque</a>
-
         {dogs && !visiting &&
           (
             <Modal>
@@ -100,6 +98,7 @@ export default function Home(props) {
             </Modal>
           )
         }
+        <a className={styles.b} href="/park">Ver Parque</a>
       </div>
     </div>
   )

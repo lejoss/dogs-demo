@@ -100,7 +100,7 @@ export default function Park(props) {
 						</ModalContents>
 					</Modal>
 				)}
-				<a href="/">volver a Inicio</a>
+				<a href="/">volver al Inicio</a>
 			</div>
 		</div>
 	)
