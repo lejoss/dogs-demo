@@ -23,13 +23,9 @@ const CardTitle = ({ children }) => {
 	)
 }
 
-
-
 export default function Park(props) {
 	const { dogs, error } = usePark()
-	const router = useRouter()
 
-	console.log(dogs)
 	return (
 		<div className={styles.container}>
 			<Title>Parque Laureles</Title>
@@ -72,7 +68,7 @@ export default function Park(props) {
 				</ul>
 
 			</div>
-			<Button onClick={() => router.push('/')}>Regresar</Button>
+			<a href="/">Regresar</a>
 		</div>
 	)
 }

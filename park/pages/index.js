@@ -13,9 +13,9 @@ export default function Home(props) {
 
   async function handleRegisterVisit() {
     try {
-      // await updateDogsFromUser(user)
+      await updateDogsFromUser(user)
       await notificateUsersOfNewDogsInPark()
-      // router.push('/park')
+      //router.push('/park')
     } catch (error) {
       console.error(error)
     }
@@ -36,11 +36,11 @@ export default function Home(props) {
         {!userDogs && error && (
           <>
             <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-            <Button onClick={() => router.push('/dog')}>Registra tu mascota</Button>
+            <a href="/dog">Registra tu mascota</a>
           </>
         )}
-        {userDogs && <Button onClick={() => router.push('/dog')}>Registrar mascota</Button>}
-        <Button onClick={() => router.push('/park')}>Ver Parque</Button>
+        {userDogs && <a href="/dog">Registrar mascota</a>}
+        <a className={styles.b} href="/park">Ver Parque</a>
 
         {userDogs &&
           (

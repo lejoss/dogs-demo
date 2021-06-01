@@ -14,14 +14,13 @@ const options = {
 
 export default async (req, res) => {
 	const prisma = new PrismaClient()
+
 	if (req.method === 'POST') {
 		let subscriptions = await prisma.user.findMany()
 		await prisma.$disconnect()
 
 		if (subscriptions && subscriptions.length) {
-			subscriptions = subscriptions.map(sub => {
-				return JSON.parse(sub.subscription)
-			})
+			subscriptions = subscriptions.map(sub => JSON.parse(sub.subscription))
 
 			try {
 				let promiseChain = Promise.resolve()
@@ -35,7 +34,7 @@ export default async (req, res) => {
 
 				return promiseChain.then(
 					() => {
-						res.setHeader('Content-Type', 'application/json');
+						//res.setHeader('Content-Type', 'application/json');
 						res.status(201).json({ message: 'success' })
 					}
 				)

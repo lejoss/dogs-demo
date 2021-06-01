@@ -90,7 +90,7 @@ export default function DogForm(props) {
 			</form>
 
 			<div style={{ padding: '.5em', border: '1px solid lightgray', marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				<Button onClick={() => router.push('/')}>REGRESAR</Button>
+				<a href="/">REGRESAR</a>
 			</div>
 		</div>	
 	)
