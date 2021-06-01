@@ -16,10 +16,8 @@ function fetchUserByEndpoint(endpoint) {
 	return client(`users/${endpoint}`)
 }
 
-// TODO: improve semantics
-// dogs/user/id
 function fetchDogsFromUser(user) {
-	return client(`users/${user}/dogs`)
+	return client(`dogs/user/${user}`)
 }
 
 function subscribeUserToPushNotifications(subscription) {
@@ -27,7 +25,7 @@ function subscribeUserToPushNotifications(subscription) {
 }
 
 function updateDogsFromUser(user) {
-	return client(`dogs/${user}/update`, { method: 'PATCH' })
+	return client(`dogs/update/user/${user}`, { method: 'PATCH' })
 }
 
 export {
