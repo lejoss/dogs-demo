@@ -15,7 +15,7 @@ export default function Home(props) {
     try {
       await updateDogsFromUser(user)
       await notificateUsersOfNewDogsInPark()
-      //router.push('/park')
+      router.push('/park')
     } catch (error) {
       console.error(error)
     }
