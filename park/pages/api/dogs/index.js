@@ -4,19 +4,19 @@ import { PrismaClient } from '@prisma/client'
 export default async function (req, res) {
 	const prisma = new PrismaClient()
 	if (req.method === 'GET') {
-
-		console.log('lolo get')
 		try {
 			let dogs = await prisma.dog.findMany({
 				where: {
 					active: true
 				}
 			})
-	
 			await prisma.$disconnect()
-	
-			res.status(200).json(dogs)
-	
+
+			if (dogs && dogs.length) {
+				res.status(200).json(dogs)
+			}
+
+			res.status(404).json({ message: 'Dogs not found.' })
 		} catch (error) {
 			res.status(500).json({ error: 'Error trying to fetch dogs from prisma' })
 		}

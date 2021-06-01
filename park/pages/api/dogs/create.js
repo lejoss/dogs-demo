@@ -27,7 +27,7 @@ export default async (req, res) => {
 			})
 			await prisma.$disconnect()
 
-			return res.status(200).json({ message: 'dog created' })
+			return res.status(201).json({ message: 'dog created' })
 		} catch (error) {
 			return res.status(500).json({ error: 'Error creating a Dog in prisma' })
 		}

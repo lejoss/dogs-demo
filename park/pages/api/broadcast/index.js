@@ -13,35 +13,39 @@ const options = {
 }
 
 export default async (req, res) => {
+	const prisma = new PrismaClient()
 	if (req.method === 'POST') {
-		const prisma = new PrismaClient()
-		let subscribedUsers = await prisma.user.findMany()
+		let subscriptions = await prisma.user.findMany()
+		await prisma.$disconnect()
 
-		if (subscribedUsers.length) {
-			subscribedUsers = subscribedUsers.map(user => {
-				const subscription = user.subscription.replace(/'/g, '')
-				return {
-					...user,
-					subscription: JSON.parse(subscription)
-				}
+		if (subscriptions && subscriptions.length) {
+			subscriptions = subscriptions.map(sub => {
+				return JSON.parse(sub.subscription)
 			})
 
 			try {
-				const notificationsPromises = subscribedUsers.map(({ subscription }) => {
-					return webpush.sendNotification(subscription, payload, options)
-				})
+				let promiseChain = Promise.resolve()
 
-				Promise.all(notificationsPromises)
-				res.status(200).json({ message: 'success' })
+				for (let i = 0; i < subscriptions.length; i++) {
+					const subscription = subscriptions[i]
+					promiseChain = promiseChain.then(() => {
+						return webpush.sendNotification(subscription, payload, options)
+					})
+				}
+
+				return promiseChain.then(
+					() => {
+						res.setHeader('Content-Type', 'application/json');
+						res.status(201).json({ message: 'success' })
+					}
+				)
 
 			} catch (error) {
-				// TODO: console.log(':::: error ::::', error);
 				res.status(500).json({ message: 'Error trying to broadcast notifications' })
 			}
+		} else {
+			res.status(404).json({ message: 'there are no user subscriptions' })
 		}
-
-		res.status(404).json({ message: 'there are no user subscriptions' })
 	}
-
 	res.status(404).json('message: resource not found')
 }

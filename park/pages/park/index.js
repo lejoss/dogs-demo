@@ -23,9 +23,13 @@ const CardTitle = ({ children }) => {
 	)
 }
 
+
+
 export default function Park(props) {
 	const { dogs, error } = usePark()
 	const router = useRouter()
+
+	console.log(dogs)
 	return (
 		<div className={styles.container}>
 			<Title>Parque Laureles</Title>
@@ -63,7 +67,7 @@ export default function Park(props) {
 							: null
 					}
 					<div style={{ textAlign: 'center', display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '0 2em' }}>
-						{dogs && !dogs.length && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
+						{!dogs && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
 					</div>
 				</ul>
 

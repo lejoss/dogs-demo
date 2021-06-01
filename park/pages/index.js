@@ -13,9 +13,9 @@ export default function Home(props) {
 
   async function handleRegisterVisit() {
     try {
-      await updateDogsFromUser(user)
-      // await notificateUsersOfNewDogsInPark()
-      router.push('/park')
+      // await updateDogsFromUser(user)
+      await notificateUsersOfNewDogsInPark()
+      // router.push('/park')
     } catch (error) {
       console.error(error)
     }

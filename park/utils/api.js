@@ -16,6 +16,8 @@ function fetchUserByEndpoint(endpoint) {
 	return client(`users/${endpoint}`)
 }
 
+// TODO: improve semantics
+// dogs/user/id
 function fetchDogsFromUser(user) {
 	return client(`users/${user}/dogs`)
 }
