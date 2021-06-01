@@ -3,7 +3,8 @@ import { usePark, useAuth } from '/utils/hooks'
 import { Button, Title } from '/components'
 import styles from './Park.module.css'
 import { updateDogsFromUser } from '/utils/api'
-import { route } from 'next/dist/next-server/server/router';
+import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
+import "@reach/dialog/styles.css";
 
 const Card = ({ children }) => {
 	return <div className={styles.card}>{children}</div>
@@ -82,8 +83,25 @@ export default function Park(props) {
 
 			</div>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				{dogs && <Button onClick={handleUpdate}>Salir</Button>}
-				<a href="/">Regresar</a>
+				{dogs && (
+					<Modal>
+						<ModalOpenButton>
+							<Button>Salir</Button>
+						</ModalOpenButton>
+						<ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+							<h3>Confirmar Salida</h3>
+							<p>Deseas salir del parque y terminar tu visita?.</p>
+							<br />
+							<div style={{ display: 'flex', gap: '1em' }}>
+								<ModalDismissButton>
+									<Button>Cerrar</Button>
+								</ModalDismissButton>
+								<Button onClick={handleUpdate}>Salir</Button>
+							</div>
+						</ModalContents>
+					</Modal>
+				)}
+				<a href="/">volver a Inicio</a>
 			</div>
 		</div>
 	)

@@ -36,7 +36,7 @@ export default function Home(props) {
 
       {visiting && (
         <div className={styles.visit}>
-          <p>Actualmente estas visitando el parque, recuerda terminar tu visita aqui.</p>
+          <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
           <Button onClick={() => handleRegisterVisit(false)}>salir</Button>
         </div>
       )}
@@ -54,12 +54,15 @@ export default function Home(props) {
           <ModalOpenButton>
             <Button>App Info</Button>
           </ModalOpenButton>
-          <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
-            <ModalDismissButton>
-              <button>Cerrar</button>
-            </ModalDismissButton>
+          <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
             <h3>App Info</h3>
-            <div>Some great contents of the modal</div>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            </p>
+            <br />
+            <ModalDismissButton>
+              <Button>Cerrar</Button>
+            </ModalDismissButton>
           </ModalContents>
         </Modal>
 
@@ -73,13 +76,16 @@ export default function Home(props) {
               <ModalOpenButton>
                 <Button>Registrar Visita</Button>
               </ModalOpenButton>
-              <ModalContents style={{ width: '70vw' }} aria-label="Modal label (for screen readers)">
-                <ModalDismissButton>
-                  <button>Cerrar</button>
-                </ModalDismissButton>
+              <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
                 <h3>Confirmar Visita</h3>
-                <div>Some great contents of the modal</div>
-                <button onClick={() => handleRegisterVisit(true)}>entrar</button>
+                <p>Confirma tu visita para notificar a otros usuarios del parque.</p>
+                <br />
+                <div style={{ display: 'flex', gap: '1em' }}>
+                  <ModalDismissButton>
+                    <Button>Cerrar</Button>
+                  </ModalDismissButton>
+                  <Button onClick={() => handleRegisterVisit(true)}>entrar</Button>
+                </div>
               </ModalContents>
             </Modal>
           )
