@@ -1,9 +1,5 @@
 import { client } from '/utils/client'
 
-function notificateUsersOfNewDogsInPark() {
-	return client('broadcast', { method: 'POST' })
-}
-
 function createDog(dog) {
 	return client('dogs/create', { data: dog })
 }
@@ -18,6 +14,10 @@ function fetchUserByEndpoint(endpoint) {
 
 function fetchDogsFromUser(user) {
 	return client(`dogs/user/${user}`)
+}
+
+function notificateUsersOfNewDogsInPark() {
+	return client('broadcast', { method: 'POST' })
 }
 
 function subscribeUserToPushNotifications(subscription) {

@@ -4,6 +4,7 @@ export default async function (req, res) {
 	const prisma = new PrismaClient()
 
 	if (req.method === 'GET' && req.query) {
+		// params -> dogs/user/userId
 		const { params: [, , id] } = req.query
 		try {
 			const dogs = await prisma.dog.findMany()
@@ -22,7 +23,8 @@ export default async function (req, res) {
 	}
 
 	// update user's dogs
-	if (req.method === 'PATCH') {
+	if (req.method === 'PATCH' && req.query) {
+		// params -> dogs/update/user/userId
 		const { params: [, , , id] } = req.query
 		try {
 			const dogs = await prisma.dog.updateMany({
