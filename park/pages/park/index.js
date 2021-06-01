@@ -27,8 +27,7 @@ const CardTitle = ({ children }) => {
 }
 
 export default function Park(props) {
-	const { user } = useAuth()
-	const { dogs, error } = usePark()
+	const { user, dogs, isError, status } = usePark()
 	const router = useRouter()
 
 	async function handleUpdate() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery, useMutation, QueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
@@ -72,6 +73,7 @@ function useAuth() {
 }
 
 function useApp() {
+	const queryClient = new QueryClient()
 	useWorker()
 	const router = useRouter()
 	React.useEffect(() => {
@@ -79,6 +81,9 @@ function useApp() {
 			router.push('/warn')
 		}
 	}, [])
+
+	return { queryClient }
+
 }
 
 function useWarn() {
@@ -92,39 +97,31 @@ function useWarn() {
 }
 
 function useHome() {
-	const [userDogs, setUserDogs] = React.useState(null)
-	const [error, setError] = React.useState(null)
 	const { user } = useAuth()
+	const { status, data, isError } = useQuery('user-dogs', () => {
+		return fetchDogsFromUser(user)
+	})
 
-	React.useEffect(async () => {
-		if (!user || user === '') return
-		try {
-			const { dogs } = await fetchDogsFromUser(user)
-			setUserDogs(dogs)
-
-		} catch (error) {
-			setError(error)
-		}
-
-	}, [user])
-
-	return { user, userDogs, error }
+	return {
+		user,
+		dogs: data && data.dogs,
+		status,
+		isError,
+	}
 }
 
 function usePark() {
-	const [dogs, setDogs] = React.useState(null)
-	const [error, setError] = React.useState()
+	const { user } = useAuth()
+	const { status, data, isError } = useQuery('online-dogs', () => {
+		return fetchDogsOnline()
+	})
 
-	React.useEffect(async () => {
-		try {
-			const dogs = await fetchDogsOnline()
-			setDogs(dogs)
-		} catch (error) {
-			setError(error)
-		}
-	}, [])
-
-	return { dogs, error }
+	return {
+		dogs: data && data,
+		isError,
+		status,
+		user
+	}
 }
 
 export {
