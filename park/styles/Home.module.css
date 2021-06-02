@@ -6,16 +6,18 @@
 
 .pets {
   padding: 1em;
-  border: 1px solid lightgrey;
+  border: 3px solid #81C67A;
   margin-bottom: 1em;
+  border-radius: 10px;
 }
 
 .btn__group {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  border: 1px solid lightgrey;
+  border: 3px solid #81C67A;
   padding: 1em;
+  border-radius: 10px;
 }
 
 .ul {
@@ -35,8 +37,9 @@
 .visit {
   text-align: center;
   padding: 1em;
-  border: 1px solid lightgrey;
+  border: 3px solid #81C67A;
   margin-bottom: 1em;
+  border-radius: 10px;
 }
 
 /* .flex {

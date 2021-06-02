@@ -1,5 +1,7 @@
 import React from 'react'
+import { useMutation } from 'react-query';
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useHome } from '/utils/hooks'
 import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
@@ -9,28 +11,22 @@ import "@reach/dialog/styles.css";
 
 export default function Home(props) {
   const { dogs, isError, user, status } = useHome()
+  const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates))
+  const { mutate: pushNotification } = useMutation(() => notificateUsersOfNewDogsInPark())
   const router = useRouter()
+
+  function registerVisit() {
+    update(true)
+    pushNotification()
+    router.push('/park')
+  }
+
+  function unregisterVisit() {
+    update(false)
+  }
 
   const visiting = dogs && dogs.every(({ active }) => active)
 
-  async function handleRegisterVisit() {
-    try {
-      await updateDogsFromUser(user, true)
-      await notificateUsersOfNewDogsInPark()
-      router.push('/park')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function handleUnRegisterVisit() {
-    try {
-      await updateDogsFromUser(user, false)
-      router.push('/')
-    } catch (error) {
-      console.error(error)
-    }
-  }
   return (
     <div className={styles.container}>
       <Title>APP</Title>
@@ -47,16 +43,16 @@ export default function Home(props) {
       {visiting && (
         <div className={styles.visit}>
           <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
-          <Button onClick={handleUnRegisterVisit}>salir</Button>
+          <Button onClick={unregisterVisit}>salir</Button>
         </div>
       )}
 
 
       <div className={styles.btn__group}>
-        {!dogs && isError && (
+        {!dogs && (
           <>
             <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-            <a href="/dog">Registra tu mascota</a>
+            <Link href="/dog">Registra tu mascota</Link>
           </>
         )}
 
@@ -76,7 +72,7 @@ export default function Home(props) {
           </ModalContents>
         </Modal>
 
-        {dogs && <a href="/dog">Registrar mascota</a>}
+        {dogs && <Link href="/dog">Registrar mascota</Link>}
 
         {dogs && !visiting &&
           (
@@ -92,13 +88,13 @@ export default function Home(props) {
                   <ModalDismissButton>
                     <Button>Cerrar</Button>
                   </ModalDismissButton>
-                  <Button onClick={handleRegisterVisit}>entrar</Button>
+                  <Button onClick={registerVisit}>entrar</Button>
                 </div>
               </ModalContents>
             </Modal>
           )
         }
-        <a className={styles.b} href="/park">Ver Parque</a>
+        <Link className={styles.b} href="/park">Ver Parque</Link>
       </div>
     </div>
   )

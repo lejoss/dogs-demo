@@ -1,8 +1,12 @@
 .btn {
 	display: inline-block;
-	padding: .5em;
+	padding: 1em;
 	font-size: 1.2rem;
 	width: 100%;
 	text-transform: uppercase;
 	border: none;
+	font-family: inherit;
+	background: #81C67A;
+  color: white;
+  font-weight: 600;
 }

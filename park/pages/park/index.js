@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { usePark, useAuth } from '/utils/hooks'
 import { Button, Title } from '/components'
 import styles from './Park.module.css'
@@ -100,7 +101,7 @@ export default function Park(props) {
 						</ModalContents>
 					</Modal>
 				)}
-				<a href="/">volver al Inicio</a>
+				<Link href="/">volver al Inicio</Link>
 			</div>
 		</div>
 	)
