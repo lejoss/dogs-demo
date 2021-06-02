@@ -10,10 +10,10 @@ import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
 
 export default function Home(props) {
-  const { dogs, isError, user, status } = useHome()
+  const { dogs, user } = useHome()
+  const router = useRouter()
   const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates))
   const { mutate: pushNotification } = useMutation(() => notificateUsersOfNewDogsInPark())
-  const router = useRouter()
 
   function registerVisit() {
     update(true)

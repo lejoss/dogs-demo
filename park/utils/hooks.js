@@ -76,7 +76,7 @@ function useApp() {
 	const queryClient = new QueryClient()
 	useWorker()
 	const router = useRouter()
-	
+
 	React.useEffect(() => {
 		if (Notification.permission !== "granted") {
 			router.push('/warn')
@@ -88,12 +88,19 @@ function useApp() {
 }
 
 function useWarn() {
+	const [permission, setPermission] = React.useState(null)
 	const router = useRouter()
+
 	React.useEffect(() => {
-		if (Notification.permission === "granted") {
-			router.push('/')
+		if (permission === 'granted') {
+			return router.push('/')
+		} else {
+			Notification.requestPermission().then((permission) => {
+				console.log('permission', permission)
+				setPermission(permission)
+			})
 		}
-	}, [])
+	}, [permission])
 
 }
 

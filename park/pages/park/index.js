@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useMutation } from 'react-query';
 import Link from 'next/link'
 import { usePark, useAuth } from '/utils/hooks'
 import { Button, Title } from '/components'
@@ -28,12 +29,13 @@ const CardTitle = ({ children }) => {
 }
 
 export default function Park(props) {
-	const { user, dogs, isError, status } = usePark()
+	const { user, dogs } = usePark()
+	const { mutateAsync: update } = useMutation(() => updateDogsFromUser(user, false))
 	const router = useRouter()
 
 	async function handleUpdate() {
 		try {
-			await updateDogsFromUser(user, false)
+			await update()
 			router.push('/')
 		} catch (error) {
 			console.log(`Park: ${error}`)
