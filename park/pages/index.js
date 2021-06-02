@@ -23,6 +23,9 @@ export default function Home(props) {
 
   function unregisterVisit() {
     update(false)
+    // TODO: replace this line
+    // instead use mutation options for refreshing queries
+    router.push('/')
   }
 
   const visiting = dogs && dogs.every(({ active }) => active)
@@ -43,7 +46,22 @@ export default function Home(props) {
       {visiting && (
         <div className={styles.visit}>
           <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
-          <Button onClick={unregisterVisit}>salir</Button>
+          <Modal>
+            <ModalOpenButton>
+              <Button>Salir</Button>
+            </ModalOpenButton>
+            <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+              <h3>Confirmar Salida</h3>
+              <p>Deseas salir del parque y terminar tu visita?.</p>
+              <br />
+              <div style={{ display: 'flex', gap: '1em' }}>
+                <ModalDismissButton>
+                  <Button>Cerrar</Button>
+                </ModalDismissButton>
+                <Button onClick={unregisterVisit}>Salir</Button>
+              </div>
+            </ModalContents>
+          </Modal>
         </div>
       )}
 
@@ -94,7 +112,9 @@ export default function Home(props) {
             </Modal>
           )
         }
-        <Link className={styles.b} href="/park">Ver Parque</Link>
+
+
+        <Link className={styles.btn} href="/park">Ver Parque</Link>
       </div>
     </div>
   )
