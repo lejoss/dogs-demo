@@ -96,9 +96,9 @@ export default function Home(props) {
               <ModalOpenButton>
                 <Button>Registrar Visita</Button>
               </ModalOpenButton>
-              <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+              <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
                 <h3>Confirmar Visita</h3>
-                <p>Confirma tu visita para notificar a otros usuarios del parque.</p>
+                <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
                 <br />
                 <div style={{ display: 'flex', gap: '1em' }}>
                   <ModalDismissButton>

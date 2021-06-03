@@ -17,11 +17,10 @@ function ModalOpenButton({ children: child }) {
 
 function ModalDismissButton({ children: child }) {
 	const [_, setIsOpen] = React.useContext(ModalContext)
-	console.log(child)
 	return React.cloneElement(child, {
 		onClick: () => {
 			setIsOpen(false)
-			child.props.onClick()
+			child && child.props && child.props.onClick && child.props.onClick()
 		}
 	})
 }

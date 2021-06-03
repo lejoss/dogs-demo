@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery, useMutation, QueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient, QueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
@@ -106,9 +106,11 @@ function useWarn() {
 function useHome() {
 	const { user } = useAuth()
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const { data: dogs } = useQuery('dogs', () => fetchDogs(user))
-	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates))
-	const { mutateAsync: updateAsync } = useMutation(updates => updateDogsFromUser(user, updates))
+	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates), {
+		onSettled: () => queryClient.invalidateQueries('dogs')
+	})
 	const { mutate: notificateUsers } = useMutation(() => notificateUsersOfNewDogsInPark())
 	const goToPark = () => router.push('/park')
 	const goToHome = () => router.push('/')
@@ -116,7 +118,6 @@ function useHome() {
 	return {
 		dogs: dogs && dogs,
 		update,
-		updateAsync,
 		notificateUsers,
 		goToPark,
 		goToHome,
@@ -128,8 +129,11 @@ function useHome() {
 function usePark() {
 	const { user } = useAuth()
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const { data: dogs } = useQuery('dogs', () => fetchDogs())
-	const { mutateAsync: update } = useMutation(updates => updateDogsFromUser(user, updates))
+	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates), {
+		onSettled: () => queryClient.invalidateQueries('dogs')
+	})
 	const goToHome = () => router.push('/')
 
 	return {

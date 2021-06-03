@@ -28,13 +28,9 @@ const CardTitle = ({ children }) => {
 export default function Park(props) {
 	const { dogs, goToHome, update } = usePark()
 
-	async function handleUpdate(active) {
-		try {
-			await update(active)
-			goToHome()
-		} catch (error) {
-			console.log(`Park: ${error}`)
-		}
+	function handleUpdate(active) {
+		update(active)
+		goToHome()
 	}
 
 	const activeDogs = dogs && dogs.filter(dog => dog.active);
