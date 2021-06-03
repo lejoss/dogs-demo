@@ -34,7 +34,7 @@ export default function Home(props) {
     <div className={styles.container}>
       {dogs && (
         <div className={styles.pets}>
-          <Title style={{ textAlign: 'left' }}>Tus Mascotas</Title>
+          <Title style={{ textAlign: 'left' }}>Mis Mascotas</Title>
           <ul className={styles.ul}>
             {dogs && dogs.length && dogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
           </ul>
@@ -111,7 +111,7 @@ export default function Home(props) {
           )
         }
 
-
+         {dogs && <span>{`${dogs.length} Perro en el parque`}</span>}
         <Link className={styles.btn} href="/park">Ver Parque</Link>
       </div>
     </div>

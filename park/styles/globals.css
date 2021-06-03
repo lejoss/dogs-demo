@@ -20,13 +20,7 @@ input, select {
   padding: 0.5em;
   font-size: 1.2rem;
   margin-bottom: 0.5em;
-  border: none;
-  background: #81C67A;
-  color: white;
-  border-radius: 5px;
-}
-label {
-  color: white;
+  border: none;  
 }
 a {
   display: inline-block;

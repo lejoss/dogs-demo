@@ -88,9 +88,9 @@ export default function Park(props) {
 				{dogs && (
 					<Modal>
 						<ModalOpenButton>
-							<Button>Salir</Button>
+							<Button style={{ background: '#d81b60' }}>Salir</Button>
 						</ModalOpenButton>
-						<ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+						<ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
 							<h3>Confirmar Salida</h3>
 							<p>Deseas salir del parque y terminar tu visita?.</p>
 							<br />
@@ -98,7 +98,7 @@ export default function Park(props) {
 								<ModalDismissButton>
 									<Button>Cerrar</Button>
 								</ModalDismissButton>
-								<Button onClick={handleUpdate}>Salir</Button>
+								<Button style={{ background: '#d81b60' }} onClick={handleUpdate}>Salir</Button>
 							</div>
 						</ModalContents>
 					</Modal>

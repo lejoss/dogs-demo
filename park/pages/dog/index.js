@@ -39,7 +39,7 @@ export default function DogForm(props) {
 	const router = useRouter()
 
 	React.useEffect(() => {
-		if (!data || !isSuccess) return 
+		if (!data || !isSuccess) return
 		router.push('/')
 	}, [data, isSuccess])
 
@@ -62,8 +62,8 @@ export default function DogForm(props) {
 	return (
 		<div style={{ padding: '2em', height: '100vh', overflow: 'hidden' }}>
 			<Title>Registrar Mascota</Title>
-			<form style={{ border: '3px solid #81C67A', padding: '.5em', marginBottom: '2em', borderRadius: 10 }} onSubmit={handleSubmit} {...props}>
-				<div style={{ padding: '1em 1em 1em' }}>
+			<form style={{ marginTop: '2em' }} onSubmit={handleSubmit} {...props}>
+				<div>
 					<DogInput
 						type="text"
 						name="name"
@@ -91,12 +91,11 @@ export default function DogForm(props) {
 					/>
 				</div>
 				<br />
-				<Button type="submit">Registrar Mascota</Button>
+				<br />
+				<Button style={{ background: '#d81b60' }} type="submit">Registrar Mascota</Button>
 			</form>
-
-			<div style={{ borderRadius: 10, padding: '.5em', border: '3px solid #81C67A', marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				<Link href="/">REGRESAR</Link>
-			</div>
+			<br />
+			<Link href="/">VOLVER AL INICIO</Link>
 		</div>
 	)
 
