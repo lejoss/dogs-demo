@@ -32,7 +32,7 @@ export default function Home(props) {
     <div className={styles.container}>
       <div className={styles.hero}>
         <div style={{ padding: '5em 0 5em 2.2em' }}>
-          <div className={styles.title}>Mis Mascotas</div>
+          {userDogs && <div className={styles.title}>Mis Mascotas</div>}
         </div>
       </div>
       {userDogs && (
@@ -75,7 +75,7 @@ export default function Home(props) {
         <br />
         <br />
         <Link className={styles.btn} href="/park">Ver Parque</Link>
-        <div style={{ marginTop: '.6em'}}></div>
+        <div style={{ marginTop: '.6em' }}></div>
 
         {dogs && !isUserVisiting &&
           (
