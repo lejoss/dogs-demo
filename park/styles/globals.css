@@ -4,6 +4,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background: #eee;
 }
 
 a {
@@ -13,11 +14,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-.container {
-  width: 100%;
-  padding: 0 2em;
 }
 
 input, select {
@@ -34,13 +30,13 @@ label {
 }
 a {
   display: inline-block;
-	padding: 1em;
-	font-size: 1.2rem;
+	padding: .5em;
+	font-size: 1.5rem;
 	width: 100%;
   text-transform: uppercase;
   border: none;
   text-align: center;
-  background: #81C67A;
+  background:#0d47a1;
   color: white;
-  font-weight: 600;
+
 }

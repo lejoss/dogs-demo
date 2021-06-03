@@ -1,23 +1,39 @@
 .container {
   width: 100%;
-  padding: 0 2em;
+  padding: 2em;
   /* background: lightblue; */
 }
 
 .pets {
+  background: white;
+  color: black;
+  padding: 1em 2em;
+  margin: 1em 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.visit {
+  background: white;
+  color: black;
+  text-align: center;
   padding: 1em;
-  border: 3px solid #81C67A;
-  margin-bottom: 1em;
-  border-radius: 10px;
+  margin: 1em 0;
+  font-size: 1.4rem;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.visit p {
+  opacity: 0.8;
 }
 
 .btn__group {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  border: 3px solid #81C67A;
   padding: 1em;
-  border-radius: 10px;
+  background: white;
+  color: black;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .ul {
@@ -28,18 +44,17 @@
 
 .li {
   list-style: none;
+  font-size: 1.7rem; 
 }
 
 .title {
   text-align: center;
 }
 
-.visit {
-  text-align: center;
-  padding: 1em;
-  border: 3px solid #81C67A;
-  margin-bottom: 1em;
-  border-radius: 10px;
+
+
+.img {
+  box-shadow: 0px 0px 40px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* .flex {

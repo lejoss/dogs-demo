@@ -1,12 +1,11 @@
 .btn {
 	display: inline-block;
-	padding: 1em;
-	font-size: 1.2rem;
+	padding: .5em;
+	font-size: 1.5rem;
 	width: 100%;
 	text-transform: uppercase;
 	border: none;
 	font-family: inherit;
-	background: #81C67A;
+	background:#0d47a1;
   color: white;
-  font-weight: 600;
 }

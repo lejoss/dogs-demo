@@ -32,10 +32,9 @@ export default function Home(props) {
 
   return (
     <div className={styles.container}>
-      <Title>APP</Title>
       {dogs && (
         <div className={styles.pets}>
-          <h3>Tus Mascotas</h3>
+          <Title style={{ textAlign: 'left' }}>Tus Mascotas</Title>
           <ul className={styles.ul}>
             {dogs && dogs.length && dogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
           </ul>
@@ -48,17 +47,16 @@ export default function Home(props) {
           <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
           <Modal>
             <ModalOpenButton>
-              <Button>Salir</Button>
+              <Button style={{ background: '#d81b60' }}>Salir</Button>
             </ModalOpenButton>
-            <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+            <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
               <h3>Confirmar Salida</h3>
               <p>Deseas salir del parque y terminar tu visita?.</p>
-              <br />
               <div style={{ display: 'flex', gap: '1em' }}>
                 <ModalDismissButton>
                   <Button>Cerrar</Button>
                 </ModalDismissButton>
-                <Button onClick={unregisterVisit}>Salir</Button>
+                <Button style={{ background: '#d81b60' }} onClick={unregisterVisit}>Salir</Button>
               </div>
             </ModalContents>
           </Modal>
@@ -76,7 +74,7 @@ export default function Home(props) {
 
         <Modal>
           <ModalOpenButton>
-            <Button>App Info</Button>
+            <Button>Informacion</Button>
           </ModalOpenButton>
           <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
             <h3>App Info</h3>
