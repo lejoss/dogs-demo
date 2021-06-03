@@ -1,10 +1,7 @@
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query';
 import Link from 'next/link'
-import { usePark, useAuth } from '/utils/hooks'
+import { usePark } from '/utils/hooks'
 import { Button, Title } from '/components'
 import styles from './Park.module.css'
-import { updateDogsFromUser } from '/utils/api'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import "@reach/dialog/styles.css";
 
@@ -29,18 +26,18 @@ const CardTitle = ({ children }) => {
 }
 
 export default function Park(props) {
-	const { user, dogs } = usePark()
-	const { mutateAsync: update } = useMutation(() => updateDogsFromUser(user, false))
-	const router = useRouter()
+	const { dogs, goToHome, update } = usePark()
 
-	async function handleUpdate() {
+	async function handleUpdate(active) {
 		try {
-			await update()
-			router.push('/')
+			await update(active)
+			goToHome()
 		} catch (error) {
 			console.log(`Park: ${error}`)
 		}
 	}
+
+	const activeDogs = dogs && dogs.filter(dog => dog.active);
 
 	return (
 		<div className={styles.container}>
@@ -48,8 +45,8 @@ export default function Park(props) {
 			<div className={styles.park}>
 				<ul className={styles.ul}>
 					{
-						dogs
-							? dogs.map((dog, i) => {
+						activeDogs
+							? activeDogs.map((dog, i) => {
 								return (
 									<li className={styles.li} key={i}>
 										<Card>
@@ -79,13 +76,13 @@ export default function Park(props) {
 							: null
 					}
 					<div style={{ textAlign: 'center', display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '0 2em' }}>
-						{!dogs && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
+						{activeDogs && !activeDogs.length && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
 					</div>
 				</ul>
 
 			</div>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				{dogs && (
+				{activeDogs && !!activeDogs.length && (
 					<Modal>
 						<ModalOpenButton>
 							<Button style={{ background: '#d81b60' }}>Salir</Button>
@@ -98,7 +95,7 @@ export default function Park(props) {
 								<ModalDismissButton>
 									<Button>Cerrar</Button>
 								</ModalDismissButton>
-								<Button style={{ background: '#d81b60' }} onClick={handleUpdate}>Salir</Button>
+								<Button style={{ background: '#d81b60' }} onClick={() => handleUpdate(false)}>Salir</Button>
 							</div>
 						</ModalContents>
 					</Modal>

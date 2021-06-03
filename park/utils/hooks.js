@@ -1,12 +1,13 @@
 import React from 'react'
-import { useQuery, QueryClient } from 'react-query'
+import { useQuery, useMutation, QueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
 	subscribeUserToPushNotifications,
-	fetchDogsOnline,
+	fetchDogs,
 	fetchUserByEndpoint,
-	fetchDogsFromUser,
+	updateDogsFromUser,
+	notificateUsersOfNewDogsInPark,
 } from '/utils/api'
 import { SubscriptionContext } from '/context/subscription'
 
@@ -101,29 +102,40 @@ function useWarn() {
 
 }
 
+// TODO: add status and error handling
 function useHome() {
 	const { user } = useAuth()
-	const { status, data, isError } = useQuery('user-dogs', () => user && fetchDogsFromUser(user))
+	const router = useRouter()
+	const { data: dogs } = useQuery('dogs', () => fetchDogs(user))
+	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates))
+	const { mutateAsync: updateAsync } = useMutation(updates => updateDogsFromUser(user, updates))
+	const { mutate: notificateUsers } = useMutation(() => notificateUsersOfNewDogsInPark())
+	const goToPark = () => router.push('/park')
+	const goToHome = () => router.push('/')
 
 	return {
+		dogs: dogs && dogs,
+		update,
+		updateAsync,
+		notificateUsers,
+		goToPark,
+		goToHome,
 		user,
-		dogs: data && data.dogs,
-		status,
-		isError,
 	}
 }
 
+// TODO: add status and error handling
 function usePark() {
 	const { user } = useAuth()
-	const { status, data, isError } = useQuery('online-dogs', () => {
-		return fetchDogsOnline()
-	})
+	const router = useRouter()
+	const { data: dogs } = useQuery('dogs', () => fetchDogs())
+	const { mutateAsync: update } = useMutation(updates => updateDogsFromUser(user, updates))
+	const goToHome = () => router.push('/')
 
 	return {
-		dogs: data && data,
-		isError,
-		status,
-		user
+		dogs,
+		update,
+		goToHome
 	}
 }
 

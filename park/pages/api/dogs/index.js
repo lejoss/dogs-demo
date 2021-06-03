@@ -5,11 +5,7 @@ export default async function (req, res) {
 	const prisma = new PrismaClient()
 	if (req.method === 'GET') {
 		try {
-			const dogs = await prisma.dog.findMany({
-				where: {
-					active: true
-				}
-			})
+			const dogs = await prisma.dog.findMany()
 			await prisma.$disconnect()
 
 			if (dogs && dogs.length) {

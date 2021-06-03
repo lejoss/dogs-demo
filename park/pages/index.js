@@ -1,56 +1,46 @@
 import React from 'react'
-import { useMutation } from 'react-query';
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useHome } from '/utils/hooks'
 import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import { updateDogsFromUser, notificateUsersOfNewDogsInPark } from '/utils/api'
 import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
 
 export default function Home(props) {
-  const { dogs, user } = useHome()
+  const { user, dogs, goToPark, update, notificateUsers } = useHome()
   const router = useRouter()
-  const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates))
-  const { mutate: pushNotification } = useMutation(() => notificateUsersOfNewDogsInPark())
 
   function registerVisit() {
     update(true)
-    pushNotification()
-    router.push('/park')
+    notificateUsers()
+    goToPark()
   }
 
   function unregisterVisit() {
     update(false)
     // TODO: replace this line
     // instead use mutation options for refreshing queries
-    router.push('/')
+    // goToHome()
   }
 
-  // i need all dogs then 
-  // i need Dogs by user
-  // active dogs no matter which user
-
-
-
-  const visiting = dogs && dogs.every(({ active }) => active)
-
   const activeDogs = dogs && dogs.filter(dog => dog.active);
+  const userDogs = dogs && dogs.filter(({ userid }) => userid === user)
+  const isUserVisiting = userDogs && userDogs.every(({ active }) => active)
 
   return (
     <div className={styles.container}>
-      {dogs && (
+      {userDogs && (
         <div className={styles.pets}>
           <Title style={{ textAlign: 'left' }}>Mis Mascotas</Title>
           <ul className={styles.ul}>
-            {dogs && dogs.length && dogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
+            {userDogs && userDogs.length && dogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
           </ul>
         </div>
       )}
 
 
-      {visiting && (
+      {isUserVisiting && (
         <div className={styles.visit}>
           <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
           <Modal>
@@ -64,7 +54,9 @@ export default function Home(props) {
                 <ModalDismissButton>
                   <Button>Cerrar</Button>
                 </ModalDismissButton>
-                <Button style={{ background: '#d81b60' }} onClick={unregisterVisit}>Salir</Button>
+                <ModalDismissButton>
+                  <Button style={{ background: '#d81b60' }} onClick={unregisterVisit}>Salir</Button>
+                </ModalDismissButton>
               </div>
             </ModalContents>
           </Modal>
@@ -73,7 +65,7 @@ export default function Home(props) {
 
 
       <div className={styles.btn__group}>
-        {!dogs && (
+        {!userDogs && (
           <>
             <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
             <Link href="/dog">Registra tu mascota</Link>
@@ -96,9 +88,9 @@ export default function Home(props) {
           </ModalContents>
         </Modal>
 
-        {dogs && <Link href="/dog">Registrar mascota</Link>}
+        <Link href="/dog">Registrar mascota</Link>
 
-        {dogs && !visiting &&
+        {dogs && !isUserVisiting &&
           (
             <Modal>
               <ModalOpenButton>
@@ -119,7 +111,10 @@ export default function Home(props) {
           )
         }
 
-        {dogs && <span>{`${dogs.length} Perro en el parque`}</span>}
+        {activeDogs && activeDogs.length
+          ? <span>{`${activeDogs.length} Perro en el parque`}</span>
+          : <span>{'No hay perros en el parque'}</span>
+        }
         <Link className={styles.btn} href="/park">Ver Parque</Link>
       </div>
     </div>
