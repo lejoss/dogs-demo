@@ -67,48 +67,50 @@ export default function Home(props) {
         </div>
       )}
 
-      <div className={styles.btn__group}>
-        {!userDogs && (
-          <>
-            <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-          </>
-        )}
 
-        <Link href="/dog">Registrar mascota</Link>
+      {!userDogs && (
+        <div className={styles.btn__group}>
+          <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
+          <Link href="/dog">Registrar mascota</Link>
+        </div>
+      )}
 
-      </div>
 
-      <div className={styles.park}>
-        {activeDogs && activeDogs.length
-          ? <span>{`${activeDogs.length} Perro en el parque`}</span>
-          : <span>{'No hay perros en el parque'}</span>
-        }
-        <br />
-        <br />
-        <Link className={styles.btn} href="/park">Ver Parque</Link>
-        <div style={{ marginTop: '.6em' }}></div>
+      {userDogs && (
+        <div className={styles.park}>
+          {activeDogs && activeDogs.length
+            ? <span>{`${activeDogs.length} Perro en el parque`}</span>
+            : <span>{'No hay perros en el parque'}</span>
+          }
+          <br />
+          <br />
+          <Link className={styles.btn} href="/park">Ver Parque</Link>
+          <div style={{ marginTop: '.6em' }}></div>
 
-        {dogs && !isUserVisiting &&
-          (
-            <Modal>
-              <ModalOpenButton>
-                <Button>Registrar Visita</Button>
-              </ModalOpenButton>
-              <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                <h3>Confirmar Visita</h3>
-                <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                <br />
-                <div style={{ display: 'flex', gap: '1em' }}>
-                  <ModalDismissButton>
-                    <Button>Cerrar</Button>
-                  </ModalDismissButton>
-                  <Button onClick={registerVisit}>entrar</Button>
-                </div>
-              </ModalContents>
-            </Modal>
-          )
-        }
-      </div>
+          {dogs && !isUserVisiting &&
+            (
+              <Modal>
+                <ModalOpenButton>
+                  <Button>Registrar Visita</Button>
+                </ModalOpenButton>
+                <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
+                  <h3>Confirmar Visita</h3>
+                  <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
+                  <br />
+                  <div style={{ display: 'flex', gap: '1em' }}>
+                    <ModalDismissButton>
+                      <Button>Cerrar</Button>
+                    </ModalDismissButton>
+                    <Button onClick={registerVisit}>entrar</Button>
+                  </div>
+                </ModalContents>
+              </Modal>
+            )
+          }
+        </div>
+      )
+
+      }
 
       <br />
       <br />
