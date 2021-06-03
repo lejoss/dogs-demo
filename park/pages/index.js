@@ -68,7 +68,6 @@ export default function Home(props) {
         {!userDogs && (
           <>
             <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-            <Link href="/dog">Registra tu mascota</Link>
           </>
         )}
 
