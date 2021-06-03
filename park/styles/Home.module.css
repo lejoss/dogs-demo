@@ -4,12 +4,21 @@
   /* background: lightblue; */
 }
 
+.hero {
+  background: #303f9f;
+  margin: -2em -2em -4em -2em;
+  color: white;
+}
+
+
 .pets {
   background: white;
   color: black;
   padding: 1em 2em;
   margin: 1em 0;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .visit {
@@ -20,6 +29,7 @@
   margin: 1em 0;
   font-size: 1.4rem;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
 }
 
 .visit p {
@@ -33,7 +43,24 @@
   padding: 1em;
   background: white;
   color: black;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin-bottom: 1em;
+}
+
+.park {
+  padding: 1em;
+  font-size: 1.5rem;
+  background:white;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.info {
+  background:white;
+  padding: 1em;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .ul {
@@ -48,7 +75,8 @@
 }
 
 .title {
-  text-align: center;
+  text-align: left;
+  font-size: 2rem;
 }
 
 
