@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery, useMutation, QueryClient } from 'react-query'
+import { useQuery, QueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
@@ -33,25 +33,23 @@ function useWorker() {
 
 function usePush() {
 	const [user, setUser] = React.useState(null)
-	const [error, setError] = React.useState('')
+	const [error, setError] = React.useState(null)
 
 	React.useEffect(async () => {
 		try {
 			const register = await navigator.serviceWorker.ready
 			const userSubscription = await register.pushManager.getSubscription()
-
 			if (!userSubscription) {
 				const subscription = await register.pushManager.subscribe({
 					userVisibleOnly: true,
 					applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
 				})
-
 				const { user } = await subscribeUserToPushNotifications(subscription)
 				setUser(user)
 
 			} else {
 				const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
-				const { user } = await fetchUserByEndpoint(hashedEndpoint);
+				const { user } = await fetchUserByEndpoint(hashedEndpoint)
 				setUser(user)
 			}
 
@@ -96,7 +94,6 @@ function useWarn() {
 			return router.push('/')
 		} else {
 			Notification.requestPermission().then((permission) => {
-				console.log('permission', permission)
 				setPermission(permission)
 			})
 		}
@@ -106,9 +103,7 @@ function useWarn() {
 
 function useHome() {
 	const { user } = useAuth()
-	const { status, data, isError } = useQuery('user-dogs', () => {
-		return fetchDogsFromUser(user)
-	})
+	const { status, data, isError } = useQuery('user-dogs', () => user && fetchDogsFromUser(user))
 
 	return {
 		user,

@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client'
 
 export default async (req, res) => {
 	const prisma = new PrismaClient()
-
 	if (req.method === 'POST') {
 		const pushSubscription = req.body;
 
@@ -12,13 +11,16 @@ export default async (req, res) => {
 			res.status(400).json({ message: 'subscription must have an endpoint' })
 		}
 
+
+
 		try {
 			const user = await prisma.user.findFirst({
 				where: { endpoint: JSON.stringify(pushSubscription.endpoint) },
 			})
 
 			if (user) {
-				res.status(200).json({ user: id })
+				return res.status(200).json({ user: id })
+
 			} else {
 				const userSubscription = await prisma.user.create({
 					data: {
@@ -29,11 +31,13 @@ export default async (req, res) => {
 				await prisma.$disconnect()
 
 				const { id } = userSubscription
-				res.status(200).json({ user: id })
+				return res.status(200).json({ user: id })
 			}
 
 		} catch (error) {
 			res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
 		}
 	}
+	return res.status(404).json({ message: 'resource not found' })
+
 }

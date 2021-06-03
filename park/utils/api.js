@@ -21,6 +21,7 @@ function notificateUsersOfNewDogsInPark() {
 }
 
 function subscribeUserToPushNotifications(subscription) {
+	console.log('api', subscription)
 	return client(`subscribe`, { data: subscription })
 }
 

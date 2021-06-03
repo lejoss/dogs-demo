@@ -28,7 +28,15 @@ export default function Home(props) {
     router.push('/')
   }
 
+  // i need all dogs then 
+  // i need Dogs by user
+  // active dogs no matter which user
+
+
+
   const visiting = dogs && dogs.every(({ active }) => active)
+
+  const activeDogs = dogs && dogs.filter(dog => dog.active);
 
   return (
     <div className={styles.container}>
@@ -111,7 +119,7 @@ export default function Home(props) {
           )
         }
 
-         {dogs && <span>{`${dogs.length} Perro en el parque`}</span>}
+        {dogs && <span>{`${dogs.length} Perro en el parque`}</span>}
         <Link className={styles.btn} href="/park">Ver Parque</Link>
       </div>
     </div>
