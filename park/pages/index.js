@@ -67,6 +67,17 @@ export default function Home(props) {
         </div>
       )}
 
+      <div className={styles.btn__group}>
+        {!userDogs && (
+          <>
+            <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
+          </>
+        )}
+
+        <Link href="/dog">Registrar mascota</Link>
+
+      </div>
+
       <div className={styles.park}>
         {activeDogs && activeDogs.length
           ? <span>{`${activeDogs.length} Perro en el parque`}</span>
@@ -103,16 +114,6 @@ export default function Home(props) {
       <br />
 
 
-      <div className={styles.btn__group}>
-        {!userDogs && (
-          <>
-            <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-          </>
-        )}
-
-        <Link href="/dog">Registrar mascota</Link>
-
-      </div>
 
       <div className={styles.info}>
         <Modal>
