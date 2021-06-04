@@ -30,12 +30,8 @@ export default function Home(props) {
 
   return (
     <div className={styles.container}>
-
       <div className={styles.hero}>
-
-        <h1>Bienvenido!</h1>
         {userDogs && <div className={styles.title}>Mis perros</div>}
-
       </div>
 
       {userDogs && (
@@ -81,6 +77,7 @@ export default function Home(props) {
         </div>
       )}
 
+      {isUserVisiting && <div style={{ flex: 1 }} />}
 
       {!userDogs && (
         <div className={styles.btn__group}>
@@ -90,64 +87,59 @@ export default function Home(props) {
       )}
 
 
-      {activeDogs && activeDogs.length
+      {/* {activeDogs && activeDogs.length
         ? <span>{`${activeDogs.length} Perro en el parque`}</span>
         : null
-      }
+      } */}
 
-      <div className={styles.row}>
-        <Link href="/park">
-          <div className={styles.item}>
-            <span>VER EL PARQUE</span>
-            <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
-          </div>
-        </Link>
+      {!isUserVisiting && (
+        <div className={styles.row}>
+          <Link href="/park">
+            <div className={styles.item}>
+              <span>VER EL PARQUE</span>
+              <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+            </div>
+          </Link>
 
 
-        {userDogs && !isUserVisiting && (
-          <Modal>
-            <ModalOpenButton>
-              <div className={styles.item}>
-                <button style={{ border: 0, background: 'transparent' }}>
-                  <span>ENTRAR AL PARQUE</span>
-                  <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
-                </button>
-              </div>
-            </ModalOpenButton>
-            <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-              <h3>Confirma tu visita</h3>
-              <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-              <br />
-              <ModalDismissButton>
-                <div style={{ display: 'flex', gap: 10 }}>
-                  <Button>CERRAR</Button>
-                  <Button onClick={registerVisit}>ENTRAR</Button>
+          {userDogs && !isUserVisiting && (
+            <Modal>
+              <ModalOpenButton>
+                <div className={styles.item}>
+                  <button style={{ border: 0, background: 'transparent' }}>
+                    <span>ENTRAR AL PARQUE</span>
+                    <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+                  </button>
                 </div>
-              </ModalDismissButton>
-            </ModalContents>
-          </Modal>
-        )}
+              </ModalOpenButton>
+              <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
+                <h3>Confirma tu visita</h3>
+                <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
+                <br />
+                <ModalDismissButton>
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <Button>CERRAR</Button>
+                    <Button onClick={registerVisit}>ENTRAR</Button>
+                  </div>
+                </ModalDismissButton>
+              </ModalContents>
+            </Modal>
+          )}
+        </div>
+      )}
 
 
-
-
-
-
+      <div className={styles.info}>
+        <Button style={{ color: '#0d47a1', background: 'transparent' }}>VOLVER AL PARQUE</Button>
       </div>
-
-
-
-
-
-      <br />
-      <br />
-
+      
+      br
 
 
       <div className={styles.info}>
         <Modal>
           <ModalOpenButton>
-            <Button>Informacion</Button>
+            <Button style={{ color: '#0d47a1', background: 'transparent' }}>Informacion</Button>
           </ModalOpenButton>
           <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
             <h3>App Info</h3>
