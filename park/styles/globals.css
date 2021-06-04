@@ -8,11 +8,6 @@ body {
   background: #87c197;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -25,6 +20,7 @@ input, select {
   background: white;
 }
 a {
+  text-decoration: none;
   display: inline-block;
 	padding: .5em;
 	font-size: 1.5rem;
@@ -32,7 +28,5 @@ a {
   text-transform: uppercase;
   border: none;
   text-align: center;
-  background: transparent;
-  color: black;
-
+  color: #005005;
 }

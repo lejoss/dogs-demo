@@ -90,12 +90,17 @@ export default function Home(props) {
       </div> 
        
       {!userDogs && (
-        <div className={styles.btn__group}>
-          <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
-          <Link href="/dog">Registrar mascota</Link>
-        </div>
+        <div>
+          <br/>
+          <div className={styles.btn__group}>
+            <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
+            <Link style={{ color: '#005005' }} href="/dog">Registrar mascota</Link>
+          </div>
+        </div> 
+
       )}
 
+     {userDogs && (
       <div>
         {activeDogs && activeDogs.length
           ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
@@ -137,6 +142,7 @@ export default function Home(props) {
           </div>
         )}
       </div>
+     )}
   
       {isUserVisiting && (
         <div className={styles.info}>
@@ -145,6 +151,8 @@ export default function Home(props) {
       )}
 
       <br />
+
+      <div style={{ flex: 1 }} /> 
 
 
       <div className={styles.info}>

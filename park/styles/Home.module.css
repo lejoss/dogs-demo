@@ -63,6 +63,12 @@
   border-radius: 10px;
 }
 
+.btn__group a {
+  background: #b9f6ca;
+  
+  border-radius: 10px;
+}
+
 .park {
   padding: 1em;
   font-size: 1.5rem;
