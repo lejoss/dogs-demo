@@ -82,7 +82,6 @@ export default function Home(props) {
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
 
-      <br />
 
       <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
         <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
@@ -150,7 +149,7 @@ export default function Home(props) {
         </div>
       )}
 
-      <br />
+
 
       <div style={{ flex: 1 }} /> 
 
