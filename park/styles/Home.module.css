@@ -5,7 +5,7 @@
 }
 
 .hero {
-  background: #303f9f;
+  background: #01579b;
   margin: -2em -2em -4em -2em;
   color: white;
 }
@@ -51,10 +51,15 @@
 .park {
   padding: 1em;
   font-size: 1.5rem;
-  background:white;
+  background:;
   color: black;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
 }
 
 .info {
@@ -73,6 +78,7 @@
 .li {
   list-style: none;
   font-size: 1.7rem; 
+  text-transform: uppercase;
 }
 
 .title {
@@ -80,6 +86,18 @@
   font-size: 2rem;
 }
 
+.item {
+  display: flex;
+  flex: 1;
+  background: white;
+  text-align: center;
+  padding: 2em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
 
 
 .img {

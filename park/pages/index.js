@@ -31,14 +31,26 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <div style={{ padding: '5em 0 5em 2.2em' }}>
+        <div style={{ padding: '5em 0 4em 2.2em' }}>
+          <h1>Bienvenido!</h1>
           {userDogs && <div className={styles.title}>Mis Mascotas</div>}
         </div>
       </div>
       {userDogs && (
         <div className={styles.pets}>
           <ul className={styles.ul}>
-            {userDogs && userDogs.length && dogs.map((dog, i) => <li className={styles.li} key={i}>{dog.name}</li>)}
+            {userDogs && userDogs.length && dogs.map((dog, i) => {
+              return (
+                <li className={styles.li} key={i}>
+                  <span> {dog.name}</span>
+                  {' - '}
+                  <span style={{ textTransform: 'capitalize' }}>{`${dog.age} años`}</span>
+                  <div>
+                    <small>5 visitas al parque</small>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}
@@ -76,41 +88,52 @@ export default function Home(props) {
       )}
 
 
-      {userDogs && (
-        <div className={styles.park}>
-          {activeDogs && activeDogs.length
-            ? <span>{`${activeDogs.length} Perro en el parque`}</span>
-            : <span>{'No hay perros en el parque'}</span>
-          }
-          <br />
-          <br />
-          <Link className={styles.btn} href="/park">Ver Parque</Link>
-          <div style={{ marginTop: '.6em' }}></div>
-
-          {dogs && !isUserVisiting &&
-            (
-              <Modal>
-                <ModalOpenButton>
-                  <Button>Registrar Visita</Button>
-                </ModalOpenButton>
-                <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                  <h3>Confirmar Visita</h3>
-                  <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                  <br />
-                  <div style={{ display: 'flex', gap: '1em' }}>
-                    <ModalDismissButton>
-                      <Button>Cerrar</Button>
-                    </ModalDismissButton>
-                    <Button onClick={registerVisit}>entrar</Button>
-                  </div>
-                </ModalContents>
-              </Modal>
-            )
-          }
-        </div>
-      )
-
+      {activeDogs && activeDogs.length
+        ? <span>{`${activeDogs.length} Perro en el parque`}</span>
+        : null
       }
+
+      <div className={styles.row}>
+        <Link href="/park">
+          <div className={styles.item}>
+            <span>VER PERROS EN EL PARQUE</span>
+            <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+          </div>
+        </Link>
+
+
+        {userDogs && !isUserVisiting && (
+          <Modal>
+            <ModalOpenButton>
+              <div className={styles.item}>
+                <button style={{ border: 0, background: 'transparent' }}>
+                  <span>ENTRAR AL PARQUE</span>
+                  <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+                </button>
+              </div>
+            </ModalOpenButton>
+            <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
+              <h2>Confirma tu visita</h2>
+              
+              <p></p>
+              <br />
+              <ModalDismissButton>
+                <Button>Cerrar</Button>
+              </ModalDismissButton>
+            </ModalContents>
+          </Modal>
+        )}
+
+
+
+
+
+
+      </div>
+
+
+
+
 
       <br />
       <br />
