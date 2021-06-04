@@ -31,7 +31,10 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        {userDogs && <div className={styles.title}>Mis perros</div>}
+        {userDogs && <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
+          <img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
+          <span>Mis perros</span>
+        </div>}
       </div>
 
       {userDogs && (
@@ -81,7 +84,10 @@ export default function Home(props) {
 
       <br />
 
-      <div style={{ textAlign: 'center' }} className={styles.title}>Parque Laureles</div> 
+      <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
+        <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
+        <span>Parque Laureles</span>  
+      </div> 
        
       {!userDogs && (
         <div className={styles.btn__group}>
