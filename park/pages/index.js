@@ -86,7 +86,7 @@ export default function Home(props) {
 
       <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
         <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
-        <span>Parque Laureles</span>  
+        <span>LAURELES</span>  
       </div> 
        
       {!userDogs && (
