@@ -79,6 +79,10 @@ export default function Home(props) {
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
 
+      <br />
+
+      <div style={{ textAlign: 'center' }} className={styles.title}>Parque Laureles</div> 
+       
       {!userDogs && (
         <div className={styles.btn__group}>
           <h3 style={{ textAlign: 'center' }}>No tienes perros registrados</h3>
@@ -86,60 +90,61 @@ export default function Home(props) {
         </div>
       )}
 
+      <div>
+        {activeDogs && activeDogs.length
+          ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
+          : <p className={styles.active__dog}>No hay perros en el parque</p>
+        }
+        {!isUserVisiting && (
+          <div className={styles.row}>
+            <Link href="/park">
+              <div className={styles.item}>
+                <span>PERROS DEL PARQUE</span>
+                <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+              </div>
+            </Link>
 
-      {/* {activeDogs && activeDogs.length
-        ? <span>{`${activeDogs.length} Perro en el parque`}</span>
-        : null
-      } */}
 
-      {!isUserVisiting && (
-        <div className={styles.row}>
-          <Link href="/park">
-            <div className={styles.item}>
-              <span>VER EL PARQUE</span>
-              <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
-            </div>
-          </Link>
-
-
-          {userDogs && !isUserVisiting && (
-            <Modal>
-              <ModalOpenButton>
-                <div className={styles.item}>
-                  <button style={{ border: 0, background: 'transparent' }}>
-                    <span>ENTRAR AL PARQUE</span>
-                    <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
-                  </button>
-                </div>
-              </ModalOpenButton>
-              <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                <h3>Confirma tu visita</h3>
-                <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                <br />
-                <ModalDismissButton>
-                  <div style={{ display: 'flex', gap: 10 }}>
-                    <Button>CERRAR</Button>
-                    <Button onClick={registerVisit}>ENTRAR</Button>
+            {userDogs && !isUserVisiting && (
+              <Modal>
+                <ModalOpenButton>
+                  <div className={styles.item}>
+                    <Button style={{ border: 0, background: 'transparent' }}>
+                      <span>ENTRAR AL PARQUE</span>
+                      <img style={{ height: 50, width: 50 }} src="grass.svg" alt="" />
+                    </Button>
                   </div>
-                </ModalDismissButton>
-              </ModalContents>
-            </Modal>
-          )}
+                </ModalOpenButton>
+                <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
+                  <h3>Confirma tu visita</h3>
+                  <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
+                  <br />
+                  <ModalDismissButton>
+                    <div style={{ display: 'flex', gap: 10 }}>
+                      <Button>CERRAR</Button>
+                      <Button onClick={registerVisit}>ENTRAR</Button>
+                    </div>
+                  </ModalDismissButton>
+                </ModalContents>
+              </Modal>
+            )}
+          </div>
+        )}
+      </div>
+  
+      {isUserVisiting && (
+        <div className={styles.info}>
+          <Button style={{ color: '#005005', background: 'transparent' }}>VOLVER AL PARQUE</Button>
         </div>
       )}
 
-
-      <div className={styles.info}>
-        <Button style={{ color: '#0d47a1', background: 'transparent' }}>VOLVER AL PARQUE</Button>
-      </div>
-      
-      br
+      <br />
 
 
       <div className={styles.info}>
         <Modal>
           <ModalOpenButton>
-            <Button style={{ color: '#0d47a1', background: 'transparent' }}>Informacion</Button>
+            <Button style={{ background: 'transparent', color: '#005005' }}>Informacion</Button>
           </ModalOpenButton>
           <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
             <h3>App Info</h3>
