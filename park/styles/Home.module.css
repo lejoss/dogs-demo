@@ -5,15 +5,17 @@
 }
 
 .hero {
-  background: #01579b;
+  /* background: #4c8c4a; */
   margin: -2em -2em -4em -2em;
-  color: white;
+  color: #0d47a1;
+  padding: 4em 0 4em 2.2em;
+  font-weight: bolder
 }
 
 
 .pets {
-  background: white;
-  color: black;
+  background: #0d47a1;
+  color: white;
   padding: 1em 2em;
   margin: 1em 0;
   border-radius: 10px;
@@ -84,6 +86,11 @@
 .title {
   text-align: left;
   font-size: 2rem;
+  background: white;
+  width: max-content;
+  padding: .2em .5em;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .item {
@@ -96,7 +103,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  color: #0d47a1;
+  font-size: 1.2rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.item button {
+  color: #0d47a1;
+  font-size: 1.2rem;
 }
 
 
