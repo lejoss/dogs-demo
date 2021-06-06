@@ -18,7 +18,8 @@ input, select {
   font-size: 1.2rem;
   margin-bottom: 0.5em;
   border: none;  
-  background: white;
+  background: #F5F5F6;
+  color: #005005;
 }
 a {
   text-decoration: none;
