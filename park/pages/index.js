@@ -39,9 +39,16 @@ export default function Home(props) {
 
       {userDogs && userDogs.length && (
         <div>
+          <br />
           {activeDogs && activeDogs.length
-            ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
-            : <p className={styles.active__dog}>No hay perros en el parque</p>
+            ? (
+                <div style={{ background: 'white', padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
+                  <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
+                  <br />
+                  <Link style={{ color: '#ccff90' }} href="/park">Ir al parque</Link>
+                </div>
+              )
+            : <p className={styles.active__dog}>No hay perros en el parque</p> 
           }
         </div>
       )}
@@ -72,12 +79,14 @@ export default function Home(props) {
         </div>
       )}
 
+      {isUserVisiting && <br />}
+
       {isUserVisiting && (
-        <div className={styles.visit}>
-          <p>Actualmente estas visitando el parque. Recuerda terminar tu visita aqui.</p>
+        <div className={styles.visit}> 
+          <p>Estas visitando el parque. Termina tu visita aqui.</p>
           <Modal>
             <ModalOpenButton>
-              <Button style={{ background: '#d81b60' }}>Salir</Button>
+              <Button style={{ background: 'transparent', color: '#005005' }}>Salir</Button>
             </ModalOpenButton>
             <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
               <h3>Confirmar Salida</h3>
@@ -101,7 +110,7 @@ export default function Home(props) {
           <br />
           <div className={styles.btn__group}>
             <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
-            <Link href="/dog">Registrar</Link>
+            <Link href="/dog">Registrar Aqui</Link>
           </div>
         </div>
       )}
@@ -112,7 +121,7 @@ export default function Home(props) {
         <br />
         {!isUserVisiting && (
           <div style={{ display: 'flex', gap: 10 }}>
-          <div style={{ background: '#b9f6ca', flex: 1 }}>
+          <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
               {userDogs && !isUserVisiting && (
                 <Modal>
                   <ModalOpenButton>
@@ -137,7 +146,7 @@ export default function Home(props) {
                 </Modal>
               )}
             </div>
-            <div style={{ background: '#b9f6ca', flex: 1 }}>
+            <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
               {userDogs && !isUserVisiting && (
                 <Modal>
                   <ModalOpenButton>
@@ -169,11 +178,11 @@ export default function Home(props) {
       </div>
      )}
 
-      {isUserVisiting && (
+      {/* {isUserVisiting && (
         <div className={styles.info}>
           <Button style={{ color: '#005005', background: 'transparent' }}>VOLVER AL PARQUE</Button>
         </div>
-      )}
+      )} */}
 
 {/*  
 
