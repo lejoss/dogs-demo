@@ -101,7 +101,7 @@ export default function Home(props) {
           <br />
           <div className={styles.btn__group}>
             <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
-            <Link href="/dog">Registrar mascota</Link>
+            <Link href="/dog">Registrar</Link>
           </div>
         </div>
       )}
