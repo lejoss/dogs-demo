@@ -25,7 +25,6 @@
   font-weight: bolder
 }
 
-
 .pets {
   background: #f3e5f5;
   color: #8e24aa;
@@ -85,7 +84,6 @@
 .row {
   display: flex;
   gap: 8px;
-  flex: 1;
 }
 
 .info {
@@ -122,7 +120,7 @@
 .item {
   display: flex;
   flex: 1;
-  background: white;
+  background: #b9f6ca;
   text-align: center;
   padding: 2em;
   flex-direction: column;
