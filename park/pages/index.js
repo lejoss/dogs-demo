@@ -31,11 +31,22 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        {userDogs && <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
-          <img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
-          <span>Mis perros</span>
-        </div>}
+        <div style={{ fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
+          <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
+          <span>PARQUE LAURELES</span>
+        </div>
       </div>
+
+      {activeDogs && activeDogs.length
+        ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
+        : <p className={styles.active__dog}>No hay perros en el parque</p>
+      }
+
+      <div style={{ color: '#8e24aa', fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
+        <span>MIS PERROS</span>
+      </div>
+
+      <br />  
 
       {userDogs && (
         <div className={styles.pets}>
@@ -43,9 +54,12 @@ export default function Home(props) {
             {userDogs && userDogs.length && dogs.map((dog, i) => {
               return (
                 <li className={styles.li} key={i}>
-                  <span> {dog.name}</span>
-                  {' - '}
-                  <span style={{ textTransform: 'capitalize' }}>{`${dog.age} años`}</span>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                    <img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
+                    <span> {dog.name}</span>
+                    {' - '}
+                    <span style={{ textTransform: 'capitalize' }}>{`${dog.age} años`}</span>
+                    </div>
                   <div>
                     <small>5 visitas al parque</small>
                   </div>
@@ -83,28 +97,24 @@ export default function Home(props) {
       {isUserVisiting && <div style={{ flex: 1 }} />}
 
 
-      <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: '.3em' }} className={styles.title}>
-        <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
-        <span>LAURELES</span>  
-      </div> 
-       
+
+
       {!userDogs && (
         <div>
-          <br/>
+          <br />
           <div className={styles.btn__group}>
             <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
             <Link href="/dog">Registrar mascota</Link>
           </div>
-        </div> 
+        </div>
 
       )}
 
-     {userDogs && (
+
+
+      {/* {userDogs && (
       <div>
-        {activeDogs && activeDogs.length
-          ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
-          : <p className={styles.active__dog}>No hay perros en el parque</p>
-        }
+      
         {!isUserVisiting && (
           <div className={styles.row}>
             <Link href="/park">
@@ -141,13 +151,15 @@ export default function Home(props) {
           </div>
         )}
       </div>
-     )}
-  
+     )} */}
+
       {isUserVisiting && (
         <div className={styles.info}>
           <Button style={{ color: '#005005', background: 'transparent' }}>VOLVER AL PARQUE</Button>
         </div>
       )}
+
+{/*  
 
 
       <div className={styles.info}>
@@ -166,7 +178,7 @@ export default function Home(props) {
             </ModalDismissButton>
           </ModalContents>
         </Modal>
-      </div>
+      </div> */}
 
     </div>
   )
