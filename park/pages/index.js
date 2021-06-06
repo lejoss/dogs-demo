@@ -36,12 +36,15 @@ export default function Home(props) {
         <span>PARQUE LAURELES</span>
       </div>
 
-      {activeDogs && activeDogs.length
-        ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
-        : <p className={styles.active__dog}>No hay perros en el parque</p>
-      }
 
-      
+      {userDogs && userDogs.length && (
+        <div>
+          {activeDogs && activeDogs.length
+            ? <p className={styles.active__dog}>{`${activeDogs.length} Perro en el parque`}</p>
+            : <p className={styles.active__dog}>No hay perros en el parque</p>
+          }
+        </div>
+      )}
 
       {userDogs && (
         <div className={styles.pets}>
