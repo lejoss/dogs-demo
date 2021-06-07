@@ -7,7 +7,7 @@ export default async function (req, res) {
 		// params -> dogs/user/userId
 		const { params: [, , id] } = req.query
 		try {
-			const dogs = await prisma.dog.findMany()
+			const dogs = await prisma.dogs.findMany()
 			await prisma.$disconnect()
 
 			if (dogs && dogs.length) {
@@ -29,7 +29,7 @@ export default async function (req, res) {
 		const { active } = req.body
 
 		try {
-			const dogs = await prisma.dog.updateMany({
+			const dogs = await prisma.dogs.updateMany({
 				where: {
 					userid: parseInt(id)
 				},

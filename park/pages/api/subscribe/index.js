@@ -14,7 +14,7 @@ export default async (req, res) => {
 
 
 		try {
-			const user = await prisma.user.findFirst({
+			const user = await prisma.users.findFirst({
 				where: { endpoint: JSON.stringify(pushSubscription.endpoint) },
 			})
 
@@ -22,7 +22,7 @@ export default async (req, res) => {
 				return res.status(200).json({ user: id })
 
 			} else {
-				const userSubscription = await prisma.user.create({
+				const userSubscription = await prisma.users.create({
 					data: {
 						subscription: JSON.stringify(pushSubscription) || null,
 						endpoint: hashEndpoint(pushSubscription.endpoint),

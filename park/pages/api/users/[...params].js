@@ -7,7 +7,7 @@ export default async function (req, res) {
 	if (req.method === 'GET' && req.query) {
 		const { params: [endpoint] } = req.query
 		try {
-			const user = await prisma.user.findUnique({ where: { endpoint } })
+			const user = await prisma.users.findUnique({ where: { endpoint } })
 			await prisma.$disconnect()
 
 			if (user) {

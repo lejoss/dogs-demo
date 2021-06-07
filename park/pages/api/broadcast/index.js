@@ -16,7 +16,7 @@ export default async (req, res) => {
 	const prisma = new PrismaClient()
 
 	if (req.method === 'POST') {
-		let subscriptions = await prisma.user.findMany()
+		let subscriptions = await prisma.users.findMany()
 		await prisma.$disconnect()
 
 		if (subscriptions && subscriptions.length) {

@@ -13,7 +13,7 @@ export default async (req, res) => {
 		} = req.body
 
 		try {
-			await prisma.dog.create({
+			await prisma.dogs.create({
 				data: {
 					name,
 					age: parseInt(age),
