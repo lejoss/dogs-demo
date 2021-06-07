@@ -36,22 +36,8 @@ export default function Home(props) {
         <span>PARQUE LAURELES</span>
       </div>
 
-
-      {userDogs && userDogs.length && (
-        <div>
-          <br />
-          {activeDogs && activeDogs.length
-            ? (
-                <div style={{ background: 'white', padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
-                  <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
-                  <br />
-                  <Link style={{ color: '#ccff90' }} href="/park">Ir al parque</Link>
-                </div>
-              )
-            : <p className={styles.active__dog}>No hay perros en el parque</p> 
-          }
-        </div>
-      )}
+      <br />
+      <br />
 
       {userDogs && (
         <div className={styles.pets}>
@@ -77,9 +63,23 @@ export default function Home(props) {
             })}
           </ul>
         </div>
-      )}
+      )}  
 
-      {isUserVisiting && <br />}
+      {userDogs && userDogs.length && (
+        <div>
+          <br />
+          {activeDogs && activeDogs.length
+            ? (
+                <div style={{ padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
+                  <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
+                  <br />
+                  <Link style={{ color: '#005005' }} href="/park">Ir al parque</Link>
+                </div>
+              )
+            : <p className={styles.active__dog}>No hay perros en el parque</p> 
+          }
+        </div>
+      )}
 
       {isUserVisiting && (
         <div className={styles.visit}> 

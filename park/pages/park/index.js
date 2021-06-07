@@ -37,7 +37,6 @@ export default function Park(props) {
 
 	return (
 		<div className={styles.container}>
-			<Title>Parque Laureles</Title>
 			<div className={styles.park}>
 				<ul className={styles.ul}>
 					{
@@ -47,7 +46,7 @@ export default function Park(props) {
 									<li className={styles.li} key={i}>
 										<Card>
 											<CardAvatar>
-												<img src="pawn.png" alt="" />
+												<img src="pawn.svg" alt="" />
 											</CardAvatar>
 											<CardContent>
 												<CardTitle>
@@ -60,7 +59,7 @@ export default function Park(props) {
 													{' '} {'años'}
 												</div>
 												<div>
-													<span>Raza</span>
+													{/* <span>Raza</span> */}
 													{' '}
 													<span>{dog.breed}</span>
 												</div>
@@ -77,27 +76,7 @@ export default function Park(props) {
 				</ul>
 
 			</div>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-				{activeDogs && !!activeDogs.length && (
-					<Modal>
-						<ModalOpenButton>
-							<Button style={{ background: '#d81b60' }}>Salir</Button>
-						</ModalOpenButton>
-						<ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-							<h3>Confirmar Salida</h3>
-							<p>Deseas salir del parque y terminar tu visita?.</p>
-							<br />
-							<div style={{ display: 'flex', gap: '1em' }}>
-								<ModalDismissButton>
-									<Button>Cerrar</Button>
-								</ModalDismissButton>
-								<Button style={{ background: '#d81b60' }} onClick={() => handleUpdate(false)}>Salir</Button>
-							</div>
-						</ModalContents>
-					</Modal>
-				)}
-				<Link href="/">volver al Inicio</Link>
-			</div>
+			<Link style={{ color: '#8e24aa' }} href="/">volver al Inicio</Link>
 		</div>
 	)
 }

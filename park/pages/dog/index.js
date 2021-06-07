@@ -6,6 +6,8 @@ import { Button, DogInput, DogSelect, Title } from '/components'
 import { createDog } from '/utils/api'
 import { useAuth } from '/utils/hooks'
 
+import styles from './Dog.module.css'
+
 const breedOptions = {
 	values: [
 		'criollo',
@@ -32,6 +34,8 @@ const genderOptions = {
 		'hembra'
 	]
 }
+
+
 
 export default function DogForm(props) {
 	const { user: userid } = useAuth()
@@ -60,7 +64,7 @@ export default function DogForm(props) {
 	}
 
 	return (
-		<div style={{ padding: '2em'}}>
+		<div className={styles.container} style={{ maxHeight: '100vh', minHeight: '100vh', padding: '2em', background: '#87c197', overflow: 'hidden' }}>
 			<form style={{ color: '#005005', background: 'white', padding: '2em', borderRadius: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }} onSubmit={handleSubmit} {...props}>
 				<div>
 					<DogInput
@@ -94,7 +98,7 @@ export default function DogForm(props) {
 				<Button style={{ background: 'transparent', color: '#005005' }} type="submit">Registrar</Button>
 			</form>
 			<br />
-			<Link href="/">VOLVER AL INICIO</Link>
+			<Link className={styles.a} href="/">VOLVER AL INICIO</Link>
 		</div>
 	)
 

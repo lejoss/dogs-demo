@@ -1,13 +1,21 @@
 .container {
 	padding: 2em;
 	height: 100vh;
+	background: white;
 }
 
 .park {
-	height:70%;
-	background:#eee;
+	height:77%;
+	background: #f3e5f5;
+	color: #8e24aa;
 	margin-bottom: 2em;
 	overflow: scroll;
+	border-radius: 10px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.link {
+	color: #8e24aa;
 }
 
 .card {
@@ -34,7 +42,7 @@
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
-	border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid #8e24aa;
 	font-weight: 200;
 	text-transform: capitalize;
 }
