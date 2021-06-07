@@ -22,6 +22,7 @@ export default async (req, res) => {
 					gender,
 					active: false,
 					lastseen: new Date(),
+					visits: 0,
 					userid
 				}
 			})
