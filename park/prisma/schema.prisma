@@ -3,29 +3,30 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DB_URL")
+  provider = "mysql"
+  url      = env("MYSQL_DB_URL")
 }
 
-model dog {
-  id       Int       @id @default(autoincrement())
-  name     String
-  age      Int?
-  breed    String?
-  size     String?
-  gender   String?
-  active   Boolean?  @default(false)
-  lastseen DateTime? @db.Date
+model dogs {
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(255)
+  age      Int
+  breed    String   @db.VarChar(125)
+  size     String   @db.VarChar(125)
+  gender   String   @db.VarChar(125)
+  active   Boolean
+  lastseen DateTime @db.Date
+  visits   Int
   userid   Int
 }
 
-model park {
+model parks {
   id   Int    @id
-  name String
+  name String @db.Text
 }
 
-model user {
-  id           Int     @id @default(autoincrement())
-  subscription String
-  endpoint     String? @unique
+model users {
+  id           Int    @id @default(autoincrement())
+  subscription String @db.Text
+  endpoint     String @db.Text
 }

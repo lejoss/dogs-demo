@@ -76,7 +76,7 @@ export default function Home(props) {
                   <Link style={{ color: '#005005' }} href="/park">Ir al parque</Link>
                 </div>
               )
-            : <p className={styles.active__dog}>No hay perros en el parque</p> 
+            : <p style={{ background: '#E1E2E1' }} className={styles.active__dog}>No hay perros en el parque</p> 
           }
         </div>
       )}
