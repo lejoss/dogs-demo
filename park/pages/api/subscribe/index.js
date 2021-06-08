@@ -11,15 +11,13 @@ export default async (req, res) => {
 			res.status(400).json({ message: 'subscription must have an endpoint' })
 		}
 
-
-
 		try {
 			const user = await prisma.users.findFirst({
 				where: { endpoint: JSON.stringify(pushSubscription.endpoint) },
 			})
 
 			if (user) {
-				return res.status(200).json({ user: id })
+				res.status(200).json({ user: id })
 
 			} else {
 				const userSubscription = await prisma.users.create({
@@ -31,7 +29,7 @@ export default async (req, res) => {
 				await prisma.$disconnect()
 
 				const { id } = userSubscription
-				return res.status(200).json({ user: id })
+				res.status(200).json({ user: id })
 			}
 
 		} catch (error) {
