@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useHome } from '/utils/hooks'
 import { Button, Title } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
@@ -9,9 +8,6 @@ import "@reach/dialog/styles.css";
 
 export default function Home(props) {
   const { user, dogs, goToPark, update, notificateUsers } = useHome()
-  const router = useRouter()
-
-  console.log(user, dogs)
 
   function registerVisit() {
     update(true)
