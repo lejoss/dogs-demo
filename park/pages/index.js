@@ -11,6 +11,8 @@ export default function Home(props) {
   const { user, dogs, goToPark, update, notificateUsers } = useHome()
   const router = useRouter()
 
+  console.log(user, dogs)
+
   function registerVisit() {
     update(true)
     notificateUsers()
@@ -46,7 +48,8 @@ export default function Home(props) {
           </div>
           <br /> 
           <ul className={styles.ul}>
-            {userDogs && userDogs.length > 0 && dogs.map((dog, i) => {
+            {userDogs.map((dog, i) => {
+              if (i > 1) return
               return (
                 <li className={styles.li} key={i}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -110,7 +113,7 @@ export default function Home(props) {
           <br />
           <div className={styles.btn__group}>
             <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
-            <Link href="/dog">Registrar Aqui</Link>
+            <Link href="/dog">Registrar</Link>
           </div>
         </div>
       )}

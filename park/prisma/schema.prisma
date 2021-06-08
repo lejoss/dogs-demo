@@ -28,5 +28,5 @@ model parks {
 model users {
   id           Int    @id @default(autoincrement())
   subscription String @db.Text
-  endpoint     String @db.Text
+  endpoint     String @unique @db.VarChar(125)
 }
