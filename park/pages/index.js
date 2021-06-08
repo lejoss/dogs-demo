@@ -39,14 +39,14 @@ export default function Home(props) {
       <br />
       <br />
 
-      {userDogs && (
+      {userDogs && userDogs.length > 0 && (
         <div className={styles.pets}>
           <div style={{ color: '#8e24aa', fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
             <span>MIS PERROS</span> 
           </div>
           <br /> 
           <ul className={styles.ul}>
-            {userDogs && userDogs.length && dogs.map((dog, i) => {
+            {userDogs && userDogs.length > 0 && dogs.map((dog, i) => {
               return (
                 <li className={styles.li} key={i}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -65,7 +65,7 @@ export default function Home(props) {
         </div>
       )}  
 
-      {userDogs && userDogs.length && (
+      {userDogs && userDogs.length > 0 && (
         <div>
           <br />
           {activeDogs && activeDogs.length
@@ -81,7 +81,7 @@ export default function Home(props) {
         </div>
       )}
 
-      {isUserVisiting && (
+      {userDogs && userDogs.length > 0 && isUserVisiting && (
         <div className={styles.visit}> 
           <p>Estas visitando el parque. Termina tu visita aqui.</p>
           <Modal>
@@ -105,7 +105,7 @@ export default function Home(props) {
       )}
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
-      {!userDogs && (
+      {!userDogs || !userDogs.length && (
         <div>
           <br />
           <div className={styles.btn__group}>
