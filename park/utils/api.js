@@ -5,7 +5,7 @@ function createDog(dog) {
 }
 
 function fetchDogs() {
-	return client('api/dogs')
+	return client('/dogs')
 }
 
 function fetchUserByEndpoint(endpoint) {
