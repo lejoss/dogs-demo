@@ -76,7 +76,7 @@ export default function Home(props) {
                 <div style={{ padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
                   <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
                   <br />
-                  <Link style={{ color: '#005005' }} href="/park">Ir al parque</Link>
+                  <Link style={{ color: '#005005' }} href="/park">ver parque</Link>
                 </div>
               )
             : <p style={{ background: '#E1E2E1' }} className={styles.active__dog}>No hay perros en el parque</p> 

@@ -3,8 +3,8 @@ import { PrismaClient } from '@prisma/client'
 
 
 const payload = JSON.stringify({
-	title: "Park Notification",
-	message: "Hola estoy en el parque"
+	title: "Parque Laureles",
+	message: "Hola hay un nuevo perro en el parque"
 })
 
 const options = {
