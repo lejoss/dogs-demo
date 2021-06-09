@@ -27,7 +27,8 @@ export default function Home(props) {
   const isUserVisiting = userDogs && userDogs.every(({ active }) => active)
 
 
-  console.log(userDogs)
+  console.log('user dogs', userDogs)
+  console.log('dogs', userDogs)
 
   return (
     <div className={styles.container}>
@@ -108,7 +109,7 @@ export default function Home(props) {
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
       
-      {!userDogs || !userDogs.length && (
+      {!userDogs  && (
         <div>
           <br />
           <div className={styles.btn__group}>
