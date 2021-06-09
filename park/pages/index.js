@@ -1,7 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 import { useHome } from '/utils/hooks'
-import { Button, RegisterDogCard } from '/components'
+import {
+  Button,
+  Container,
+  CurrentDogsInPark,
+  PageTitle,
+  RegisterDogCard,
+  UserDogsCard
+} from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
@@ -28,58 +35,29 @@ export default function Home(props) {
 
 
   return (
-    <div className={styles.container}>
+    <Container>
+      <PageTitle
+        text="parque laureles"
+        icon="park_black_24dp.svg"
+      />
 
-      <div style={{ color: '#005005', fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
-        <img style={{ maxHeight: 40, maxWidth: 40 }} src="park_black_24dp.svg" />
-        <span>PARQUE LAURELES</span>
-      </div>
-
-      <br />
-      <br />
-
-      {userDogs && userDogs.length > 0 && (
-        <div className={styles.pets}>
-          <div style={{ color: '#8e24aa', fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
-            <span>MIS PERROS</span>
-          </div>
-          <br />
-          <ul className={styles.ul}>
-            {userDogs.map((dog, i) => {
-              if (i > 1) return
-              return (
-                <li className={styles.li} key={i}>
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                    <img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
-                    <span> {dog.name}</span>
-                    {' - '}
-                    <span style={{ textTransform: 'capitalize' }}>{`${dog.age} años`}</span>
-                  </div>
-                  <div>
-                    <small>5 visitas al parque</small>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+      {!userDogs || !userDogs.length && (
+        <RegisterDogCard text="NO TIENES PERROS REGISTRADOS" />
       )}
 
       {userDogs && userDogs.length > 0 && (
-        <div>
-          <br />
-          {activeDogs && activeDogs.length
-            ? (
-              <div style={{ padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
-                <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
-                <br />
-                <Link style={{ color: '#005005' }} href="/park">ver parque</Link>
-              </div>
-            )
-            : <p style={{ background: '#E1E2E1' }} className={styles.active__dog}>No hay perros en el parque</p>
-          }
-        </div>
+        <UserDogsCard          
+          title="mis perros"
+          dogs={userDogs}
+        />
       )}
+
+      {
+        userDogs && 
+        userDogs.length > 0 && 
+        <CurrentDogsInPark count={activeDogs.length || 0} />
+      }
+
 
       {userDogs && userDogs.length > 0 && isUserVisiting && (
         <div className={styles.visit}>
@@ -106,9 +84,7 @@ export default function Home(props) {
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
 
-      {!userDogs || !userDogs.length && (
-        <RegisterDogCard text="NO TIENES PERROS REGISTRADOS" />
-      )}
+
 
 
 
@@ -201,6 +177,6 @@ export default function Home(props) {
         </Modal>
       </div> */}
 
-    </div>
+    </Container>
   )
 }

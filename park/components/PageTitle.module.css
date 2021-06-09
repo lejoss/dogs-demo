@@ -1,0 +1,11 @@
+.title {
+	text-transform: uppercase;
+	color: #005005;
+	font-size: 1.5rem;
+	font-weight: 200;
+}
+
+.img {
+	max-width: 40px;
+	max-height: 40px;
+}
