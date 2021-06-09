@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHome } from '/utils/hooks'
 import {
-  Button,
   CardEnterPark,
   Container,
   CurrentDogsInPark,
@@ -11,13 +10,16 @@ import {
   Row,
   UserDogsCard
 } from '/components'
-import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import styles from '../styles/Home.module.css'
-import "@reach/dialog/styles.css";
 
 
 export default function Home(props) {
-  const { user, dogs, goToPark, update, notificateUsers } = useHome()
+  const {
+    user,
+    dogs,
+    goToPark,
+    update,
+    notificateUsers
+  } = useHome()
 
   function registerVisit() {
     update(true)
