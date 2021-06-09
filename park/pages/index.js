@@ -1,17 +1,20 @@
 import React from 'react'
-import Link from 'next/link'
 import { useHome } from '/utils/hooks'
 import {
   Button,
+  CardEnterPark,
   Container,
   CurrentDogsInPark,
+  ExitParkModalCard,
   PageTitle,
   RegisterDogCard,
+  Row,
   UserDogsCard
 } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
+
 
 export default function Home(props) {
   const { user, dogs, goToPark, update, notificateUsers } = useHome()
@@ -29,10 +32,11 @@ export default function Home(props) {
     // goToHome()
   }
 
-  const activeDogs = dogs && dogs.filter(dog => dog.active);
+  const dogsInPark = dogs && dogs.filter(dog => dog.active);
   const userDogs = dogs && dogs.filter(({ userid }) => userid === user)
-  const isUserVisiting = userDogs && userDogs.every(({ active }) => active)
 
+  const isUserVisiting = userDogs && userDogs.length > 0 && userDogs.every(({ active }) => active)
+  const userHasDogs = userDogs && userDogs.length > 0
 
   return (
     <Container>
@@ -45,116 +49,27 @@ export default function Home(props) {
         <RegisterDogCard text="NO TIENES PERROS REGISTRADOS" />
       )}
 
-      {userDogs && userDogs.length > 0 && (
-        <UserDogsCard          
-          title="mis perros"
-          dogs={userDogs}
-        />
+      {userHasDogs && (
+        <>
+          <UserDogsCard
+            title="mis perros"
+            dogs={userDogs}
+          />
+          <CurrentDogsInPark count={dogsInPark.length || 0} />
+        </>
       )}
 
-      {
-        userDogs && 
-        userDogs.length > 0 && 
-        <CurrentDogsInPark count={activeDogs.length || 0} />
-      }
 
+      {isUserVisiting
+        ? <ExitParkModalCard onExit={unregisterVisit} />
+        : (<Row wrap>
+            <CardEnterPark onEnter={registerVisit} />
+            <CardEnterPark onEnter={registerVisit} />
+            <CardEnterPark onEnter={registerVisit} />
+            <CardEnterPark onEnter={registerVisit} />
+          </Row>
+        )}
 
-      {userDogs && userDogs.length > 0 && isUserVisiting && (
-        <div className={styles.visit}>
-          <p>Estas visitando el parque. Termina tu visita aqui.</p>
-          <Modal>
-            <ModalOpenButton>
-              <Button style={{ background: 'transparent', color: '#005005' }}>Salir</Button>
-            </ModalOpenButton>
-            <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-              <h3>Confirmar Salida</h3>
-              <p>Deseas salir del parque y terminar tu visita?.</p>
-              <div style={{ display: 'flex', gap: '1em' }}>
-                <ModalDismissButton>
-                  <Button>Cerrar</Button>
-                </ModalDismissButton>
-                <ModalDismissButton>
-                  <Button style={{ background: '#d81b60' }} onClick={unregisterVisit}>Salir</Button>
-                </ModalDismissButton>
-              </div>
-            </ModalContents>
-          </Modal>
-        </div>
-      )}
-
-      {isUserVisiting && <div style={{ flex: 1 }} />}
-
-
-
-
-
-      {userDogs && (
-        <div>
-          <br />
-          {!isUserVisiting && (
-            <div style={{ display: 'flex', gap: 10 }}>
-              <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
-                {userDogs && !isUserVisiting && (
-                  <Modal>
-                    <ModalOpenButton>
-                      <Button style={{ border: 0, background: 'transparent' }}>
-                        <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
-                          <span>ENTRAR</span>
-                          <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
-                        </div>
-                      </Button>
-                    </ModalOpenButton>
-                    <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                      <h3>Confirma tu visita</h3>
-                      <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                      <br />
-                      <ModalDismissButton>
-                        <div style={{ display: 'flex', gap: 10 }}>
-                          <Button>CERRAR</Button>
-                          <Button onClick={registerVisit}>ENTRAR</Button>
-                        </div>
-                      </ModalDismissButton>
-                    </ModalContents>
-                  </Modal>
-                )}
-              </div>
-              <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
-                {userDogs && !isUserVisiting && (
-                  <Modal>
-                    <ModalOpenButton>
-                      <Button style={{ border: 0, background: 'transparent' }}>
-                        <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
-                          <span>ENTRAR</span>
-                          <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
-                        </div>
-                      </Button>
-                    </ModalOpenButton>
-                    <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                      <h3>Confirma tu visita</h3>
-                      <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                      <br />
-                      <ModalDismissButton>
-                        <div style={{ display: 'flex', gap: 10 }}>
-                          <Button>CERRAR</Button>
-                          <Button onClick={registerVisit}>ENTRAR</Button>
-                        </div>
-                      </ModalDismissButton>
-                    </ModalContents>
-                  </Modal>
-                )}
-              </div>
-
-
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* {isUserVisiting && (
-        <div className={styles.info}>
-          <Button style={{ color: '#005005', background: 'transparent' }}>VOLVER AL PARQUE</Button>
-        </div>
-      )} */}
 
       {/*  
 
