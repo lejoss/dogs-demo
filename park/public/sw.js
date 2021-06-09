@@ -2,6 +2,8 @@ self.addEventListener('install', event => {
     console.log('Worker installed');
 });
 
+
+
 self.addEventListener('push', event => {
     const data = event.data.json();
     console.log('Notification Received', data);
@@ -17,8 +19,8 @@ self.addEventListener('push', event => {
     event.waitUntil(
         self.registration.showNotification(data.title, {
             body: data.message,
-            badge: '/public/pawn.png',
-            icon: '/public/grass.svg'
+            //badge: '/public/pawn.png',
+            //icon: '/public/grass.svg'
         })
     )
 });
