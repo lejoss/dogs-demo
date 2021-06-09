@@ -109,7 +109,7 @@ export default function Home(props) {
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
       
-      {!userDogs  && (
+      {!userDogs || !userDogs.length && (
         <div>
           <br />
           <div className={styles.btn__group}>
