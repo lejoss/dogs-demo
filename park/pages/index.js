@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useHome } from '/utils/hooks'
-import { Button, Title } from '/components'
+import { Button, RegisterDogCard } from '/components'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import styles from '../styles/Home.module.css'
 import "@reach/dialog/styles.css";
@@ -27,9 +27,6 @@ export default function Home(props) {
   const isUserVisiting = userDogs && userDogs.every(({ active }) => active)
 
 
-  console.log('user dogs', userDogs)
-  console.log('dogs', userDogs)
-
   return (
     <div className={styles.container}>
 
@@ -44,9 +41,9 @@ export default function Home(props) {
       {userDogs && userDogs.length > 0 && (
         <div className={styles.pets}>
           <div style={{ color: '#8e24aa', fontSize: '1.5rem', fontWeight: '200', textAlign: 'center', display: 'flex', alignItems: 'flex-end', gap: 5 }}>
-            <span>MIS PERROS</span> 
+            <span>MIS PERROS</span>
           </div>
-          <br /> 
+          <br />
           <ul className={styles.ul}>
             {userDogs.map((dog, i) => {
               if (i > 1) return
@@ -57,7 +54,7 @@ export default function Home(props) {
                     <span> {dog.name}</span>
                     {' - '}
                     <span style={{ textTransform: 'capitalize' }}>{`${dog.age} años`}</span>
-                    </div>
+                  </div>
                   <div>
                     <small>5 visitas al parque</small>
                   </div>
@@ -66,26 +63,26 @@ export default function Home(props) {
             })}
           </ul>
         </div>
-      )}  
+      )}
 
       {userDogs && userDogs.length > 0 && (
         <div>
           <br />
           {activeDogs && activeDogs.length
             ? (
-                <div style={{ padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
-                  <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
-                  <br />
-                  <Link style={{ color: '#005005' }} href="/park">ver parque</Link>
-                </div>
-              )
-            : <p style={{ background: '#E1E2E1' }} className={styles.active__dog}>No hay perros en el parque</p> 
+              <div style={{ padding: '.5', marginBottom: '1em' }} className={styles.active__dog}>
+                <p style={{ margin: 0 }}>{`${activeDogs.length} Perro en el parque`}</p>
+                <br />
+                <Link style={{ color: '#005005' }} href="/park">ver parque</Link>
+              </div>
+            )
+            : <p style={{ background: '#E1E2E1' }} className={styles.active__dog}>No hay perros en el parque</p>
           }
         </div>
       )}
 
       {userDogs && userDogs.length > 0 && isUserVisiting && (
-        <div className={styles.visit}> 
+        <div className={styles.visit}>
           <p>Estas visitando el parque. Termina tu visita aqui.</p>
           <Modal>
             <ModalOpenButton>
@@ -108,79 +105,74 @@ export default function Home(props) {
       )}
 
       {isUserVisiting && <div style={{ flex: 1 }} />}
-      
+
       {!userDogs || !userDogs.length && (
-        <div>
-          <br />
-          <div className={styles.btn__group}>
-            <h3 style={{ textAlign: 'center', color: '#005005' }}>NO TIENES PERROS REGISTRADOS</h3>
-            <Link href="/dog">Registrar</Link>
-          </div>
-        </div>
+        <RegisterDogCard text="NO TIENES PERROS REGISTRADOS" />
       )}
 
 
-    {userDogs && (
-      <div>
-        <br />
-        {!isUserVisiting && (
-          <div style={{ display: 'flex', gap: 10 }}>
-          <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
-              {userDogs && !isUserVisiting && (
-                <Modal>
-                  <ModalOpenButton>
-                    <Button style={{ border: 0, background: 'transparent' }}>
-                      <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
-                        <span>ENTRAR</span>
-                        <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
-                      </div>
-                    </Button>
-                  </ModalOpenButton>
-                  <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                    <h3>Confirma tu visita</h3>
-                    <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                    <br />
-                    <ModalDismissButton>
-                      <div style={{ display: 'flex', gap: 10 }}>
-                        <Button>CERRAR</Button>
-                        <Button onClick={registerVisit}>ENTRAR</Button>
-                      </div>
-                    </ModalDismissButton>
-                  </ModalContents>
-                </Modal>
-              )}
-            </div>
-            <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
-              {userDogs && !isUserVisiting && (
-                <Modal>
-                  <ModalOpenButton>
-                    <Button style={{ border: 0, background: 'transparent' }}>
-                      <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
-                        <span>ENTRAR</span>
-                        <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
-                      </div>
-                    </Button>
-                  </ModalOpenButton>
-                  <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
-                    <h3>Confirma tu visita</h3>
-                    <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-                    <br />
-                    <ModalDismissButton>
-                      <div style={{ display: 'flex', gap: 10 }}>
-                        <Button>CERRAR</Button>
-                        <Button onClick={registerVisit}>ENTRAR</Button>
-                      </div>
-                    </ModalDismissButton>
-                  </ModalContents>
-                </Modal>
-              )}
-            </div>
 
-           
-          </div>
-        )}
-      </div>
-     )}
+      {userDogs && (
+        <div>
+          <br />
+          {!isUserVisiting && (
+            <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
+                {userDogs && !isUserVisiting && (
+                  <Modal>
+                    <ModalOpenButton>
+                      <Button style={{ border: 0, background: 'transparent' }}>
+                        <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
+                          <span>ENTRAR</span>
+                          <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
+                        </div>
+                      </Button>
+                    </ModalOpenButton>
+                    <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
+                      <h3>Confirma tu visita</h3>
+                      <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
+                      <br />
+                      <ModalDismissButton>
+                        <div style={{ display: 'flex', gap: 10 }}>
+                          <Button>CERRAR</Button>
+                          <Button onClick={registerVisit}>ENTRAR</Button>
+                        </div>
+                      </ModalDismissButton>
+                    </ModalContents>
+                  </Modal>
+                )}
+              </div>
+              <div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
+                {userDogs && !isUserVisiting && (
+                  <Modal>
+                    <ModalOpenButton>
+                      <Button style={{ border: 0, background: 'transparent' }}>
+                        <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
+                          <span>ENTRAR</span>
+                          <img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
+                        </div>
+                      </Button>
+                    </ModalOpenButton>
+                    <ModalContents style={{ width: '83vw', fontSize: '1.5rem' }} aria-label="Modal label (for screen readers)">
+                      <h3>Confirma tu visita</h3>
+                      <p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
+                      <br />
+                      <ModalDismissButton>
+                        <div style={{ display: 'flex', gap: 10 }}>
+                          <Button>CERRAR</Button>
+                          <Button onClick={registerVisit}>ENTRAR</Button>
+                        </div>
+                      </ModalDismissButton>
+                    </ModalContents>
+                  </Modal>
+                )}
+              </div>
+
+
+            </div>
+          )}
+        </div>
+      )}
 
       {/* {isUserVisiting && (
         <div className={styles.info}>
@@ -188,7 +180,7 @@ export default function Home(props) {
         </div>
       )} */}
 
-{/*  
+      {/*  
 
 
       <div className={styles.info}>
