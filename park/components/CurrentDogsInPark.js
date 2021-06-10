@@ -1,18 +1,19 @@
+import { Card } from './'
 import Link from 'next/link'
 import styles from './CurrentDogsInPark.module.css'
 export default function CurrentDogsInPark(props) {
 	return (
 		<div>
 			{props.count > 0
-				? (<section className={`${styles.card} ${styles.light}`}>
+				? (<Card>
 					<h1>{`${props.count} Perro en el parque`}</h1>
 					<br />
 					<Link href="/park">ver parque</Link>
-				</section>)
+				</Card>)
 				: (
-					<section className={`${styles.card} ${styles.dark}`}>
+					<Card variant="dark">
 						<h1>No hay perros en el parque</h1>
-					</section>)
+					</Card>)
 			}
 		</div>
 

@@ -1,29 +1,33 @@
+import AppInformation from './AppInformation'
 import Button from './Button'
 import Card from './Card'
-import CardEnterPark from './CardEnterPark'
 import Container from './Container'
 import CurrentDogsInPark from './CurrentDogsInPark'
 import DogInput from './DogInput'
 import DogSelect from './DogSelect'
-import ExitParkModalCard from './ExitParkModalCard'
+import EnterPark from './EnterPark'
+import ExitPark from './ExitPark'
+import ModalExitPark from './ModalExitPark'
 import PageTitle from './PageTitle'
-import RegisterDogCard from './RegisterDogCard'
+import RegisterDog from './RegisterDog'
 import Row from './Row'
 import Title from './Title'
-import UserDogsCard from './UserDogsCard'
+import UserDogs from './UserDogs'
 
 export {
+	AppInformation,
 	Button,
 	Card,
-	CardEnterPark,
 	Container,
 	CurrentDogsInPark,
 	DogInput,
 	DogSelect,
-	ExitParkModalCard,
+	EnterPark,
+	ExitPark,
+	ModalExitPark,
 	PageTitle,
-	RegisterDogCard,
+	RegisterDog,
 	Row,
 	Title,
-	UserDogsCard,
+	UserDogs,
 }

@@ -1,14 +1,18 @@
 import React from 'react'
+import Link from 'next/link'
 import { useHome } from '/utils/hooks'
 import {
-  CardEnterPark,
+  AppInformation,
+  Card,
   Container,
   CurrentDogsInPark,
-  ExitParkModalCard,
+  EnterPark,
+  ExitPark,
+  ModalExitPark,
   PageTitle,
-  RegisterDogCard,
+  RegisterDog,
   Row,
-  UserDogsCard
+  UserDogs
 } from '/components'
 
 
@@ -47,48 +51,33 @@ export default function Home(props) {
         icon="park_black_24dp.svg"
       />
 
-      {!userDogs || !userDogs.length && (
-        <RegisterDogCard text="NO TIENES PERROS REGISTRADOS" />
-      )}
-
       {userHasDogs && (
         <>
-          <UserDogsCard
+          <UserDogs
             title="mis perros"
             dogs={userDogs}
           />
           <CurrentDogsInPark count={dogsInPark.length || 0} />
+          <ModalExitPark onExit={unregisterVisit} />
           <Row wrap>
-            <ExitParkModalCard onExit={unregisterVisit} />
-            <CardEnterPark onEnter={registerVisit} />
-            <CardEnterPark onEnter={registerVisit} />
-            <CardEnterPark onEnter={registerVisit} />
+            <AppInformation />
+            <EnterPark onEnter={registerVisit} />
+            <ExitPark onExit={unregisterVisit} />
+            <Card item variant="light">
+                <Link href="/park">
+                  Ver
+                </Link>
+                <img src="visibility.svg" />
+              
+
+            </Card>
           </Row>
         </>
       )}
 
-
-      {/*  
-
-
-      <div className={styles.info}>
-        <Modal>
-          <ModalOpenButton>
-            <Button style={{ background: 'transparent', color: '#005005' }}>Informacion</Button>
-          </ModalOpenButton>
-          <ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
-            <h3>App Info</h3>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-            </p>
-            <br />
-            <ModalDismissButton>
-              <Button>Cerrar</Button>
-            </ModalDismissButton>
-          </ModalContents>
-        </Modal>
-      </div> */}
-
+      {!userDogs || !userDogs.length && (
+        <RegisterDog text="NO TIENES PERROS REGISTRADOS" />
+      )}
     </Container>
   )
 }

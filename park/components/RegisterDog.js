@@ -1,12 +1,13 @@
+import { Card } from '.'
 import Link from 'next/link'
-import styles from './RegisterDogCard.module.css'
+import styles from './RegisterDog.module.css'
 export default function RegisterDogCard(props) {
 	return (
 		<section>
-			<div className={styles.card}>
+			<Card variant="accent">
 				<h3>{props.children || props.text}</h3>
 				<Link href="/dog">{props.buttonText || 'Registrar'}</Link>
-			</div>
+			</Card>
 		</section>
 	)
 

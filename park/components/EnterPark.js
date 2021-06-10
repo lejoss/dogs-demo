@@ -1,16 +1,16 @@
-import { Button } from './'
+import { Button } from '.'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import styles from './CardEnterPark.module.css'
-
-export default function CardEnterPark(props) {
+import { Card } from '.'
+import styles from './EnterPark.module.css'
+export default function EnterPark(props) {
 	return (
-		<div style={{ borderRadius: 10, background: '#b9f6ca', flex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
+		<Card item variant="light">
 			<Modal>
 				<ModalOpenButton>
 					<Button style={{ border: 0, background: 'transparent' }}>
 						<div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
 							<span>ENTRAR</span>
-							<img style={{ height: 50, width: 50 }} src="login.svg" alt="" />
+							<img style={{ height: 40, width: 40 }} src="login.svg" alt="" />
 						</div>
 					</Button>
 				</ModalOpenButton>
@@ -26,6 +26,6 @@ export default function CardEnterPark(props) {
 					</ModalDismissButton>
 				</ModalContents>
 			</Modal>
-		</div>
+		</Card>
 	)
 }

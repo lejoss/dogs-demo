@@ -1,5 +1,5 @@
-import { Card, Row } from './'
-import styles from './UserDogsCard.module.css'
+import { Card, Row } from '.'
+import styles from './UserDogs.module.css'
 export default function UserDogsCard(props) {
 	if (!props || !props.dogs) return
 	return (

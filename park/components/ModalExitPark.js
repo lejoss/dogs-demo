@@ -1,10 +1,10 @@
-import { Button } from './'
+import { Button, Card } from '.'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import styles from './ExitParkModalCard.module.css'
+import styles from './ModalExitPark.module.css'
 
-export default function ExitParkModalCard(props) {
+export default function ExitParkModal(props) {
 	return (
-		<div className={styles.visit}>
+		<Card variant="dark">
 			<p>Estas visitando el parque. Termina tu visita aqui.</p>
 			<Modal>
 				<ModalOpenButton>
@@ -23,6 +23,6 @@ export default function ExitParkModalCard(props) {
 					</div>
 				</ModalContents>
 			</Modal>
-		</div>
+		</Card>
 	)
 }
