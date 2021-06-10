@@ -64,12 +64,12 @@ export default function Home(props) {
             <EnterPark onEnter={registerVisit} />
             <ExitPark onExit={unregisterVisit} />
             <Card item variant="light">
-                <Link href="/park">
-                  Ver
-                </Link>
-                <img src="visibility.svg" />
-              
-
+              <Link href="/park">
+                <div style={{ padding: '.5em',justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005', fontSize: '1.5rem' }}>
+                  <p>ver</p>
+                  <img src="visibility.svg" />
+                </div>
+              </Link>  
             </Card>
           </Row>
         </>
