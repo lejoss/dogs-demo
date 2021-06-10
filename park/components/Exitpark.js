@@ -2,13 +2,16 @@ import { Button, Card } from '.'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 export default function ExitPark(props) {
 	return (
-		<Card item variant="light">
+		<Card item variant={props.disabled ? 'dark' : 'light'}>
 			<Modal>
 				<ModalOpenButton>
-					<Button style={{ border: 0, background: 'transparent' }}>
-						<div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005' }}>
+					<Button disabled={props.disabled} style={{ border: 0, background: 'transparent' }}>
+						<div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: props.disabled ? 'gray' : '#005005' }}>
 							<span>SALIR</span>
-							<img style={{ height: 40, width: 40 }} src="logout.svg" alt="" />
+							{props.disabled
+								? <img style={{ height: 40, width: 40 }} src="logout_gray.svg" alt="" />
+								: <img style={{ height: 40, width: 40 }} src="logout.svg" alt="" />
+							}
 						</div>
 					</Button>
 				</ModalOpenButton>
