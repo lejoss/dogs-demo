@@ -53,15 +53,16 @@ export default function Home(props) {
 
       {userHasDogs && (
         <>
-          <UserDogs
-            title="mis perros"
-            dogs={userDogs}
-          />
 
           {dogsInPark.length > 0
             ? <Card variant="light"><p>{`${dogsInPark.length} Perro en el parque`}</p></Card>
             : <Card variant="dark"><p>No hay perros en el parque</p></Card>
           }
+
+          <UserDogs
+            title="mis perros"
+            dogs={userDogs}
+          />
 
           <Row wrap>
             <ViewPark />
@@ -70,7 +71,7 @@ export default function Home(props) {
             <ExitPark onExit={unregisterVisit} disabled={!isUserVisiting} />
           </Row>
 
-           {isUserVisiting
+          {isUserVisiting
             ? (<Card variant="dark">
               <p>Estas visitando el parque. Termina tu visita con el boton de Salir.</p>
             </Card>)
@@ -79,9 +80,7 @@ export default function Home(props) {
         </>
       )}
 
-      {!userDogs || !userDogs.length && (
-        <RegisterDog text="NO TIENES PERROS REGISTRADOS" />
-      )}
+      {!userHasDogs && <RegisterDog text="NO TIENES PERROS REGISTRADOS" />}
     </Container>
   )
 }
