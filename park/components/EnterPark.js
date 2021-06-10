@@ -1,7 +1,6 @@
 import { Button } from '.'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import { Card } from '.'
-import styles from './EnterPark.module.css'
 export default function EnterPark(props) {
 	return (
 		<Card item variant="light">
