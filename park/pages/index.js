@@ -58,19 +58,14 @@ export default function Home(props) {
             dogs={userDogs}
           />
           <CurrentDogsInPark count={dogsInPark.length || 0} />
-        </>
-      )}
-
-
-      {isUserVisiting
-        ? <ExitParkModalCard onExit={unregisterVisit} />
-        : (<Row wrap>
-            <CardEnterPark onEnter={registerVisit} />
+          <Row wrap>
+            <ExitParkModalCard onExit={unregisterVisit} />
             <CardEnterPark onEnter={registerVisit} />
             <CardEnterPark onEnter={registerVisit} />
             <CardEnterPark onEnter={registerVisit} />
           </Row>
-        )}
+        </>
+      )}
 
 
       {/*  

@@ -1,4 +1,5 @@
 import Button from './Button'
+import Card from './Card'
 import CardEnterPark from './CardEnterPark'
 import Container from './Container'
 import CurrentDogsInPark from './CurrentDogsInPark'
@@ -13,6 +14,7 @@ import UserDogsCard from './UserDogsCard'
 
 export {
 	Button,
+	Card,
 	CardEnterPark,
 	Container,
 	CurrentDogsInPark,

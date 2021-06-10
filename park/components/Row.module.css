@@ -2,6 +2,7 @@
 	display: flex;
 	align-items: center;
 	gap: 1em;
+	margin-bottom: .5em;
 }
 .wrap {
 	flex-flow: wrap;

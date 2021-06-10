@@ -1,12 +1,12 @@
-import { Row } from './'
+import { Card, Row } from './'
 import styles from './UserDogsCard.module.css'
 export default function UserDogsCard(props) {
 	if (!props || !props.dogs) return
 	return (
 		<section>
-			<div className={styles.card}>
-				<h1>{props.title || 'mis perros'}</h1>
-				<ul>
+			<Card variant="accent">
+				<h1 className={styles.h1}>{props.title || 'mis perros'}</h1>
+				<ul className={styles.ul}>
 					{props.dogs.map((dog, i) => {
 						if (i > 1) return
 						return (
@@ -25,7 +25,7 @@ export default function UserDogsCard(props) {
 					})}
 				</ul>
 
-			</div>
+			</Card>
 		</section>
 	)
 
