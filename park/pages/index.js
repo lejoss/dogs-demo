@@ -5,10 +5,8 @@ import {
   AppInformation,
   Card,
   Container,
-  CurrentDogsInPark,
   EnterPark,
   ExitPark,
-  ModalExitPark,
   PageTitle,
   RegisterDog,
   Row,
@@ -47,6 +45,7 @@ export default function Home(props) {
 
   return (
     <Container>
+
       <PageTitle
         text="parque laureles"
         icon="park_black_24dp.svg"
@@ -58,8 +57,16 @@ export default function Home(props) {
             title="mis perros"
             dogs={userDogs}
           />
-          <CurrentDogsInPark count={dogsInPark.length || 0} />
-          <ModalExitPark onExit={unregisterVisit} />
+          
+          {dogsInPark.length > 0
+            ? <Card variant="light"><p>{`${dogsInPark.length} Perro en el parque`}</p></Card>
+            : <Card variant="dark"><p>No hay perros en el parque</p></Card>
+          }
+
+          <Card variant="dark">
+			      <p>Estas visitando el parque. Termina tu visita con el boton de Salir.</p>
+		      </Card>
+
           <Row wrap>
             <ViewPark />
             <EnterPark onEnter={registerVisit} />
