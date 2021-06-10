@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  gap: 1em;
+  gap: .7em;
   flex-direction: column;
   width: 100%;
-  padding: 1.6em;
+  padding: 1em 1.5em;
   /* background: lightblue; */
 }

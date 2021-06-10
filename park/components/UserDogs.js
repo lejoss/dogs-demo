@@ -3,9 +3,9 @@ import styles from './UserDogs.module.css'
 export default function UserDogs(props) {
 	if (!props || !props.dogs) return
 	return (
-		<section>
-			<Card variant="accent">
-				<h1 className={styles.h1}>{props.title || 'mis perros'}</h1>
+		<Card variant="accent">
+			<div className={styles.content} >
+				<h3 className={styles.h1}>{props.title || 'mis perros'}</h3>
 				<ul className={styles.ul}>
 					{props.dogs.map((dog, i) => {
 						if (i > 1) return
@@ -17,6 +17,7 @@ export default function UserDogs(props) {
 									{' - '}
 									<span>{`${dog.age} años`}</span>
 								</Row>
+								<div style={{ marginBottom: '.5em' }}/>
 								<Row>
 									<small>{dog.visits} visitas al parque</small>
 								</Row>
@@ -24,9 +25,9 @@ export default function UserDogs(props) {
 						)
 					})}
 				</ul>
+			</div>
 
-			</Card>
-		</section>
+		</Card>
 	)
 
 }

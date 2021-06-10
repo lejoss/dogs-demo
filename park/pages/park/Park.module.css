@@ -20,7 +20,7 @@
 
 .card {
 	display: flex;
-	font-size: 1.5rem;
+	/* font-size: 1.5rem; */
 	border: 0;
 	height: 5em;
 }
@@ -53,7 +53,7 @@
 }
 
 .card__title:first-child {
-	font-size: 1.5rem;
+	/* font-size: 1.5rem; */
 	text-transform: uppercase;
 	font-weight: 600;
 }

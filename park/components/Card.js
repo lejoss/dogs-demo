@@ -9,6 +9,7 @@ export default function Card({ children, variant, item, ...props }) {
 				${variant === 'light' && styles.bg__light}
 				${item && styles.flex__item}
 			`}
+			{...props}
 			>
 			{children}
 		</div>

@@ -1,8 +1,9 @@
 .title {
 	text-transform: uppercase;
 	color: #005005;
-	font-size: 1.5rem;
+	/* font-size: 1.5rem; */
 	font-weight: 200;
+	margin: 0
 }
 
 .img {

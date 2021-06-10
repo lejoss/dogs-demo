@@ -4,6 +4,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 200;
   /* background: #E1E2E1; */
   /* background: #87c197; */
   /* background: #e8f5e9; */
@@ -12,9 +14,10 @@ body {
 * {
   box-sizing: border-box;
 }
+
 input, select {
   padding: 0.5em;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   margin-bottom: 0.5em;
   border: none;  
   background: #F5F5F6;
@@ -23,8 +26,8 @@ input, select {
 a {
   text-decoration: none;
   display: inline-block;
-	padding: .5em;
-	font-size: 1.5rem;
+	
+	/* font-size: 1.5rem; */
 	width: 100%;
   text-transform: uppercase;
   border: none;

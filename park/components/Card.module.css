@@ -11,9 +11,19 @@
 	color: #005005;
 	margin: 0;
 }
-.flex__item {
-	flex: 1
+
+.card p {
+	margin-top: .5em;
+	margin-bottom: .5em;
 }
+.flex__item {
+	flex: 1;
+	min-width: 6em;
+	width: 6em;
+	height: 5em;
+	max-height: 5em;
+}
+
 .bg__dark {
 	background: #E1E2E1;
 	color: #005005;

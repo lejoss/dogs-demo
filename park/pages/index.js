@@ -55,7 +55,7 @@ export default function Home(props) {
         <>
 
           {dogsInPark.length > 0
-            ? <Card variant="light"><p>{`${dogsInPark.length} Perro en el parque`}</p></Card>
+            ? <Card variant="accent"><p>{`${dogsInPark.length} Perro en el parque`}</p></Card>
             : <Card variant="dark"><p>No hay perros en el parque</p></Card>
           }
 

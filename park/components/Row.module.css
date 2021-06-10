@@ -1,8 +1,8 @@
 .row {
 	display: flex;
 	align-items: center;
-	gap: 1em;
-	margin-bottom: .5em;
+	gap: .7em;
+	/* margin-bottom: .5em; */
 }
 .wrap {
 	flex-flow: wrap;
