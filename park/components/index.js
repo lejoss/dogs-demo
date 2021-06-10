@@ -13,6 +13,7 @@ import RegisterDog from './RegisterDog'
 import Row from './Row'
 import Title from './Title'
 import UserDogs from './UserDogs'
+import ViewPark from './ViewPark'
 
 export {
 	AppInformation,
@@ -30,4 +31,5 @@ export {
 	Row,
 	Title,
 	UserDogs,
+	ViewPark
 }

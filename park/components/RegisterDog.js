@@ -1,7 +1,7 @@
 import { Card } from '.'
 import Link from 'next/link'
 import styles from './RegisterDog.module.css'
-export default function RegisterDogCard(props) {
+export default function RegisterDog(props) {
 	return (
 		<section>
 			<Card variant="accent">

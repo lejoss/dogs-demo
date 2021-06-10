@@ -1,6 +1,6 @@
 import { Card, Row } from '.'
 import styles from './UserDogs.module.css'
-export default function UserDogsCard(props) {
+export default function UserDogs(props) {
 	if (!props || !props.dogs) return
 	return (
 		<section>

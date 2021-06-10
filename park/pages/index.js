@@ -12,7 +12,8 @@ import {
   PageTitle,
   RegisterDog,
   Row,
-  UserDogs
+  UserDogs,
+  ViewPark
 } from '/components'
 
 
@@ -60,17 +61,10 @@ export default function Home(props) {
           <CurrentDogsInPark count={dogsInPark.length || 0} />
           <ModalExitPark onExit={unregisterVisit} />
           <Row wrap>
-            <AppInformation />
+            <ViewPark />
             <EnterPark onEnter={registerVisit} />
+            <AppInformation />
             <ExitPark onExit={unregisterVisit} />
-            <Card item variant="light">
-              <Link href="/park">
-                <div style={{ padding: '.5em',justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', color: '#005005', fontSize: '1.5rem' }}>
-                  <p>ver</p>
-                  <img src="visibility.svg" />
-                </div>
-              </Link>  
-            </Card>
           </Row>
         </>
       )}
