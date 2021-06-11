@@ -13,8 +13,8 @@ export default function AppInformation(props) {
 						</div>
 					</Button>
 				</ModalOpenButton>
-				<ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
-					<h3>Confirma tu visita</h3>
+				<ModalContents style={{ width: '83vw', borderRadius: 10 }} aria-label="Modal label (for screen readers)">
+					{/* <h3>Confirma tu visita</h3>
 					<p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
 					<br />
 					<ModalDismissButton>
@@ -22,7 +22,7 @@ export default function AppInformation(props) {
 							<Button>CERRAR</Button>
 							<Button onClick={props.onExit}>ENTRAR</Button>
 						</div>
-					</ModalDismissButton>
+					</ModalDismissButton> */}
 				</ModalContents>
 			</Modal>
 		</Card>

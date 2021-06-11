@@ -16,14 +16,12 @@ export default function EnterPark(props) {
 						</div>
 					</Button>
 				</ModalOpenButton>
-				<ModalContents style={{ width: '83vw' }} aria-label="Modal label (for screen readers)">
-					<h3>Confirma tu visita</h3>
-					<p>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
-					<br />
+				<ModalContents style={{ width: '83vw', borderRadius: 10 }} aria-label="Modal label (for screen readers)">
+					<p style={{ color: 'rgb(0, 80, 5)', fontWeight: 200 }}>Confirma tu visita para notificar a otros usuarios que hay perros del parque.</p>
 					<ModalDismissButton>
-						<div style={{ display: 'flex', gap: 10 }}>
-							<Button>CERRAR</Button>
-							<Button onClick={props.onEnter}>ENTRAR</Button>
+						<div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+							<Button style={{background: '#e1e1e1', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>regresar</Button>
+							<Button onClick={props.onEnter} style={{background: '#b9f6ca', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>Confirmar</Button>
 						</div>
 					</ModalDismissButton>
 				</ModalContents>
