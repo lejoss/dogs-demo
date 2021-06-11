@@ -126,6 +126,7 @@ function useHome() {
 		isQueryDogsError,
 		isNotificationError,
 		isUpdatrError,
+		notificationStatus,
 		notificateUsers,
 		user,
 		update,
