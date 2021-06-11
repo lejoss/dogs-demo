@@ -107,21 +107,29 @@ function useHome() {
 	const { user } = useAuth()
 	const router = useRouter()
 	const queryClient = useQueryClient()
-	const { data: dogs } = useQuery('dogs', () => fetchDogs(user))
-	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates), {
+	const { data: dogs, status: dogQueryStatus, isError: isQueryDogsError } = useQuery('dogs', () => fetchDogs())
+	const { mutate: update, status: updateStatus, isError: isUpdatrError } = useMutation(updates => updateDogsFromUser(user, updates), {
 		onSettled: () => queryClient.invalidateQueries('dogs')
 	})
-	const { mutate: notificateUsers } = useMutation(() => notificateUsersOfNewDogsInPark())
-	const goToPark = () => router.push('/park')
-	const goToHome = () => router.push('/')
+	const { mutate: notificateUsers, status: notificationStatus, isError: isNotificationError } = useMutation(() => notificateUsersOfNewDogsInPark())
+
+
+	React.useEffect(() => {
+		if (updateStatus === 'success' && notificationStatus === 'success') {
+			router.push('/park')
+		}
+	}, [updateStatus, notificationStatus])
 
 	return {
 		dogs: dogs && dogs,
-		update,
+		dogQueryStatus,
+		isQueryDogsError,
+		isNotificationError,
+		isUpdatrError,
 		notificateUsers,
-		goToPark,
-		goToHome,
 		user,
+		update,
+		updateStatus,
 	}
 }
 

@@ -6,3 +6,9 @@
   padding: 1em 1.5em;
   /* background: lightblue; */
 }
+
+.centered {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
