@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { useHome } from '/utils/hooks'
 import {
   AppInformation,
@@ -7,6 +6,7 @@ import {
   Container,
   EnterPark,
   ExitPark,
+  Loading,
   PageTitle,
   RegisterDog,
   Row,
@@ -49,7 +49,7 @@ export default function Home(props) {
   return (
     <>
       {dogQueryStatus === 'loading' || updateStatus === 'loading' || notificationStatus === 'loading'
-        ? <Container centered><p style={{ color: 'rgb(0, 80, 5)' }}>CARGANDO DATOS</p></Container>
+        ? <Loading />
         : (
           <Container>
             <PageTitle

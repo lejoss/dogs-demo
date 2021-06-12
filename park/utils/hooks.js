@@ -120,12 +120,16 @@ function useHome() {
 		}
 	}, [updateStatus, notificationStatus])
 
+	React.useEffect(() => {
+		if (isQueryDogsError || isUpdatrError) {
+			router.push('/error')
+		}
+
+	}, [isQueryDogsError, isUpdatrError])
+
 	return {
 		dogs: dogs && dogs,
 		dogQueryStatus,
-		isQueryDogsError,
-		isNotificationError,
-		isUpdatrError,
 		notificationStatus,
 		notificateUsers,
 		user,
@@ -139,16 +143,17 @@ function usePark() {
 	const { user } = useAuth()
 	const router = useRouter()
 	const queryClient = useQueryClient()
-	const { data: dogs } = useQuery('dogs', () => fetchDogs())
-	const { mutate: update } = useMutation(updates => updateDogsFromUser(user, updates), {
-		onSettled: () => queryClient.invalidateQueries('dogs')
-	})
-	const goToHome = () => router.push('/')
+	const { data: dogs, isError: isQueryDogsError  } = useQuery('dogs', () => fetchDogs())
+
+	React.useEffect(() => {
+		if (isQueryDogsError) {
+			router.push('/error')
+		}
+
+	}, [isQueryDogsError])
 
 	return {
-		dogs,
-		update,
-		goToHome
+		dogs
 	}
 }
 

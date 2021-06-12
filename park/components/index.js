@@ -6,6 +6,7 @@ import DogInput from './DogInput'
 import DogSelect from './DogSelect'
 import EnterPark from './EnterPark'
 import ExitPark from './ExitPark'
+import Loading from './Loading'
 import PageTitle from './PageTitle'
 import RegisterDog from './RegisterDog'
 import Row from './Row'
@@ -22,6 +23,7 @@ export {
 	DogSelect,
 	EnterPark,
 	ExitPark,
+	Loading,
 	PageTitle,
 	RegisterDog,
 	Row,

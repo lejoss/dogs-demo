@@ -26,13 +26,7 @@ const CardTitle = ({ children }) => {
 }
 
 export default function Park(props) {
-	const { dogs, goToHome, update } = usePark()
-
-	function handleUpdate(active) {
-		update(active)
-		goToHome()
-	}
-
+	const { dogs } = usePark()
 	const activeDogs = dogs && dogs.filter(dog => dog.active);
 
 	return (
