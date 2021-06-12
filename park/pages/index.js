@@ -19,9 +19,6 @@ export default function Home(props) {
   const {
     dogs,
     dogQueryStatus,
-    isQueryDogsError,
-    isNotificationError,
-    isUpdateError,
     notificationStatus,
     notificateUsers,
     user,
@@ -52,7 +49,7 @@ export default function Home(props) {
   return (
     <>
       {dogQueryStatus === 'loading' || updateStatus === 'loading' || notificationStatus === 'loading'
-        ? <Container centered><p style={{ color: 'rgb(0, 80, 5)' }}>CARGANDO INFORMACION</p></Container>
+        ? <Container centered><p style={{ color: 'rgb(0, 80, 5)' }}>CARGANDO DATOS</p></Container>
         : (
           <Container>
             <PageTitle
