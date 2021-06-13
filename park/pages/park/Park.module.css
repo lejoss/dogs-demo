@@ -1,5 +1,5 @@
 .container {
-	padding: 1em 1.6em;
+	padding: 1em 1.5em;
 	overflow: hidden;
 }
 
@@ -60,8 +60,8 @@
 }
 
 .card__avatar img {
-	width: 1.6em;
-	height: 1.6em;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 .card__content {

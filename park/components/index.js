@@ -1,4 +1,3 @@
-import AppInformation from './AppInformation'
 import Button from './Button'
 import Card from './Card'
 import Container from './Container'
@@ -12,10 +11,10 @@ import RegisterDog from './RegisterDog'
 import Row from './Row'
 import Title from './Title'
 import UserDogs from './UserDogs'
+import ViewAppInfo from './ViewAppInfo'
 import ViewPark from './ViewPark'
 
 export {
-	AppInformation,
 	Button,
 	Card,
 	Container,
@@ -29,5 +28,6 @@ export {
 	Row,
 	Title,
 	UserDogs,
+	ViewAppInfo,
 	ViewPark
 }

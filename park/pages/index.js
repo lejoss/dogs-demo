@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHome } from '/utils/hooks'
 import {
-  AppInformation,
   Card,
   Container,
   EnterPark,
@@ -11,7 +10,8 @@ import {
   RegisterDog,
   Row,
   UserDogs,
-  ViewPark
+  ViewAppInfo,
+  ViewPark,
 } from '/components'
 
 
@@ -67,14 +67,14 @@ export default function Home(props) {
                   }
 
                   <UserDogs
-                    title="mis perros"
+                    title="mi mascota"
                     dogs={userDogs}
                   />
 
                   <Row wrap>
                     <ViewPark />
                     <EnterPark onEnter={registerVisit} disabled={isUserVisiting} />
-                    <AppInformation />
+                    <ViewAppInfo />
                     <ExitPark onExit={unregisterVisit} disabled={!isUserVisiting} />
                   </Row>
 

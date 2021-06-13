@@ -98,7 +98,7 @@ export default function DogForm(props) {
 				<Button style={{ background: 'transparent', color: '#005005', fontSize: '1.2rem' }} type="submit">Registrar</Button>
 			</form>
 			<br />
-			<Link className={styles.a} href="/">VOLVER AL INICIO</Link>
+			<Link href="/">VOLVER AL INICIO</Link>
 		</div>
 	)
 
