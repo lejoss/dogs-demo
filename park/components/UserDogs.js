@@ -18,9 +18,9 @@ export default function UserDogs(props) {
 									<span>{`${dog.age} años`}</span>
 								</Row>
 								<div style={{ marginBottom: '.5em' }}/>
-								<Row>
+								{/* <Row>
 									<small>{dog.visits} visitas al parque</small>
-								</Row>
+								</Row> */}
 							</li>
 						)
 					})}
