@@ -53,8 +53,8 @@ export default function Park(props) {
 			<div className={styles.park}>
 				<ul className={styles.ul}>
 					{
-						activeDogs
-							? activeDogs.map((dog, i) => {
+						listData && listData.length &&
+							? listData.map((dog, i) => {
 								return (
 									<li className={styles.li} key={i}>
 										<Card>
