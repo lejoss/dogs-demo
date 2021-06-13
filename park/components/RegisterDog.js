@@ -5,6 +5,7 @@ export default function RegisterDog(props) {
 		<Card variant="light">
 			<p>{props.children || props.text}</p>
 			<div style={{ fontSize: '2rem' }}>👇</div>	
+			<br />	
 			<Link href="/dog">{props.buttonText || 'Registrar aqui'}</Link>
 		</Card>
 	)

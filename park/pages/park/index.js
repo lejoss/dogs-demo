@@ -1,9 +1,8 @@
+import React from 'react'
 import Link from 'next/link'
 import { usePark } from '/utils/hooks'
-import { Button } from '/components'
 import styles from './Park.module.css'
-import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
-import "@reach/dialog/styles.css";
+import "@reach/dialog/styles.css"
 
 const Card = ({ children }) => {
 	return <div className={styles.card}>{children}</div>
@@ -27,14 +26,28 @@ const CardTitle = ({ children }) => {
 
 export default function Park(props) {
 	const { dogs } = usePark()
-	const activeDogs = dogs && dogs.filter(dog => dog.active);
+	const activeDogs = dogs && dogs.filter(dog => dog.active)
+
+	const [listData, setListData] = React.useState(() => {
+		const activeDogs = dogs && dogs.filter(dog => dog.active)
+		return activeDogs
+	})
+
+	function handleChangeList(event) {
+		const { value } = event.target
+		if (value && value === 'active') {
+			setListData(activeDogs)
+		} else {
+			setListData(dogs)
+		}
+	}
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.list__header}>
-				<select>
-					<option>Activos</option>
-					<option>Todos</option>
+				<select onChange={(event) => console.log(event.target.value)} name="select list">
+					<option value="active">Activos</option>
+					<option value="all">Todos</option>
 				</select>
 			</div>		
 			<div className={styles.park}>
