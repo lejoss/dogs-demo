@@ -26,6 +26,7 @@ const CardTitle = ({ children }) => {
 
 export default function Park(props) {
 	const { dogs } = usePark()
+	console.log('park', dogs)
 	const activeDogs = dogs && dogs.filter(dog => dog.active)
 
 	const [listData, setListData] = React.useState(() => {
@@ -45,7 +46,7 @@ export default function Park(props) {
 	return (
 		<div className={styles.container}>
 			<div className={styles.list__header}>
-				<select onChange={(event) => console.log(event.target.value)} name="select list">
+				<select onChange={handleChangeList} name="select list">
 					<option value="active">Activos</option>
 					<option value="all">Todos</option>
 				</select>
@@ -81,11 +82,13 @@ export default function Park(props) {
 									</li>
 								)
 							})
-							: null
-					}
-					<div style={{ textAlign: 'center', display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '0 2em' }}>
+							: (
+								<div style={{ textAlign: 'center', display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '0 2em' }}>
 						{activeDogs && !activeDogs.length && <h3>No hay perros activos en el parque. Te enviaremos una notificacion cuando un perro ingrese al parque.</h3>}
 					</div>
+							)
+					}
+					
 				</ul>
 
 			</div>
