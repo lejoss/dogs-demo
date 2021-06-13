@@ -5,7 +5,7 @@ export default function UserDogs(props) {
 	return (
 		<Card variant="accent">
 			<div className={styles.content} >
-				<h3 className={styles.h1}>🐶 &nbsp; {props.title || 'mis perros'}</h3>
+				<h3 className={styles.h1}><span style={{ fontSize: '2rem' }}>🐶</span> &nbsp; {props.title || 'mis perros'}</h3>
 				<ul className={styles.ul}>
 					{props.dogs.map((dog, i) => {
 						if (i > 1) return
