@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { usePark } from '/utils/hooks'
-import { Button, Title } from '/components'
+import { Button } from '/components'
 import styles from './Park.module.css'
 import { Modal, ModalContents, ModalDismissButton, ModalOpenButton } from '/components/Modal'
 import "@reach/dialog/styles.css";
@@ -31,6 +31,12 @@ export default function Park(props) {
 
 	return (
 		<div className={styles.container}>
+			<div className={styles.list__header}>
+				<select>
+					<option>Activos</option>
+					<option>Todos</option>
+				</select>
+			</div>		
 			<div className={styles.park}>
 				<ul className={styles.ul}>
 					{
@@ -70,7 +76,7 @@ export default function Park(props) {
 				</ul>
 
 			</div>
-			<Link style={{ color: '#8e24aa' }} href="/">volver al Inicio</Link>
+			<Link href="/">volver al Inicio</Link>
 		</div>
 	)
 }

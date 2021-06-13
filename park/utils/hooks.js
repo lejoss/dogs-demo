@@ -102,12 +102,20 @@ function useWarn() {
 
 }
 
-// TODO: add status and error handling
 function useHome() {
+	const [isQueryDogsError, setIsQueryDogsError] = React.useState(false)
 	const { user } = useAuth()
 	const router = useRouter()
 	const queryClient = useQueryClient()
-	const { data: dogs, status: dogQueryStatus, isError: isQueryDogsError } = useQuery('dogs', () => fetchDogs())
+	const { data: dogs, status: dogQueryStatus } = useQuery('dogs', () => fetchDogs(), {
+		onError: (error) => {
+			if (error.message && error.message === 'Dogs not found') {
+				setIsQueryDogsError(false)
+			} else {
+				setIsQueryDogsError(true)
+			}
+		}
+	})
 	const { mutate: update, status: updateStatus, isError: isUpdatrError } = useMutation(updates => updateDogsFromUser(user, updates), {
 		onSettled: () => queryClient.invalidateQueries('dogs')
 	})

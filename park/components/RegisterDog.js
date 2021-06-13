@@ -4,7 +4,7 @@ export default function RegisterDog(props) {
 	return (
 		<Card variant="light">
 			<p>{props.children || props.text}</p>
-			<br />	
+			<div style={{ fontSize: '2rem' }}>👇</div>	
 			<Link href="/dog">{props.buttonText || 'Registrar aqui'}</Link>
 		</Card>
 	)

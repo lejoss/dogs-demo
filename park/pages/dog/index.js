@@ -64,8 +64,8 @@ export default function DogForm(props) {
 	}
 
 	return (
-		<div className={styles.container} style={{ maxHeight: '100vh', minHeight: '100vh', padding: '2em', background: '#87c197', overflow: 'hidden' }}>
-			<form style={{ color: '#005005', background: 'white', padding: '2em', borderRadius: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }} onSubmit={handleSubmit} {...props}>
+		<div className={styles.container}>
+			<form onSubmit={handleSubmit} {...props}>
 				<div>
 					<DogInput
 						type="text"

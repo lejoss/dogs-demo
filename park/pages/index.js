@@ -56,6 +56,7 @@ export default function Home(props) {
               text="parque laureles"
               icon="park_black_24dp.svg"
             />
+            
 
             {userHasDogs
               ? (
