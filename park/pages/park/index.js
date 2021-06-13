@@ -53,7 +53,7 @@ export default function Park(props) {
 			<div className={styles.park}>
 				<ul className={styles.ul}>
 					{
-						listData && listData.length &&
+						listData && listData.length
 							? listData.map((dog, i) => {
 								return (
 									<li className={styles.li} key={i}>
