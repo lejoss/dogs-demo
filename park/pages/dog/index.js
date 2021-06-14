@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Button, DogInput, DogSelect, Loading } from '/components'
 import { createDog } from '/utils/api'
-import { useAuth } from '/utils/hooks'
+import { useDog } from '/utils/hooks'
 
 import styles from './Dog.module.css'
 
