@@ -19,7 +19,7 @@ self.addEventListener('push', event => {
     event.waitUntil(
         self.registration.showNotification(data.title, {
             body: data.message,
-            //badge: '/public/pawn.png',
+            badge: '🐾',
             //icon: '/public/grass.svg'
         })
     )
