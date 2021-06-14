@@ -26,7 +26,6 @@ export default function Home(props) {
     updateStatus,
   } = useHome()
 
-  console.log('dogQueryStatus', dogQueryStatus)
 
   function registerVisit() {
     notificateUsers()

@@ -169,22 +169,38 @@ function useHome() {
 	}
 }
 
-// TODO: add status and error handling
+
 function usePark() {
 	const { user } = useAuth()
 	const router = useRouter()
-	const queryClient = useQueryClient()
-	const { data: dogs, isError: isQueryDogsError  } = useQuery('dogs', () => fetchDogs())
+	const [activeDogs, setActiveDogs] = React.useState([])
+	const [listData, setListData] = React.useState([])
+	const { data: dogs, isError: isQueryDogsError, isLoading, isSuccess } = useQuery('dogs', () => fetchDogs())
+
+	React.useEffect(() => {
+		if (isSuccess && dogs.length) {
+			setActiveDogs(dogs.filter(dog => dog.active))
+		}
+	}, [dogs])
+
+	React.useEffect(() => {
+		if (isSuccess && activeDogs.length) {
+			setListData(activeDogs)
+		}
+	}, [activeDogs])
 
 	React.useEffect(() => {
 		if (isQueryDogsError) {
 			router.push('/error')
 		}
-
 	}, [isQueryDogsError])
 
 	return {
-		dogs
+		activeDogs,
+		dogs,
+		isLoading,
+		listData,
+		setListData,
 	}
 }
 
