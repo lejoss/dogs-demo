@@ -102,6 +102,28 @@ function useWarn() {
 
 }
 
+function useDog() {
+	const { user: userid } = useAuth()
+	const router = useRouter()
+	const queryClient = useQueryClient()
+	const { mutate: update, isError, isLoading } = useMutation(formData => createDog(formData), {
+		onSettled: () => queryClient.invalidateQueries('dogs'),
+		onError: err => router.push('/error')
+	})
+
+	React.useEffect(() => {
+		if (isError) {
+			router.push('/error')
+		}
+	}, [isError])
+
+	return {	
+		isLoading,
+		userid,
+		update,
+	}
+}
+
 function useHome() {
 	const [isQueryDogsError, setIsQueryDogsError] = React.useState(false)
 	const { user } = useAuth()
