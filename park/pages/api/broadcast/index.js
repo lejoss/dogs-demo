@@ -5,7 +5,7 @@ import { hashEndpoint } from '/utils'
 
 const payload = JSON.stringify({
 	title: "🌳 PARQUE LAURELES 🌳 ", 
-	message: "🐶 Hola hay un nuevo perro en el parque. \n 🐾  Miralo aqui: 👉  https://laureles.vercel.app/park"
+	message: "🐶 Hola hay un nuevo perro en el parque.🐾 "
 })
 
 const options = {
