@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { usePark } from '/utils/hooks'
 import styles from './Park.module.css'
-import "@reach/dialog/styles.css"
 
 const Card = ({ children }) => {
 	return <div className={styles.card}>{children}</div>

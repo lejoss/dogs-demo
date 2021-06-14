@@ -191,6 +191,7 @@ function usePark() {
 export {
 	useApp,
 	useAuth,
+	useDog,
 	useHome,
 	usePark,
 	usePush,
