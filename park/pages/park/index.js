@@ -47,8 +47,8 @@ export default function Park(props) {
 		<div className={styles.container}>
 			<div className={styles.list__header}>
 				<select onChange={handleChangeList} name="select list">
-					<option value="active">Activos</option>
-					<option value="all">Todos</option>
+					<option value="active">Perros activos</option>
+					<option value="all">Perros del parque</option>
 				</select>
 			</div>		
 			<div className={styles.park}>

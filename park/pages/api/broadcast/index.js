@@ -4,8 +4,8 @@ import { hashEndpoint } from '/utils'
 
 
 const payload = JSON.stringify({
-	title: "Parque Laureles",
-	message: "Hola hay un nuevo perro en el parque"
+	title: "🌳 Parque Laureles",
+	message: "🐶 Hola hay un nuevo perro en el parque"
 })
 
 const options = {
@@ -16,12 +16,12 @@ const options = {
 export default async (req, res) => {
 	const prisma = new PrismaClient()
 
-	if (req.method === 'POST') {
+	if (req.method === 'POST' && req.body) {
+		const { userid: id } = req.body
 		let subscriptions = await prisma.users.findMany()
 
-
 		if (subscriptions && subscriptions.length) {
-			subscriptions = subscriptions.map(sub => JSON.parse(sub.subscription))
+			subscriptions = subscriptions.filter(userSub => userSub.id !== id).map(sub => JSON.parse(sub.subscription))
 
 			try {
 				let promiseChain = Promise.resolve()
@@ -40,16 +40,12 @@ export default async (req, res) => {
 					}
 				).catch(async err => {
 					if (err.statusCode === 410) {
-						const endpointHash = hashEndpoint(err.endpoint)
-						await prisma.users.delete({
-							where: { endpoint: endpointHash }
-						})
+						await prisma.users.delete({ where: { id }})
 						await prisma.$disconnect()
 						res.status(200).json({ message: 'success' })
 					} else {
 						res.status(404).json({ message: 'error with webpush notification' })
 					}
-
 				})
 
 			} catch (error) {

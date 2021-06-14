@@ -12,8 +12,8 @@ function fetchUserByEndpoint(endpoint) {
 	return client(`users/${endpoint}`)
 }
 
-function notificateUsersOfNewDogsInPark() {
-	return client('broadcast', { method: 'POST' })
+function notificateUsersOfNewDogsInPark(userid) {
+	return client('broadcast', { data: { userid } ,method: 'POST' })
 }
 
 function subscribeUserToPushNotifications(subscription) {

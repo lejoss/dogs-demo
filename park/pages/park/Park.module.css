@@ -74,6 +74,10 @@
 	text-transform: capitalize;
 }
 
+.card__content > li:last-child {
+	border-bottom: none;
+} 
+
 .card__title {
 	display: flex;
 	gap: 1em;

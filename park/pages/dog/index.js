@@ -36,12 +36,16 @@ const genderOptions = {
 }
 
 
-
+// TODO: add status 
 export default function DogForm(props) {
 	const { user: userid } = useAuth()
-	const { mutate: update, isSuccess, isError, isLoading, data } = useMutation(formData => createDog(formData))
+	// TODO: import me
 	const router = useRouter()
+	const { mutate: update, isSuccess, isError, isLoading, data } = useMutation(formData => createDog(formData), {
+		onError: err => router.push('/error')
+	})
 
+	// TODO: import me
 	React.useEffect(() => {
 		if (!data || !isSuccess) return
 		router.push('/')
@@ -97,8 +101,8 @@ export default function DogForm(props) {
 				<br />
 				<Button style={{ background: 'transparent', color: '#005005', fontSize: '1.2rem' }} type="submit">Registrar</Button>
 			</form>
-			<br />
-			<Link href="/">VOLVER AL INICIO</Link>
+			{/* <br />
+			<Link href="/">VOLVER AL INICIO</Link> */}
 		</div>
 	)
 

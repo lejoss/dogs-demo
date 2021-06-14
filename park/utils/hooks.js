@@ -108,6 +108,7 @@ function useHome() {
 	const router = useRouter()
 	const queryClient = useQueryClient()
 	const { data: dogs, status: dogQueryStatus } = useQuery('dogs', () => fetchDogs(), {
+		retry: false,
 		onError: (error) => {
 			if (error.message && error.message === 'Dogs not found') {
 				setIsQueryDogsError(false)
@@ -119,7 +120,7 @@ function useHome() {
 	const { mutate: update, status: updateStatus, isError: isUpdatrError } = useMutation(updates => updateDogsFromUser(user, updates), {
 		onSettled: () => queryClient.invalidateQueries('dogs')
 	})
-	const { mutate: notificateUsers, status: notificationStatus, isError: isNotificationError } = useMutation(() => notificateUsersOfNewDogsInPark())
+	const { mutate: notificateUsers, status: notificationStatus, isError: isNotificationError } = useMutation(() => notificateUsersOfNewDogsInPark(user))
 
 
 	React.useEffect(() => {
