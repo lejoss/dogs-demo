@@ -100,51 +100,76 @@ function useWarn() {
 
 function useHome() {
 	const { user } = useAuth()
-	const [dogs, setDogs] = React.useState(null)
+	const [dogs, setDogs] = React.useState([])
+	const [userDogs, setUserDogs] = React.useState([])
+	const [activeDogs, setActiveDogs] = React.useState([])
+	const [isLoading, setIsLoading] = React.useState(false)
 	// const router = useRouter()
-	
+
+	const sendNotifications = () => notificateUsersOfNewDogsInPark(user)
+	const visitPark = (active) => updateDogsFromUser(user, active)
+
 	React.useEffect(async () => {
 		try {
+			setIsLoading(true)
 			const data = await fetchDogs()
 			setDogs(data)
+			setIsLoading(false)
 		} catch (error) {
+			setIsLoading(false)
 			console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
 		}
 	}, [])
-	// updateDogsFromUser(user, updates)
-	// notificateUsersOfNewDogsInPark(user)
 
+	React.useEffect(() => {
+		setUserDogs(dogs.filter(dog => dog.userid === user))
+		setActiveDogs(dogs.filter(dog => dog.active))
+	}, [dogs])
 
 	return {
+		activeDogs,
 		dogs,
-		// notificateUsers,
-		user,
+		isLoading,
+		sendNotifications,
+		userDogs,
+		visitPark,
 	}
 }
 
 
 function usePark() {
-	const [dogs, setDogs] = React.useState(null)
-	const [activeDogs, setActiveDogs] = React.useState(null)
+	const [dogs, setDogs] = React.useState([])
+	const [activeDogs, setActiveDogs] = React.useState([])
 	const [listData, setListData] = React.useState([])
+	const [isLoading, setIsLoading] = React.useState(false)
 
 	const setList = list => setListData(list)
 
 	React.useEffect(async () => {
 		try {
+			setIsLoading(true)
 			const data = await fetchDogs()
-			setActiveDogs(data.filter(dog => dog.active))
 			setDogs(data)
-			setListData(activeDogs)
+			setIsLoading(false)
 		} catch (error) {
+			setIsLoading(false)
 			console.log('ERROR TRYING TO FETCH DOGS IN PARK')
 		}
 	}, [])
+	
+	React.useEffect(() => {
+		setActiveDogs(dogs.filter(dog => dog.active))
+	}, [dogs])
+
+	React.useEffect(() => {
+		setListData(activeDogs)
+	}, [activeDogs])
 
 
 	return {
 		activeDogs,
 		dogs,
+		isLoading,
 		listData,
 		setList,
 	}

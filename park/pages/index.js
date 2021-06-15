@@ -17,64 +17,71 @@ import {
 
 export default function Home(props) {
   const {
+    activeDogs,
     dogs,
-    //notificateUsers,
-    user,
+    isLoading,
+    sendNotifications,
+    userDogs,
+    visitPark,
   } = useHome()
 
 
   function registerVisit() {
-    //notificateUsers()
+    visitPark(true)
+    sendNotifications()
   }
 
   function unregisterVisit() {
-    // update(false)
+    visitPark(false)
   }
-
-  console.log('home dogs', dogs)
-
-  const dogsInPark = dogs && dogs.filter(dog => dog.active);
-  const userDogs = dogs && dogs.filter(({ userid }) => userid === user)
 
   const isUserVisiting = userDogs && userDogs.length > 0 && userDogs.every(({ active }) => active)
   const userHasDogs = dogs && userDogs && userDogs.length > 0
 
   return (
     <Container>
-      <PageTitle
-        text="parque laureles"
-        icon="park_black_24dp.svg"
-      />
-
-      {userHasDogs
-        ? (
+      {isLoading
+        ? <Loading />
+        : (
           <>
-            {dogsInPark.length > 0
-              ? <Card variant="accent"><p>{`${dogsInPark.length} Perro en el parque`}</p></Card>
-              : <Card variant="dark"><p>No hay perros en el parque</p></Card>
-            }
-
-            <UserDogs
-              title="mi mascota"
-              dogs={userDogs}
+            <PageTitle
+              text="parque laureles"
+              icon="park_black_24dp.svg"
             />
 
-            <Row wrap>
-              <ViewPark />
-              <EnterPark onEnter={registerVisit} disabled={isUserVisiting} />
-              <ViewAppInfo />
-              <ExitPark onExit={unregisterVisit} disabled={!isUserVisiting} />
-            </Row>
+            {userHasDogs
+              ? (
+                <>
+                  {activeDogs.length > 0
+                    ? <Card variant="accent"><p>{`${activeDogs.length} Perro en el parque`}</p></Card>
+                    : <Card variant="dark"><p>No hay perros en el parque</p></Card>
+                  }
 
-            {isUserVisiting
-              ? (<Card variant="dark">
-                <p>Estas visitando el parque. Termina tu visita con el boton de Salir.</p>
-              </Card>)
-              : null
+                  <UserDogs
+                    title="mi mascota"
+                    dogs={userDogs}
+                  />
+
+                  <Row wrap>
+                    <ViewPark />
+                    <EnterPark onEnter={registerVisit} disabled={isUserVisiting} />
+                    <ViewAppInfo />
+                    <ExitPark onExit={unregisterVisit} disabled={!isUserVisiting} />
+                  </Row>
+
+                  {isUserVisiting
+                    ? (<Card variant="dark">
+                      <p>Estas visitando el parque. Termina tu visita con el boton de Salir.</p>
+                    </Card>)
+                    : null
+                  }
+                </>
+              )
+              : <RegisterDog text="NO TIENES PERROS REGISTRADOS" />
             }
+
           </>
         )
-        : <RegisterDog text="NO TIENES PERROS REGISTRADOS" />
       }
     </Container>
   )
