@@ -1,5 +1,4 @@
 import React from 'react'
-import { useQuery, useMutation, useQueryClient, QueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
@@ -72,142 +71,88 @@ function useAuth() {
 }
 
 function useApp() {
-	const queryClient = new QueryClient()
 	useWorker()
 	const router = useRouter()
 
-	React.useEffect(() => {
-		if (Notification.permission !== "granted") {
-			router.push('/warn')
-		}
-	}, [])
-
-	return { queryClient }
+	// React.useEffect(() => {
+	// 	if (Notification.permission !== "granted") {
+	// 		router.push('/warn')
+	// 	}
+	// }, [])
 
 }
 
 function useWarn() {
-	const [permission, setPermission] = React.useState(null)
-	const router = useRouter()
+	// const [permission, setPermission] = React.useState(null)
+	// const router = useRouter()
 
-	React.useEffect(() => {
-		if (permission === 'granted') {
-			return router.push('/')
-		} else {
-			Notification.requestPermission().then((permission) => {
-				setPermission(permission)
-			})
-		}
-	}, [permission])
+	// React.useEffect(() => {
+	// 	if (permission === 'granted') {
+	// 		return router.push('/')
+	// 	} else {
+	// 		Notification.requestPermission().then((permission) => {
+	// 			setPermission(permission)
+	// 		})
+	// 	}
+	// }, [permission])
 
-}
-
-function useDog() {
-	const { user: userid } = useAuth()
-	const router = useRouter()
-	const queryClient = useQueryClient()
-	const { mutate: update, isError, isLoading } = useMutation(formData => createDog(formData), {
-		onSettled: () => queryClient.invalidateQueries('dogs'),
-		onError: err => router.push('/error')
-	})
-
-	React.useEffect(() => {
-		if (isError) {
-			router.push('/error')
-		}
-	}, [isError])
-
-	return {	
-		isLoading,
-		userid,
-		update,
-	}
 }
 
 function useHome() {
-	const [isQueryDogsError, setIsQueryDogsError] = React.useState(false)
 	const { user } = useAuth()
-	const router = useRouter()
-	const queryClient = useQueryClient()
-	const { data: dogs, status: dogQueryStatus } = useQuery('dogs', () => fetchDogs(), {
-		retry: false,
-		onError: (error) => {
-			if (error.message && error.message === 'Dogs not found') {
-				setIsQueryDogsError(false)
-			} else {
-				setIsQueryDogsError(true)
-			}
+	const [dogs, setDogs] = React.useState(null)
+	// const router = useRouter()
+	
+	React.useEffect(async () => {
+		try {
+			const data = await fetchDogs()
+			setDogs(data)
+		} catch (error) {
+			console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
 		}
-	})
-	const { mutate: update, status: updateStatus, isError: isUpdatrError } = useMutation(updates => updateDogsFromUser(user, updates), {
-		onSettled: () => queryClient.invalidateQueries('dogs')
-	})
-	const { mutate: notificateUsers, status: notificationStatus, isError: isNotificationError } = useMutation(() => notificateUsersOfNewDogsInPark(user))
+	}, [])
+	// updateDogsFromUser(user, updates)
+	// notificateUsersOfNewDogsInPark(user)
 
-
-	React.useEffect(() => {
-		if (updateStatus === 'success' && notificationStatus === 'success') {
-			router.push('/park')
-		}
-	}, [updateStatus, notificationStatus])
-
-	React.useEffect(() => {
-		if (isQueryDogsError || isUpdatrError) {
-			router.push('/error')
-		}
-
-	}, [isQueryDogsError, isUpdatrError])
 
 	return {
-		dogs: dogs && dogs,
-		dogQueryStatus,
-		notificationStatus,
-		notificateUsers,
+		dogs,
+		// notificateUsers,
 		user,
-		update,
-		updateStatus,
 	}
 }
 
 
 function usePark() {
-	const { user } = useAuth()
-	const router = useRouter()
-	const [activeDogs, setActiveDogs] = React.useState([])
+	const [dogs, setDogs] = React.useState(null)
+	const [activeDogs, setActiveDogs] = React.useState(null)
 	const [listData, setListData] = React.useState([])
-	const { data: dogs, isError: isQueryDogsError, isLoading, isSuccess } = useQuery('dogs', () => fetchDogs())
 
-	React.useEffect(() => {
-		if (isSuccess && dogs.length) {
-			setActiveDogs(dogs.filter(dog => dog.active))
-		}
-	}, [dogs])
+	const setList = list => setListData(list)
 
-	React.useEffect(() => {
-		if (isSuccess && activeDogs.length) {
+	React.useEffect(async () => {
+		try {
+			const data = await fetchDogs()
+			setActiveDogs(data.filter(dog => dog.active))
+			setDogs(data)
 			setListData(activeDogs)
+		} catch (error) {
+			console.log('ERROR TRYING TO FETCH DOGS IN PARK')
 		}
-	}, [activeDogs])
+	}, [])
 
-	React.useEffect(() => {
-		if (isQueryDogsError) {
-			router.push('/error')
-		}
-	}, [isQueryDogsError])
 
 	return {
 		activeDogs,
 		dogs,
-		isLoading,
 		listData,
-		setListData,
+		setList,
 	}
 }
 
 export {
 	useApp,
 	useAuth,
-	useDog,
 	useHome,
 	usePark,
 	usePush,

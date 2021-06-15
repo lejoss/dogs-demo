@@ -7,7 +7,6 @@ const SubscriptionContext = React.createContext()
 function SubscriptionProvider(props) {
 	const { user } = usePush()
 	const value = { user }
-
 	return <SubscriptionContext.Provider value={value} {...props} />
 
 }

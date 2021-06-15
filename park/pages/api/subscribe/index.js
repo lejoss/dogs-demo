@@ -8,7 +8,7 @@ export default async (req, res) => {
 
 		if (!pushSubscription.endpoint) {
 			// not valid subscription
-			res.status(400).json({ message: 'subscription must have an endpoint' })
+			return res.status(400).json({ message: 'subscription must have an endpoint' })
 		}
 
 		try {
@@ -17,8 +17,7 @@ export default async (req, res) => {
 			})
 
 			if (user) {
-				res.status(200).json({ user: id })
-
+				return res.status(200).json({ user: id })
 			} else {
 				const userSubscription = await prisma.users.create({
 					data: {
@@ -29,11 +28,11 @@ export default async (req, res) => {
 				await prisma.$disconnect()
 
 				const { id } = userSubscription
-				res.status(200).json({ user: id })
+				return res.status(200).json({ user: id })
 			}
 
 		} catch (error) {
-			res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
+			return res.status(500).json({ error: 'Error trying to subscribe to push notifications' })
 		}
 	}
 	return res.status(404).json({ message: 'resource not found' })

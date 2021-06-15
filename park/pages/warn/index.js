@@ -1,9 +1,9 @@
-import { useWarn } from '/utils/hooks'
+// import { useWarn } from '/utils/hooks'
 import { Title } from '/components'
 import styles from './Warning.module.css'
 
 export default function Warning(props) {
-	useWarn()
+	// useWarn()
 	return (
 		<div className={styles.container}>
 			<Title>Advertencia</Title>
