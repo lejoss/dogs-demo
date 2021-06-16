@@ -18,18 +18,38 @@ import {
 export default function Home(props) {
   const {
     dogs,
+    goTo,
     isLoading,
+    reload,
+    setIsLoading,
     sendNotifications,
     user,
     visitPark,
   } = useHome()
 
 
-  const registerVisit = () => {
-    visitPark(true)
-    sendNotifications()
+  const registerVisit = async () => {
+    try {
+      setIsLoading(true)
+      await visitPark(true)
+      await sendNotifications()
+      setIsLoading(false)
+      goTo('/park')
+    } catch (error) {
+      setIsLoading(false)
+      
+    }
   }
-  const unregisterVisit = () => visitPark(false)
+  const unregisterVisit = async () => {
+    try {
+      setIsLoading(true)
+      await visitPark(false)
+      setIsLoading(false)
+      reload()
+    } catch (error) {
+      
+    }
+  }
   const setUserDogs = () => dogs.filter(dog => dog.userid === user)
 	const setActiveDogs = () => dogs.filter(dog => dog.active)
 

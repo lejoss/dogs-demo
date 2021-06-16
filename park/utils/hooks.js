@@ -102,10 +102,12 @@ function useHome() {
 	const { user } = useAuth()
 	const [dogs, setDogs] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
-	// const router = useRouter()
+	const router = useRouter()
 
 	const sendNotifications = () => notificateUsersOfNewDogsInPark(user)
 	const visitPark = (active) => updateDogsFromUser(user, active)
+	const goTo = (path) => router.push(path)
+	const reload = (path) => router.reload()
 
 	React.useEffect(async () => {
 		try {
@@ -121,8 +123,11 @@ function useHome() {
 
 	return {
 		dogs,
+		goTo,
 		isLoading,
+		reload,
 		sendNotifications,
+		setIsLoading,
 		user,
 		visitPark,
 	}
