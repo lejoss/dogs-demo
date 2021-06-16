@@ -156,21 +156,19 @@ function useHome() {
 		if (user && dogs && dogs.length) {
 			setIsLoading(true)
 			setUserDogs(dogs.filter(dog => dog.userid === user))
+			setActiveDogs(dogs.filter(dog => dog.active))
 			setIsLoading(false)
 		}
 
 	}, [dogs, user])
 
 	React.useEffect(() => {
-		console.log('user dogs effect out')
-		if (userDogs && useDogs.length) {
-			console.log('user dogs effect IN')
+		if (userDogs && userDogs.length) {
 			setIsLoading(true)
 			setIsUserVisiting(userDogs.every(({ active }) => active))
 			setIsLoading(false)
 		}
 	}, [userDogs])
-
 
 	return {
 		activeDogs,
