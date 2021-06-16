@@ -105,14 +105,17 @@ function useHome() {
 	const [dogs, setDogs] = React.useState([])
 	const [userDogs, setUserDogs] = React.useState([])
 	const [activeDogs, setActiveDogs] = React.useState([])
-	const [isVisitingPark, setVisitingPark] = React.useState(false)
+	const [isUserVisiting, setIsUserVisiting] = React.useState(false)
 	const [isLoading, setIsLoading] = React.useState(false)
 
 	const enterPark = async () => {
 		try {
 			setIsLoading(true)
-			await updateDogsFromUser(user, true)
+			const { data } = await updateDogsFromUser(user, true)
 			await notificateUsersOfNewDogsInPark(user)
+			setActiveDogs([...activeDogs, data])
+			setUserDogs(data)
+			setIsUserVisiting(data.every(({ active }) => active))
 			setIsLoading(false)
 			router.push('/park')
 		} catch (error) {
@@ -124,9 +127,12 @@ function useHome() {
 	const exitPark = async () => {
 		try {
 			setIsLoading(true)
-			await updateDogsFromUser(user, false)
+			const { data } = await updateDogsFromUser(user, false)
+			console.log('exit park userDogs', data)
+			setActiveDogs(activeDogs.filter(dog => dog.id !== data.id))
+			setUserDogs(data)
+			setIsUserVisiting(data.every(({ active }) => active))
 			setIsLoading(false)
-			router.reload()
 		} catch (error) {
 			setIsLoading(false)
 			console.log('error trying to leave park')
@@ -145,12 +151,26 @@ function useHome() {
 		}
 	}, [])
 
+	React.useEffect(() => {
+		if (!dogs.length) return
+		if (user && dogs && dogs.length) {
+			setIsLoading(true)
+			setUserDogs(dogs.filter(dog => dog.userid === user))
+			setActiveDogs(dogs.filter(dog => dog.active))
+			setIsUserVisiting(userDogs.every(({ active }) => active))
+			setIsLoading(false)
+		}
+
+	}, [dogs, user])
+
+
 	return {
-		dogs,
+		activeDogs,
 		enterPark,
-		isLoading,
 		exitPark,
-		user,
+		isLoading,
+		isUserVisiting,
+		userDogs,
 	}
 }
 

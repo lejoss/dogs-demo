@@ -17,16 +17,13 @@ import {
 
 export default function Home(props) {
   const {
-    dogs,
+    activeDogs,
     enterPark,
-    isLoading,
     exitPark,
-    user,
+    isLoading,
+		isUserVisiting,    
+    userDogs,
   } = useHome()	
-
-  const userDogs = dogs && dogs.filter(dog => dog.userid === user)
-  const activeDogs = dogs && dogs.filter(dog => dog.active)
-  const isUserVisiting = userDogs && userDogs.length > 0 && userDogs.every(({ active }) => active)
 
   return (
     <>

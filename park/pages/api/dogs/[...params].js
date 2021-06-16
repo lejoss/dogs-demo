@@ -29,17 +29,23 @@ export default async function (req, res) {
 		const { active } = req.body
 
 		try {
-			const dogs = await prisma.dogs.updateMany({
+			const update = await prisma.dogs.updateMany({
 				where: {
 					userid: parseInt(id)
 				},
 				data: { active },
 			})
 
+			const updatedDogs = await prisma.dogs.findMany({
+				where: {
+					userid: parseInt(id)
+				}
+			})
+
 			await prisma.$disconnect()
 
-			if (dogs) {
-				res.status(200).json({ message: 'dog updated' })
+			if (update && updatedDogs) {
+				res.status(200).json({ message: 'dog updated', data: updatedDogs })
 			} else {
 				// res.status(400).json({ message: 'dog updated' })
 			}
