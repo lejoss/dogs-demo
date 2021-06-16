@@ -129,7 +129,7 @@ function useHome() {
 			setIsLoading(true)
 			const { data } = await updateDogsFromUser(user, false)
 			console.log('exit park userDogs', data)
-			setActiveDogs(activeDogs.filter(dog => dog.id !== data.id))
+			setActiveDogs(activeDogs.filter(dog => dog.id !== data[0].id))
 			setUserDogs(data)
 			setIsUserVisiting(data.every(({ active }) => active))
 			setIsLoading(false)
