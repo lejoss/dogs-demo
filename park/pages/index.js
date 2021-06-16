@@ -17,26 +17,25 @@ import {
 
 export default function Home(props) {
   const {
-    activeDogs,
     dogs,
     isLoading,
     sendNotifications,
-    userDogs,
+    user,
     visitPark,
   } = useHome()
 
 
-  function registerVisit() {
+  const registerVisit = () => {
     visitPark(true)
     sendNotifications()
   }
+  const unregisterVisit = () => visitPark(false)
+  const setUserDogs = () => dogs.filter(dog => dog.userid === user)
+	const setActiveDogs = () => dogs.filter(dog => dog.active)
 
-  function unregisterVisit() {
-    visitPark(false)
-  }
-
+  const userDogs = setUserDogs(dogs)
+  const activeDogs = setActiveDogs(dogs)
   const isUserVisiting = userDogs && userDogs.length > 0 && userDogs.every(({ active }) => active)
-  const userHasDogs = dogs && userDogs && userDogs.length > 0
 
   return (
     <Container>
@@ -49,7 +48,7 @@ export default function Home(props) {
               icon="park_black_24dp.svg"
             />
 
-            {userHasDogs
+            {userDogs && userDogs.length > 0
               ? (
                 <>
                   {activeDogs.length > 0

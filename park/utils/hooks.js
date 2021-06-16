@@ -101,8 +101,6 @@ function useWarn() {
 function useHome() {
 	const { user } = useAuth()
 	const [dogs, setDogs] = React.useState([])
-	const [userDogs, setUserDogs] = React.useState([])
-	const [activeDogs, setActiveDogs] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
 	// const router = useRouter()
 
@@ -121,21 +119,14 @@ function useHome() {
 		}
 	}, [])
 
-	React.useEffect(() => {
-		setUserDogs(dogs.filter(dog => dog.userid === user))
-		setActiveDogs(dogs.filter(dog => dog.active))
-	}, [dogs])
-
 	return {
-		activeDogs,
 		dogs,
 		isLoading,
 		sendNotifications,
-		userDogs,
+		user,
 		visitPark,
 	}
 }
-
 
 function usePark() {
 	const [dogs, setDogs] = React.useState([])
