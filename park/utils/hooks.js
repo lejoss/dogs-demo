@@ -103,11 +103,31 @@ function useHome() {
 	const [dogs, setDogs] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
 	const router = useRouter()
+	
+	const enterPark = async () => {
+		try {
+			setIsLoading(true)
+			await updateDogsFromUser(user, true)
+			await notificateUsersOfNewDogsInPark(user)
+			setIsLoading(false)
+			router.push('/park')
+		} catch (error) {
+			setIsLoading(false)
+			console.log('error trying to enter park')
+		}
+	}
 
-	const sendNotifications = () => notificateUsersOfNewDogsInPark(user)
-	const visitPark = (active) => updateDogsFromUser(user, active)
-	const goTo = (path) => router.push(path)
-	const reload = (path) => router.reload()
+	const exitPark = async () => {
+		try {
+			setIsLoading(true)
+			await updateDogsFromUser(user, false)
+			setIsLoading(false)
+			router.reload()
+		} catch (error) {
+			setIsLoading(false)
+			console.log('error trying to leave park')
+		}
+	}
 
 	React.useEffect(async () => {
 		try {
@@ -123,13 +143,10 @@ function useHome() {
 
 	return {
 		dogs,
-		goTo,
+		enterPark,
 		isLoading,
-		reload,
-		sendNotifications,
-		setIsLoading,
+		exitPark,
 		user,
-		visitPark,
 	}
 }
 
@@ -152,7 +169,7 @@ function usePark() {
 			console.log('ERROR TRYING TO FETCH DOGS IN PARK')
 		}
 	}, [])
-	
+
 	React.useEffect(() => {
 		setActiveDogs(dogs.filter(dog => dog.active))
 	}, [dogs])
