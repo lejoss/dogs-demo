@@ -1,7 +1,6 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import { useDogs } from '/utils/hooks'
 import { Button, DogInput, DogSelect, Loading } from '/components'
-
 import styles from './Dog.module.css'
 
 const breedOptions = {
