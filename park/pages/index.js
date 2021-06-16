@@ -29,11 +29,11 @@ export default function Home(props) {
   const isUserVisiting = userDogs && userDogs.length > 0 && userDogs.every(({ active }) => active)
 
   return (
-    <Container>
+    <>
       {isLoading
         ? <Loading />
         : (
-          <>
+          <Container>
             <PageTitle
               text="parque laureles"
               icon="park_black_24dp.svg"
@@ -70,9 +70,9 @@ export default function Home(props) {
               : <RegisterDog text="NO TIENES PERROS REGISTRADOS" />
             }
 
-          </>
+          </Container>
         )
       }
-    </Container>
+    </>
   )
 }

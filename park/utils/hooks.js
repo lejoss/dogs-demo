@@ -2,6 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
+	createDog,
 	subscribeUserToPushNotifications,
 	fetchDogs,
 	fetchUserByEndpoint,
@@ -100,10 +101,13 @@ function useWarn() {
 
 function useHome() {
 	const { user } = useAuth()
-	const [dogs, setDogs] = React.useState([])
-	const [isLoading, setIsLoading] = React.useState(false)
 	const router = useRouter()
-	
+	const [dogs, setDogs] = React.useState([])
+	const [userDogs, setUserDogs] = React.useState([])
+	const [activeDogs, setActiveDogs] = React.useState([])
+	const [isVisitingPark, setVisitingPark] = React.useState(false)
+	const [isLoading, setIsLoading] = React.useState(false)
+
 	const enterPark = async () => {
 		try {
 			setIsLoading(true)
@@ -150,6 +154,30 @@ function useHome() {
 	}
 }
 
+function useDogs() {
+	const { user: userid } = useAuth()
+	const router = useRouter()
+	const [isLoading, setIsLoading] = React.useState(false)
+
+	const create = async (formData) => {
+		try {
+			setIsLoading(true)
+			await createDog({
+				...formData,
+				userid,
+			})
+			setIsLoading(false)
+			router.push('/')
+		} catch (error) {
+			setIsLoading(false)
+			console.log('error trying to create a dog')
+			router.push('/error')
+		}
+	}
+
+	return { create, isLoading }
+}
+
 function usePark() {
 	const [dogs, setDogs] = React.useState([])
 	const [activeDogs, setActiveDogs] = React.useState([])
@@ -191,6 +219,7 @@ function usePark() {
 export {
 	useApp,
 	useAuth,
+	useDogs,
 	useHome,
 	usePark,
 	usePush,

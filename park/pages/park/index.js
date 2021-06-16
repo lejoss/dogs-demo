@@ -43,11 +43,11 @@ export default function Park(props) {
 	}
 
 	return (
-		<div className={styles.container}>
+		<>
 			{isLoading
 				? <Loading />
 				: (
-					<>
+					<div className={styles.container}>
 						<div className={styles.list__header}>
 							<select onChange={handleChangeList} name="select list">
 								<option value="active">Perros activos</option>
@@ -95,9 +95,9 @@ export default function Park(props) {
 							</ul>
 						</div>
 						<Link href="/">volver al Inicio</Link>
-					</>
+					</div>
 				)
 			}
-		</div>
+		</>
 	)
 }
