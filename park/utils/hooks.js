@@ -103,9 +103,6 @@ function useHome() {
 	const { user } = useAuth()
 	const router = useRouter()
 	const [dogs, setDogs] = React.useState([])
-	const [userDogs, setUserDogs] = React.useState([])
-	const [activeDogs, setActiveDogs] = React.useState([])
-	const [isUserVisiting, setIsUserVisiting] = React.useState(false)
 	const [isLoading, setIsLoading] = React.useState(false)
 
 	const enterPark = async () => {
@@ -113,9 +110,7 @@ function useHome() {
 			setIsLoading(true)
 			const { data } = await updateDogsFromUser(user, true)
 			await notificateUsersOfNewDogsInPark(user)
-			setActiveDogs([...activeDogs, data])
-			setUserDogs(data)
-			setIsUserVisiting(data.every(({ active }) => active))
+			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
 			setIsLoading(false)
 			router.push('/park')
 		} catch (error) {
@@ -128,10 +123,7 @@ function useHome() {
 		try {
 			setIsLoading(true)
 			const { data } = await updateDogsFromUser(user, false)
-			console.log('exit park userDogs', data)
-			setActiveDogs(activeDogs.filter(dog => dog.id !== data[0].id))
-			setUserDogs(data)
-			setIsUserVisiting(data.every(({ active }) => active))
+			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
 			setIsLoading(false)
 		} catch (error) {
 			setIsLoading(false)
@@ -151,32 +143,12 @@ function useHome() {
 		}
 	}, [])
 
-	React.useEffect(() => {
-		if (!dogs.length) return
-		if (user && dogs && dogs.length) {
-			setIsLoading(true)
-			setUserDogs(dogs.filter(dog => dog.userid === user))
-			setActiveDogs(dogs.filter(dog => dog.active))
-			setIsLoading(false)
-		}
-
-	}, [dogs, user])
-
-	React.useEffect(() => {
-		if (userDogs && userDogs.length) {
-			setIsLoading(true)
-			setIsUserVisiting(userDogs.every(({ active }) => active))
-			setIsLoading(false)
-		}
-	}, [userDogs])
-
 	return {
-		activeDogs,
+		dogs,
 		enterPark,
 		exitPark,
 		isLoading,
-		isUserVisiting,
-		userDogs,
+		user,
 	}
 }
 
@@ -206,7 +178,6 @@ function useDogs() {
 
 function usePark() {
 	const [dogs, setDogs] = React.useState([])
-	const [activeDogs, setActiveDogs] = React.useState([])
 	const [listData, setListData] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
 
@@ -225,16 +196,11 @@ function usePark() {
 	}, [])
 
 	React.useEffect(() => {
-		setActiveDogs(dogs.filter(dog => dog.active))
+		if (!dogs.length) return
+		setListData(dogs.filter(dog => dog.active))
 	}, [dogs])
 
-	React.useEffect(() => {
-		setListData(activeDogs)
-	}, [activeDogs])
-
-
 	return {
-		activeDogs,
 		dogs,
 		isLoading,
 		listData,

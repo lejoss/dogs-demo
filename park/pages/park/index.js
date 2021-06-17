@@ -26,12 +26,13 @@ const CardTitle = ({ children }) => {
 
 export default function Park(props) {
 	const {
-		activeDogs,
 		dogs,
 		isLoading,
 		listData,
-		setList
+		setList,
 	} = usePark()
+
+	const activeDogs = dogs.length && dogs.filter(dog => dog.active)
 
 	function handleChangeList(event) {
 		const { value } = event.target
@@ -57,7 +58,7 @@ export default function Park(props) {
 						<div className={styles.park}>
 							<ul className={styles.ul}>
 								{
-									listData && listData.length
+									listData.length
 										? listData.map((dog, i) => {
 											return (
 												<li className={styles.li} key={i}>
