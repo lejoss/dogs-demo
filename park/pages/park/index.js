@@ -49,10 +49,11 @@ export default function Park(props) {
 				? <Loading />
 				: (
 					<div className={styles.container}>
+						<br/>
 						<div className={styles.list__header}>
 							<select onChange={handleChangeList} name="select list">
-								<option value="active">Perros activos</option>
-								<option value="all">Perros del parque</option>
+								<option value="active">👇 Perros activos</option>
+								<option value="all">👇 Perros del parque</option>
 							</select>
 						</div>
 						<div className={styles.park}>
