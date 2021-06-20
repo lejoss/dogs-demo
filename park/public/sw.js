@@ -2,11 +2,10 @@ self.addEventListener('install', event => {
     console.log('Worker installed');
 });
 
-
-
 self.addEventListener('push', event => {
     const data = event.data.json();
     console.log('Notification Received', data);
+
 
     // const options = {
     //     body: '',
@@ -24,3 +23,10 @@ self.addEventListener('push', event => {
         })
     )
 });
+
+self.addEventListener('notificationclick', function (event) {
+    event.notification.onclick = function (event) {
+        event.preventDefault(); // Previene al buscador de mover el foco a la pestaña del Notification
+        window.open('https://laureles.vercel.app', '_blank');
+    }
+})
