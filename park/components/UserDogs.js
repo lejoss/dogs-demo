@@ -15,7 +15,7 @@ export default function UserDogs(props) {
 									<img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
 									<span> {dog.name}</span>
 									{' - '}
-									<span>{`${dog.age} años`}</span>
+									<span>{dog.breed}</span>
 								</Row>
 								<div style={{ marginBottom: '.5em' }}/>
 								{/* <Row>
