@@ -1,16 +1,24 @@
-// import { useWarn } from '/utils/hooks'
-import { Title } from '/components'
-import styles from './Warning.module.css'
+import { useWarn } from '/utils/hooks'
+import { Title, Card, Container } from '/components'
 
 export default function Warning(props) {
-	// useWarn()
+	useWarn()
 	return (
-		<div className={styles.container}>
-			<Title>Advertencia</Title>
-			<div className={styles.warn__message}>
-				<p>para usar la aplicacion activa las notificaciones y recarga la pantalla </p>
-			</div>
-			
-		</div>
+		<Container>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			{/* <Title>Advertencia</Title> */}
+			<Card variant="accent">
+				<p>Para usar esta aplicacion activa las notificaciones y recarga la pantalla </p>
+				<p>
+					Si por accidente seleccionaste "No permitir notificaciones"
+				</p>
+				<a style={{ color: 'green' }} href="https://support.google.com/chrome/answer/3220216?co=GENIE.Platform%3DAndroid&hl=es">sigue estos pasos</a>
+				<p>Si tu telefono es un Iphone, lo sentimos, esta aplicacion no soporta Iphone.</p>
+			</Card>
+		</Container>
 	)
 }

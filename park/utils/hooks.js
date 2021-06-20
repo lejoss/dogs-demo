@@ -14,10 +14,6 @@ import { SubscriptionContext } from '/context/subscription'
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
 
-// function useClient() {
-// 	return React.useCallback((endpoint, options) => client(endpoint, options), [])
-// }
-
 function useWorker() {
 	React.useEffect(async () => {
 		if ("serviceWorker" in navigator) {
@@ -37,25 +33,29 @@ function usePush() {
 	const [error, setError] = React.useState(null)
 
 	React.useEffect(async () => {
-		try {
-			const register = await navigator.serviceWorker.ready
-			const userSubscription = await register.pushManager.getSubscription()
-			if (!userSubscription) {
-				const subscription = await register.pushManager.subscribe({
-					userVisibleOnly: true,
-					applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
-				})
-				const { user } = await subscribeUserToPushNotifications(subscription)
-				setUser(user)
+		if ('Notification' in window) {
+			try {
+				const register = await navigator.serviceWorker.ready
+				const userSubscription = await register.pushManager.getSubscription()
+				if (!userSubscription) {
+					const subscription = await register.pushManager.subscribe({
+						userVisibleOnly: true,
+						applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
+					})
+					const { user } = await subscribeUserToPushNotifications(subscription)
+					setUser(user)
 
-			} else {
-				const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
-				const { user } = await fetchUserByEndpoint(hashedEndpoint)
-				setUser(user)
+				} else {
+					const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
+					const { user } = await fetchUserByEndpoint(hashedEndpoint)
+					setUser(user)
+				}
+
+			} catch (error) {
+				setError(error)
 			}
-
-		} catch (error) {
-			setError(error)
+		} else {
+			alert('Lo sentimos 😞, este navegador no soporta las notificaciones.')
 		}
 
 	}, [])
@@ -73,30 +73,21 @@ function useAuth() {
 
 function useApp() {
 	useWorker()
-	const router = useRouter()
-
-	// React.useEffect(() => {
-	// 	if (Notification.permission !== "granted") {
-	// 		router.push('/warn')
-	// 	}
-	// }, [])
-
 }
 
 function useWarn() {
-	// const [permission, setPermission] = React.useState(null)
-	// const router = useRouter()
+	const [permission, setPermission] = React.useState(null)
+	const router = useRouter()
 
-	// React.useEffect(() => {
-	// 	if (permission === 'granted') {
-	// 		return router.push('/')
-	// 	} else {
-	// 		Notification.requestPermission().then((permission) => {
-	// 			setPermission(permission)
-	// 		})
-	// 	}
-	// }, [permission])
-
+	React.useEffect(() => {
+		if (permission === 'granted') {
+			return router.push('/')
+		} else {
+			Notification.requestPermission().then((permission) => {
+				setPermission(permission)
+			})
+		}
+	}, [permission])
 }
 
 function useHome() {
@@ -132,16 +123,22 @@ function useHome() {
 	}
 
 	React.useEffect(async () => {
-		try {
-			setIsLoading(true)
-			const data = await fetchDogs()
-			setDogs(data)
-			setIsLoading(false)
-		} catch (error) {
-			setIsLoading(false)
-			console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
+		if (Notification.permission !== "granted") {
+			router.push('/warn')
+		} else {
+			try {
+				setIsLoading(true)
+				const data = await fetchDogs()
+				setDogs(data)
+				setIsLoading(false)
+			} catch (error) {
+				setIsLoading(false)
+				console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
+			}
 		}
+
 	}, [])
+
 
 	return {
 		dogs,
