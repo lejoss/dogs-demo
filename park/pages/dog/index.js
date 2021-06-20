@@ -5,11 +5,32 @@ import styles from './Dog.module.css'
 
 const breedOptions = {
 	values: [
-		'criollo',
-		'pitbull',
-		'pastor aleman',
-		'border collie',
-		'lobo siberiano',
+		'Akita',
+		'Alaskan Husky',
+		'Beagle',
+		'Border Collie',
+		'Boxer',
+		'Bulldog',
+		'Criollo',
+		'Chihuahua',
+		'Chow Chow',
+		'Cocker Spaniel',
+		'Dálmata',
+		'Dobermann',
+		'Fila Brasileiro',
+		'Fox terrier',
+		'Gran Danés',
+		'Husky Siberiano',
+		'Poodle',
+		'Pitbull',
+		'Pastor aleman',
+		'Pastor Belga',
+		'Samoyedo',
+		'San Bernardo',
+		'Shar Pei',
+		'Shih Tzu',
+		'Teckel',
+		'Terrier',
 	]
 }
 
