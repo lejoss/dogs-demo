@@ -24,6 +24,23 @@ self.addEventListener('push', event => {
     )
 })
 
+self.addEventListener("pushsubscriptionchange", event => {
+    console.log('sub changed, re-sub')
+    event.waitUntil(swRegistration.pushManager.subscribe(event.oldSubscription.options)
+        .then(subscription => {
+            return fetch("register", {
+                method: "post",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    endpoint: subscription.endpoint
+                })
+            });
+        })
+    );
+}, false);
+
 self.addEventListener('notificationclick', function (event) {
     let url = 'https://laureles.vercel.app'
     event.notification.close(); // Android needs explicit close.

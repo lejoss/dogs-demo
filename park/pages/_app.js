@@ -1,13 +1,13 @@
-import { SubscriptionProvider } from '/context/subscription'
+import { AppProvider } from '/context/app'
 import { useApp } from '/utils/hooks'
 import '/styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   useApp()
   return (
-    <SubscriptionProvider>
+    <AppProvider>
       <Component {...pageProps} />
-    </SubscriptionProvider>
+    </AppProvider>
   )
 }
 

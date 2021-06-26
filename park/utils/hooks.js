@@ -9,7 +9,7 @@ import {
 	updateDogsFromUser,
 	notificateUsersOfNewDogsInPark,
 } from '/utils/api'
-import { SubscriptionContext } from '/context/subscription'
+import { AppContext } from '/context/app'
 
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
@@ -64,9 +64,9 @@ function usePush() {
 }
 
 function useAuth() {
-	const context = React.useContext(SubscriptionContext)
+	const context = React.useContext(AppContext)
 	if (context === undefined) {
-		throw new Error(`useAuth must be used within a SubscriptionProvider`)
+		throw new Error(`useAuth must be used within a AppProvider`)
 	}
 	return context
 }
@@ -91,9 +91,10 @@ function useWarn() {
 }
 
 function useHome() {
-	const { user } = useAuth()
+	const { user, dogs } = useAuth()
+	console.log('dogs from ctx', d)
 	const router = useRouter()
-	const [dogs, setDogs] = React.useState([])
+	//const [dogs, setDogs] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
 
 	const enterPark = async () => {
@@ -122,23 +123,22 @@ function useHome() {
 		}
 	}
 
-	React.useEffect(async () => {
-		if (Notification.permission !== "granted") {
-			router.push('/warn')
-		} else {
-			try {
-				setIsLoading(true)
-				const data = await fetchDogs()
-				setDogs(data)
-				setIsLoading(false)
-			} catch (error) {
-				setIsLoading(false)
-				console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
-			}
-		}
+	// React.useEffect(async () => {
+	// 	if (!('Notification' in window )|| Notification.permission !== "granted") {
+	// 		router.push('/warn')
+	// 	} else {
+	// 		try {
+	// 			setIsLoading(true)
+	// 			const data = await fetchDogs()
+	// 			setDogs(data)
+	// 			setIsLoading(false)
+	// 		} catch (error) {
+	// 			setIsLoading(false)
+	// 			console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
+	// 		}
+	// 	}
 
-	}, [])
-
+	// }, [])
 
 	return {
 		dogs,
