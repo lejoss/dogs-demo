@@ -1,17 +1,18 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { usePush } from '/utils/hooks'
-import { fetchDogs, createDog } from '../utils/api';
+import { createDog, fetchDogs, notificateUsersOfNewDogsInPark, updateDogsFromUser } from '../utils/api';
 
 const AppContext = React.createContext()
 // AppContext.displayName = 'AppContext'
 
 function AppProvider(props) {
 	const { user } = usePush()
+	const router = useRouter()
 	const [dogs, setDogs] = React.useState(null)
 	const [isLoading, setIsLoading] = React.useState(false)
 
 	React.useEffect(async () => {
-		console.log('effect in provider')
 		try {
 			setIsLoading(true)
 			const data = await fetchDogs()
@@ -37,16 +38,14 @@ function AppProvider(props) {
 		}
 	}
 
-	const visitPark = async (isVisiting) => {
+	const visitPark = async (isActive) => {
 		try {
 			setIsLoading(true)
-			const { data } = await updateDogsFromUser(user, isVisiting)
-			if (!isVisiting) {
-				await notificateUsersOfNewDogsInPark(user)
-			}
+			isActive && await notificateUsersOfNewDogsInPark(user)
+			const { data } = await updateDogsFromUser(user, isActive)
 			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
+			isActive && router.push('/park')
 			setIsLoading(false)
-			router.push('/park')
 		} catch (error) {
 			setIsLoading(false)
 			console.log('error trying to enter park')
@@ -59,7 +58,7 @@ function AppProvider(props) {
 		registerDog,
 		user,
 		visitPark,
-	}), [user, dogs])
+	}), [user, dogs, isLoading])
 	return <AppContext.Provider value={value} {...props} />
 
 }

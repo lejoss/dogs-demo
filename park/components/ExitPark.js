@@ -21,7 +21,7 @@ export default function ExitPark(props) {
 					<ModalDismissButton>
 						<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
 							<Button style={{background: '#e1e1e1', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>No</Button>
-							<Button style={{background: '#e1e1e1', width: 'auto', padding: '1em 2em', borderRadius: 5 }} onClick={props.onExit}>Si</Button>
+							<Button style={{background: '#e1e1e1', width: 'auto', padding: '1em 2em', borderRadius: 5 }} onClick={() => props.onVisit(false)}>Si</Button>
 						</div>
 					</ModalDismissButton>
 				</ModalContents>

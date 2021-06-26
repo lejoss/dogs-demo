@@ -21,7 +21,7 @@ export default function EnterPark(props) {
 					<ModalDismissButton>
 						<div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
 							<Button style={{background: '#e1e1e1', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>regresar</Button>
-							<Button onClick={props.onEnter} style={{background: '#b9f6ca', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>Confirmar</Button>
+							<Button onClick={() => props.onVisit(true)} style={{background: '#b9f6ca', width: 'auto', padding: '1em 2em', borderRadius: 5 }}>Confirmar</Button>
 						</div>
 					</ModalDismissButton>
 				</ModalContents>

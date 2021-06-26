@@ -53,9 +53,9 @@ export default function Home(props) {
 
                   <Row wrap>
                     <ViewPark />
-                    <EnterPark onEnter={visitPark} disabled={isUserVisiting} />
+                    <EnterPark onVisit={visitPark} disabled={isUserVisiting} />
                     <ViewAppInfo />
-                    <ExitPark onExit={visitPark} disabled={!isUserVisiting} />
+                    <ExitPark onVisit={visitPark} disabled={!isUserVisiting} />
                   </Row>
 
                   {isUserVisiting
