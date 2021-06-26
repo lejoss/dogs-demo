@@ -32,7 +32,7 @@ export default function Park(props) {
 		setList,
 	} = usePark()
 
-	const activeDogs = dogs.length && dogs.filter(dog => dog.active)
+	const activeDogs = dogs?.filter(dog => dog.active)
 
 	function handleChangeList(event) {
 		const { value } = event.target
