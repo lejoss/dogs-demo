@@ -91,110 +91,35 @@ function useWarn() {
 }
 
 function useHome() {
-	const { user, dogs } = useAuth()
-	console.log('dogs from ctx', d)
-	const router = useRouter()
-	//const [dogs, setDogs] = React.useState([])
-	const [isLoading, setIsLoading] = React.useState(false)
-
-	const enterPark = async () => {
-		try {
-			setIsLoading(true)
-			const { data } = await updateDogsFromUser(user, true)
-			await notificateUsersOfNewDogsInPark(user)
-			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
-			setIsLoading(false)
-			router.push('/park')
-		} catch (error) {
-			setIsLoading(false)
-			console.log('error trying to enter park')
-		}
-	}
-
-	const exitPark = async () => {
-		try {
-			setIsLoading(true)
-			const { data } = await updateDogsFromUser(user, false)
-			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
-			setIsLoading(false)
-		} catch (error) {
-			setIsLoading(false)
-			console.log('error trying to leave park')
-		}
-	}
-
-	// React.useEffect(async () => {
-	// 	if (!('Notification' in window )|| Notification.permission !== "granted") {
-	// 		router.push('/warn')
-	// 	} else {
-	// 		try {
-	// 			setIsLoading(true)
-	// 			const data = await fetchDogs()
-	// 			setDogs(data)
-	// 			setIsLoading(false)
-	// 		} catch (error) {
-	// 			setIsLoading(false)
-	// 			console.log('ERROR TRYING TO FETCH DOGS IN USE HOME')
-	// 		}
-	// 	}
-
-	// }, [])
+	const {
+		dogs,
+		isLoading,
+		user,
+		visitPark
+	} = useAuth()
 
 	return {
 		dogs,
-		enterPark,
-		exitPark,
 		isLoading,
 		user,
+		visitPark,
 	}
 }
 
 function useDogs() {
-	const { user: userid } = useAuth()
-	const router = useRouter()
-	const [isLoading, setIsLoading] = React.useState(false)
-
-	const create = async (formData) => {
-		try {
-			setIsLoading(true)
-			await createDog({
-				...formData,
-				userid,
-			})
-			setIsLoading(false)
-			router.push('/')
-		} catch (error) {
-			setIsLoading(false)
-			console.log('error trying to create a dog')
-			router.push('/error')
-		}
-	}
-
-	return { create, isLoading }
+	const { isLoading, registerDog } = useAuth()
+	return { create: registerDog, isLoading }
 }
 
 function usePark() {
-	const [dogs, setDogs] = React.useState([])
+	const { dogs, isLoading } = useAuth()
 	const [listData, setListData] = React.useState([])
-	const [isLoading, setIsLoading] = React.useState(false)
 
 	const setList = list => setListData(list)
 
-	React.useEffect(async () => {
-		try {
-			setIsLoading(true)
-			const data = await fetchDogs()
-			setDogs(data)
-			setIsLoading(false)
-		} catch (error) {
-			setIsLoading(false)
-			console.log('ERROR TRYING TO FETCH DOGS IN PARK')
-		}
-	}, [])
-
 	React.useEffect(() => {
 		if (!dogs.length) return
-		setListData(dogs.filter(dog => dog.active))
+		setListData(dogs?.filter(dog => dog?.active))
 	}, [dogs])
 
 	return {

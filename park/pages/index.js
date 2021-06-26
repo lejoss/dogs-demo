@@ -18,15 +18,14 @@ import {
 export default function Home(props) {
   const {
     dogs,
-    enterPark,
-    exitPark,
     isLoading,
-    user
+    user,
+    visitPark,
   } = useHome()	
 
-  const userDogs = user && dogs.length && dogs.filter(dog => dog.userid === user)
-  const activeDogs = dogs.length && dogs.filter(dog => dog.active)
-  const isUserVisiting = userDogs && userDogs.length && userDogs.every(({ active }) => active)
+  const userDogs = user && dogs?.filter(dog => dog.userid === user)
+  const activeDogs = dogs?.filter(dog => dog.active)
+  const isUserVisiting = userDogs?.every(({ active }) => active)
 
   return (
     <>
@@ -54,9 +53,9 @@ export default function Home(props) {
 
                   <Row wrap>
                     <ViewPark />
-                    <EnterPark onEnter={enterPark} disabled={isUserVisiting} />
+                    <EnterPark onEnter={visitPark} disabled={isUserVisiting} />
                     <ViewAppInfo />
-                    <ExitPark onExit={exitPark} disabled={!isUserVisiting} />
+                    <ExitPark onExit={visitPark} disabled={!isUserVisiting} />
                   </Row>
 
                   {isUserVisiting
