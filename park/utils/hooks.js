@@ -2,12 +2,8 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { urlBase64ToUint8Array, hashEndpoint } from '/utils'
 import {
-	createDog,
 	subscribeUserToPushNotifications,
-	fetchDogs,
 	fetchUserByEndpoint,
-	updateDogsFromUser,
-	notificateUsersOfNewDogsInPark,
 } from '/utils/api'
 import { AppContext } from '/context/app'
 
@@ -118,7 +114,7 @@ function usePark() {
 	const setList = list => setListData(list)
 
 	React.useEffect(() => {
-		if (!dogs.length) return
+		if (!dogs?.length) return
 		setListData(dogs?.filter(dog => dog?.active))
 	}, [dogs])
 
