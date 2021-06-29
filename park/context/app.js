@@ -27,11 +27,10 @@ function AppProvider(props) {
 	const registerDog = async (formData) => {
 		try {
 			setIsLoading(true)
-			const dog = await createDog({ ...formData, userid: user })
-			console.log('created', dog, dogs)
-			setDogs([...dogs, dogCreated])
+			const { data: dog } = await createDog({ ...formData, userid: user })
+			setDogs([...dogs, dog])
 			setIsLoading(false)
-			// router.push('/')
+			router.push('/')
 		} catch (error) {
 			setIsLoading(false)
 			console.log('error trying to create a dog')
