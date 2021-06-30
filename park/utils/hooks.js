@@ -42,7 +42,13 @@ function usePush() {
 	const [error, setError] = React.useState(null)
 
 	React.useEffect(async () => {
-		if ('Notification' in window && Notification.permission === "granted") {
+		if (!'Notification' in window) {
+			alert('Lo sentimos 😞, este navegador no soporta las notificaciones.')
+			goToWarn()
+		} else if (Notification.permission !== "granted") {
+			alert('Lo sentimos 😞, tienes las notificaciones desactivadas, activalas para continuar.')
+			goToWarn()
+		} else {
 			try {
 				const register = await navigator.serviceWorker.ready
 				const userSubscription = await register.pushManager.getSubscription()
@@ -63,11 +69,7 @@ function usePush() {
 			} catch (error) {
 				setError(error)
 			}
-		} else {
-			alert('Lo sentimos 😞, este navegador no soporta las notificaciones.')
-			goToWarn()
 		}
-
 	}, [])
 
 	return { user, error }
