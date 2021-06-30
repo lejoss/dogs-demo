@@ -40,39 +40,56 @@ function usePush() {
 	const { goToWarn } = useRoutes()
 	const [user, setUser] = React.useState(null)
 	const [error, setError] = React.useState(null)
+	const [isFetchingUser, setIsFetchingUser] = React.useState(false)
 
-	React.useEffect(async () => {
-		if (!'Notification' in window) {
-			alert('Lo sentimos 😞, este navegador no soporta las notificaciones.')
-			goToWarn()
-		} else if (Notification.permission !== "granted") {
-			alert('Lo sentimos 😞, tienes las notificaciones desactivadas, activalas para continuar.')
-			goToWarn()
-		} else {
-			try {
-				const register = await navigator.serviceWorker.ready
-				const userSubscription = await register.pushManager.getSubscription()
-				if (!userSubscription) {
-					const subscription = await register.pushManager.subscribe({
-						userVisibleOnly: true,
-						applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
-					})
-					const { user } = await subscribeUserToPushNotifications(subscription)
-					setUser(user)
-
-				} else {
-					const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
-					const { user } = await fetchUserByEndpoint(hashedEndpoint)
-					setUser(user)
-				}
-
-			} catch (error) {
-				setError(error)
+	React.useEffect(() => {
+		if ('Notification' in window) {
+			if (Notification.permission !== 'denied' || Notification.permission === 'default') {
+				Notification.requestPermission(async permission => {
+					if (permission === 'granted') {
+						try {
+							const register = await navigator.serviceWorker.ready
+							const userSubscription = await register.pushManager.getSubscription()
+							if (!userSubscription) {
+								const subscription = await register.pushManager.subscribe({
+									userVisibleOnly: true,
+									applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
+								})
+								setIsFetchingUser(true)
+								const { user } = await subscribeUserToPushNotifications(subscription)
+								setIsFetchingUser(false)
+								setUser(user)
+		
+							} else {
+								const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
+								setIsFetchingUser(true)
+								const { user } = await fetchUserByEndpoint(hashedEndpoint)
+								setIsFetchingUser(false)
+								setUser(user)
+							}
+		
+						} catch (error) {
+							setError(error)
+						}
+					} else if (permission === 'denied') {
+						alert('Lo sentimos 😞, tienes las notificaciones bloqueadas para este sitio. activalas y refresca la pantalla para continuar.')
+						goToWarn()
+					}
+				})
 			}
+
+			if (Notification.permission === 'denied') {
+				alert('Lo sentimos 😞, tienes las notificaciones bloqueadas para este sitio. activalas y refresca la pantalla para continuar.')
+				goToWarn()
+			}
+		} else {
+			alert('Lo sentimos 😞, no tenemos soporte para tu dispositivo.')
+			goToWarn()
 		}
+
 	}, [])
 
-	return { user, error }
+	return { user, error, isFetchingUser }
 }
 
 function useAuth() {

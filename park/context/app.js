@@ -6,7 +6,7 @@ const AppContext = React.createContext()
 // AppContext.displayName = 'AppContext'
 
 function AppProvider(props) {
-	const { user } = usePush()
+	const { user, isFetchingUser } = usePush()
 	const { goToHome, goToError } = useRoutes()
 	const [dogs, setDogs] = React.useState(null)
 	const [isLoading, setIsLoading] = React.useState(false)
@@ -22,6 +22,14 @@ function AppProvider(props) {
 			console.log('error fetching dogs in context')
 		}
 	}, [])
+	
+	React.useEffect(() => {
+		if (isFetchingUser) {
+			setIsLoading(true)
+		} else {
+			setIsLoading(false)
+		}
+	}, [isFetchingUser])
 
 	const registerDog = async (formData) => {
 		if (!user) {
