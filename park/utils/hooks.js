@@ -10,6 +10,18 @@ import { AppContext } from '/context/app'
 
 const NEXT_PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_KEY
 
+function useRoutes() {
+	const router = useRouter()
+	return {
+		goToDog: () => router.push('/dog'),
+		goToError: () => router.push('/error'),
+		goToHome: () => router.push('/'),
+		goToInfo: () => router.push('/info'),
+		goToPark: () => router.push('/park'),
+		goToWarn: () => router.push('/warn'),
+	}
+}
+
 function useWorker() {
 	React.useEffect(async () => {
 		if ("serviceWorker" in navigator) {
@@ -25,11 +37,12 @@ function useWorker() {
 }
 
 function usePush() {
+	const { goToWarn } = useRoutes()
 	const [user, setUser] = React.useState(null)
 	const [error, setError] = React.useState(null)
 
 	React.useEffect(async () => {
-		if ('Notification' in window) {
+		if ('Notification' in window && Notification.permission === "granted") {
 			try {
 				const register = await navigator.serviceWorker.ready
 				const userSubscription = await register.pushManager.getSubscription()
@@ -52,6 +65,7 @@ function usePush() {
 			}
 		} else {
 			alert('Lo sentimos 😞, este navegador no soporta las notificaciones.')
+			goToWarn()
 		}
 
 	}, [])
@@ -73,11 +87,11 @@ function useApp() {
 
 function useWarn() {
 	const [permission, setPermission] = React.useState(null)
-	const router = useRouter()
+	const { goToHome } = useRoutes()
 
 	React.useEffect(() => {
 		if (permission === 'granted') {
-			return router.push('/')
+			return goToHome()
 		} else {
 			Notification.requestPermission().then((permission) => {
 				setPermission(permission)
@@ -108,14 +122,14 @@ function useDogs() {
 }
 
 function usePark() {
-	const { dogs, isLoading } = useAuth()
+	const { dogs, isLoading, user } = useAuth()
 	const [listData, setListData] = React.useState([])
 
 	const setList = list => setListData(list)
 
 	React.useEffect(() => {
-		if (!dogs?.length) return
-		setListData(dogs?.filter(dog => dog?.active))
+		if (!dogs ?.length) return
+		setListData(dogs ?.filter(dog => dog ?.active))
 	}, [dogs])
 
 	return {
@@ -123,6 +137,7 @@ function usePark() {
 		isLoading,
 		listData,
 		setList,
+		user,
 	}
 }
 
@@ -133,5 +148,6 @@ export {
 	useHome,
 	usePark,
 	usePush,
+	useRoutes,
 	useWarn,
 }

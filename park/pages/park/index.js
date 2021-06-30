@@ -30,6 +30,7 @@ export default function Park(props) {
 		isLoading,
 		listData,
 		setList,
+		user,
 	} = usePark()
 
 	const activeDogs = dogs?.filter(dog => dog.active)
@@ -96,7 +97,7 @@ export default function Park(props) {
 
 							</ul>
 						</div>
-						<Link href="/">volver al Inicio</Link>
+						{user && <Link href="/">volver al Inicio</Link>}
 					</div>
 				)
 			}

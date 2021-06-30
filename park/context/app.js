@@ -1,6 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { usePush } from '/utils/hooks'
+import { usePush, useRoutes } from '/utils/hooks'
 import { createDog, fetchDogs, notificateUsersOfNewDogsInPark, updateDogsFromUser } from '../utils/api';
 
 const AppContext = React.createContext()
@@ -8,7 +7,7 @@ const AppContext = React.createContext()
 
 function AppProvider(props) {
 	const { user } = usePush()
-	const router = useRouter()
+	const { goToHome, goToError } = useRoutes()
 	const [dogs, setDogs] = React.useState(null)
 	const [isLoading, setIsLoading] = React.useState(false)
 
@@ -25,16 +24,20 @@ function AppProvider(props) {
 	}, [])
 
 	const registerDog = async (formData) => {
+		if (!user) {
+			alert('Lo sentimos, no hemos encontrado tu usuario en el sistema.')
+			return
+		}
 		try {
 			setIsLoading(true)
 			const { data: dog } = await createDog({ ...formData, userid: user })
 			setDogs([...dogs, dog])
 			setIsLoading(false)
-			router.push('/')
+			goToHome()
 		} catch (error) {
 			setIsLoading(false)
 			console.log('error trying to create a dog')
-			router.push('/error')
+			goToError()
 		}
 	}
 

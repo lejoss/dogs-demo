@@ -3,7 +3,7 @@
 	max-height: 100vh; 
 	min-height: 100vh; 
 	background: #87c197;
-	overflow: hidden;
+	overflow: scroll;
 }
 .container a {
 	color: rgb(0, 80, 5);

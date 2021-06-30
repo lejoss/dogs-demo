@@ -12,7 +12,7 @@ export default function UserDogs(props) {
 						return (
 							<li className={styles.li} key={i}>
 								<Row>
-									<img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" />
+									{/* <img style={{ maxHeight: 40, maxWidth: 40 }} src="pawn.svg" /> */}
 									<span> {dog.name}</span>
 									{' - '}
 									<span>{dog.breed}</span>
