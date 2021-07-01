@@ -37,13 +37,10 @@ function AppProvider(props) {
 			return
 		}
 		try {
-			console.log('register dog', user)
 			setIsLoading(true)
 			const { data: dog } = await createDog({ ...formData, userid: user })
-			console.log('register dog', dog)
 			setDogs([...dogs, dog])
 			setIsLoading(false)
-			console.log('register dog',dogs)
 			goToHome()
 		} catch (error) {
 			setIsLoading(false)
@@ -57,7 +54,6 @@ function AppProvider(props) {
 			setIsLoading(true)
 			isActive && await notificateUsersOfNewDogsInPark(user)
 			const { data: [updatedDog] } = await updateDogsFromUser(user, isActive)
-			console.log('visit park', updatedDog)
 			setDogs(dogs?.map(dog => dog?.id === updatedDog?.id ? updatedDog : dog))
 			setIsLoading(false)
 			isActive && goToPark()
