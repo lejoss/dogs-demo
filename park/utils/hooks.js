@@ -42,49 +42,32 @@ function usePush() {
 	const [error, setError] = React.useState(null)
 	const [isFetchingUser, setIsFetchingUser] = React.useState(false)
 
-	React.useEffect(() => {
+	React.useEffect(async () => {
 		if ('Notification' in window) {
-			if (Notification.permission !== 'denied' || Notification.permission === 'default') {
-				Notification.requestPermission(async permission => {
-					if (permission === 'granted') {
-						try {
-							const register = await navigator.serviceWorker.ready
-							const userSubscription = await register.pushManager.getSubscription()
-							if (!userSubscription) {
-								const subscription = await register.pushManager.subscribe({
-									userVisibleOnly: true,
-									applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
-								})
-								setIsFetchingUser(true)
-								const { user } = await subscribeUserToPushNotifications(subscription)
-								setIsFetchingUser(false)
-								setUser(user)
-		
-							} else {
-								const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
-								setIsFetchingUser(true)
-								const { user } = await fetchUserByEndpoint(hashedEndpoint)
-								setIsFetchingUser(false)
-								setUser(user)
-							}
-		
-						} catch (error) {
-							setError(error)
-						}
-					} else if (permission === 'denied') {
-						alert('Lo sentimos 😞, tienes las notificaciones bloqueadas para este sitio. activalas y refresca la pantalla para continuar.')
-						goToWarn()
-					}
-				})
-			}
+			try {
+				const register = await navigator.serviceWorker.ready
+				const userSubscription = await register.pushManager.getSubscription()
+				if (!userSubscription) {
+					const subscription = await register.pushManager.subscribe({
+						userVisibleOnly: true,
+						applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
+					})
+					setIsFetchingUser(true)
+					const { user } = await subscribeUserToPushNotifications(subscription)
+					setIsFetchingUser(false)
+					setUser(user)
 
-			if (Notification.permission === 'denied') {
-				alert('Lo sentimos 😞, tienes las notificaciones bloqueadas para este sitio. activalas y refresca la pantalla para continuar.')
-				goToWarn()
+				} else {
+					const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
+					setIsFetchingUser(true)
+					const { user } = await fetchUserByEndpoint(hashedEndpoint)
+					setIsFetchingUser(false)
+					setUser(user)
+				}
+
+			} catch (error) {
+				setError(error)
 			}
-		} else {
-			alert('Lo sentimos 😞, no tenemos soporte para tu dispositivo.')
-			goToWarn()
 		}
 
 	}, [])

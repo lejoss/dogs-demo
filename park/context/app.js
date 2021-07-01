@@ -7,8 +7,8 @@ const AppContext = React.createContext()
 
 function AppProvider(props) {
 	const { user, isFetchingUser } = usePush()
-	const { goToHome, goToError } = useRoutes()
-	const [dogs, setDogs] = React.useState(null)
+	const { goToHome, goToError, goToPark } = useRoutes()
+	const [dogs, setDogs] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(false)
 
 	React.useEffect(async () => {
@@ -37,10 +37,13 @@ function AppProvider(props) {
 			return
 		}
 		try {
+			console.log('register dog', user)
 			setIsLoading(true)
 			const { data: dog } = await createDog({ ...formData, userid: user })
+			console.log('register dog', dog)
 			setDogs([...dogs, dog])
 			setIsLoading(false)
+			console.log('register dog',dogs)
 			goToHome()
 		} catch (error) {
 			setIsLoading(false)
@@ -53,10 +56,11 @@ function AppProvider(props) {
 		try {
 			setIsLoading(true)
 			isActive && await notificateUsersOfNewDogsInPark(user)
-			const { data } = await updateDogsFromUser(user, isActive)
-			setDogs(dogs.map(dog => dog.id === data[0].id ? data[0] : dog))
-			isActive && router.push('/park')
+			const { data: [updatedDog] } = await updateDogsFromUser(user, isActive)
+			console.log('visit park', updatedDog)
+			setDogs(dogs?.map(dog => dog?.id === updatedDog?.id ? updatedDog : dog))
 			setIsLoading(false)
+			isActive && goToPark()
 		} catch (error) {
 			setIsLoading(false)
 			console.log('error trying to enter park')
