@@ -50,7 +50,6 @@ export default function Park(props) {
 				? <Loading />
 				: (
 					<div className={styles.container}>
-						<br/>
 						<div className={styles.list__header}>
 							<select onChange={handleChangeList} name="select list">
 								<option value="active">👇 Perros activos</option>

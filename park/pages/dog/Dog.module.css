@@ -1,7 +1,6 @@
 .container {
 	padding: 1em 1.5em;
-	max-height: 100vh; 
-	min-height: 100vh; 
+	min-height: 100vh;
 	background: #87c197;
 	overflow: scroll;
 }
