@@ -40,9 +40,10 @@ export default async (req, res) => {
 					}
 				).catch(async err => {
 					if (err.statusCode === 410) {
-						await prisma.users.delete({ where: { id }})
-						await prisma.$disconnect()
-						res.status(200).json({ message: 'success' })
+						// await prisma.users.delete({ where: { id }})
+						// await prisma.$disconnect()
+						// res.status(200).json({ message: 'success' })
+						res.status(410).json({ message: 'subscription changed or expired' })
 					} else {
 						res.status(404).json({ message: 'error with webpush notification' })
 					}
