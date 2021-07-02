@@ -68,6 +68,9 @@ function usePush() {
 			} catch (error) {
 				setError(error)
 			}
+		} else {
+			alert('Lo sentimos 😓, Tu dispositivo no soporta las notificaciones web del navegador')
+			goToWarn()
 		}
 
 	}, [])
