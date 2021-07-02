@@ -1,9 +1,9 @@
 .container {
 	display: flex;
+	gap: 1em;
 	flex-direction: column;
 	padding: 1em 1.5em;
-	overflow: hidden;
-	max-height: 100vh;
+	height: 100vh;
 }
 
 .container a {
@@ -25,19 +25,20 @@
 	margin: 0;
 }
 .list__header select {
+	margin: 0;
 	text-transform: uppercase;
 	background: #b9f6ca;
 	width: 100%;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	border-radius: 5px;
-	margin-bottom: 1em;
+	/* margin-bottom: 1em; */
 	font-size: 1.1rem;
 }
 
 .park {
 	background: #f3e5f5;
 	color: #8e24aa;
-	margin-bottom: 1em;
+	/* margin-bottom: 1em; */
 	overflow: scroll;
 	border-radius: 10px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
