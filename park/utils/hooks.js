@@ -42,37 +42,46 @@ function usePush() {
 	const [error, setError] = React.useState(null)
 	const [isFetchingUser, setIsFetchingUser] = React.useState(false)
 
-	React.useEffect(async () => {
+
+
+
+	React.useEffect(() => {
 		if ('Notification' in window) {
-			try {
-				const register = await navigator.serviceWorker.ready
-				const userSubscription = await register.pushManager.getSubscription()
-				if (!userSubscription) {
-					const subscription = await register.pushManager.subscribe({
-						userVisibleOnly: true,
-						applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
-					})
-					setIsFetchingUser(true)
-					const { user } = await subscribeUserToPushNotifications(subscription)
-					setIsFetchingUser(false)
-					setUser(user)
+			Notification.requestPermission(async permission => {
+				if (permission === 'granted') {
+					try {
+						const register = await navigator.serviceWorker.ready
+						const userSubscription = await register.pushManager.getSubscription()
+						if (!userSubscription) {
+							const subscription = await register.pushManager.subscribe({
+								userVisibleOnly: true,
+								applicationServerKey: urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_KEY)
+							})
+							setIsFetchingUser(true)
+							const { user } = await subscribeUserToPushNotifications(subscription)
+							setIsFetchingUser(false)
+							setUser(user)
 
+						} else {
+							const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
+							setIsFetchingUser(true)
+							const { user } = await fetchUserByEndpoint(hashedEndpoint)
+							setIsFetchingUser(false)
+							setUser(user)
+						}
+
+					} catch (error) {
+						setError(error)
+					}
 				} else {
-					const hashedEndpoint = hashEndpoint(userSubscription.endpoint)
-					setIsFetchingUser(true)
-					const { user } = await fetchUserByEndpoint(hashedEndpoint)
-					setIsFetchingUser(false)
-					setUser(user)
+					alert('Lo sentimos 😞, tienes las notificaciones desactivadas o estan bloqueadas para este sitio, activalas para continuar.')
+					goToWarn()
 				}
-
-			} catch (error) {
-				setError(error)
-			}
+			})
 		} else {
-			alert('Lo sentimos 😓, Tu dispositivo no soporta las notificaciones web del navegador')
+			alert('Lo sentimos 😞, Tu dispositivo no soporta las notificaciones web del navegador')
 			goToWarn()
 		}
-
 	}, [])
 
 	return { user, error, isFetchingUser }
