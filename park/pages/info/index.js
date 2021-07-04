@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Container, Card } from '/components'
+import { Card } from '/components'
 import styles from './Info.module.css'
 export default function Info() {
 	return (
@@ -7,8 +7,10 @@ export default function Info() {
 			<h3>🌳 &nbsp; Parque Laureles</h3>
 			<Card variant="accent">
 				<p>
-					El objetivo de esta aplicacion es generar una comunidad de perros en el parque Laureles. 
+					Gracias por usar esta aplicacion de prueba. El objetivo de esta aplicacion es generar una comunidad de perros en el parque Laureles.
 				</p>
+				<p>Si tienes alguna sugerencia o problema usando esta aplicacion puedes enviarlos a este correo</p>
+				<p>nativo.alejandro@gmail.com</p>
 			</Card>
 			<br />
 			<h3>🛠 &nbsp; Requisitos Minimos</h3>
