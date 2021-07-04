@@ -11,6 +11,7 @@ const breedOptions = {
 		'Border Collie',
 		'Boxer',
 		'Bulldog',
+		'Bull Terrier',
 		'Criollo',
 		'Chihuahua',
 		'Chow Chow',
@@ -31,6 +32,7 @@ const breedOptions = {
 		'Shih Tzu',
 		'Teckel',
 		'Terrier',
+		'Yorkie',
 	]
 }
 
