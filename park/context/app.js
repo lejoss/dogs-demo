@@ -3,7 +3,7 @@ import { usePush, useRoutes } from '/utils/hooks'
 import { createDog, fetchDogs, notificateUsersOfNewDogsInPark, updateDogsFromUser } from '../utils/api';
 
 const AppContext = React.createContext()
-// AppContext.displayName = 'AppContext'
+AppContext.displayName = 'AppContext'
 
 function AppProvider(props) {
 	const { user, isFetchingUser } = usePush()

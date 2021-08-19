@@ -42,9 +42,6 @@ function usePush() {
 	const [error, setError] = React.useState(null)
 	const [isFetchingUser, setIsFetchingUser] = React.useState(false)
 
-
-
-
 	React.useEffect(() => {
 		if ('Notification' in window) {
 			Notification.requestPermission(async permission => {
@@ -142,8 +139,8 @@ function usePark() {
 	const setList = list => setListData(list)
 
 	React.useEffect(() => {
-		if (!dogs ?.length) return
-		setListData(dogs ?.filter(dog => dog ?.active))
+		if (!dogs?.length) return
+		setListData(dogs?.filter(dog => dog?.active))
 	}, [dogs])
 
 	return {
